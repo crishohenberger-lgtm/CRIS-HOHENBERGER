@@ -1,148 +1,50 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
-<meta name="description" content="Painel estratégico da grade de publicação da Semana Farroupilha 2026 da Usa Discos e Editora Terra-Sul. 66 dias, 355 vídeos únicos e 99 artistas da música gaúcha.">
+<title>Cris Hohenberger</title>
+<meta name="description" content="Em breve. Uma página sendo construída com carinho.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Semana Farroupilha 2026 · Painel Estratégico">
-<meta property="og:description" content="A grade de publicação no YouTube da Usa Discos e Editora Terra-Sul: 66 dias, 355 vídeos únicos e 99 artistas.">
+<meta property="og:title" content="Cris Hohenberger">
+<meta property="og:description" content="Em breve. Uma página sendo construída com carinho.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Semana Farroupilha 2026 · Painel Estratégico">
-<meta name="twitter:description" content="A grade de publicação no YouTube da Usa Discos e Editora Terra-Sul.">
+<meta name="twitter:title" content="Cris Hohenberger">
+<meta name="twitter:description" content="Em breve. Uma página sendo construída com carinho.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-size='46'%3E%E2%99%A1%3C/text%3E%3C/svg%3E">
-<title>Painel Estratégico · Semana Farroupilha 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light only;--ink:#000000;--paper:#FFFFFF;--graf:#2B2B2B;--mid:#8C8C8C;--soft:#CFCFCF;--line:#EAEAEA;--off:#F8F8F8;--r:12px}
-html{color-scheme:light only;background:#FFFFFF;scroll-behavior:smooth}
+:root{color-scheme:light only;--ink:#000000;--paper:#FFFFFF;--graf:#2B2B2B;--mid:#8C8C8C;--line:#EAEAEA}
+html{color-scheme:light only;background:#FFFFFF}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Montserrat',sans-serif;background:var(--paper);color:var(--graf);-webkit-font-smoothing:antialiased;line-height:1.55;font-weight:400}
-.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--mid)}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-header{padding:88px 0 44px}
-.kicker{display:flex;align-items:center;gap:16px;margin-bottom:34px}.kicker .line{flex:1;height:1px;background:var(--line)}
-h1{font-weight:300;font-size:clamp(40px,7vw,80px);letter-spacing:-.025em;line-height:1;color:var(--ink)}h1 b{font-weight:600}
-.sub{margin-top:20px;font-size:15px;color:var(--mid);max-width:560px;line-height:1.7}.sub b{color:var(--graf);font-weight:600}
-.tag{display:inline-block;margin-top:26px;border:1px solid var(--ink);padding:9px 18px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
-.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:46px}
-.hero .cell{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;transition:border-color .2s}
-.hero .cell:hover{border-color:var(--graf)}
-.hero .num{font-weight:300;font-size:clamp(40px,6vw,58px);letter-spacing:-.03em;line-height:1;color:var(--ink)}
-.hero .lab{margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mid)}
-.season{padding:64px 0 12px}.season .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;flex-wrap:wrap;gap:10px}
-.season .head .t{font-weight:400;font-size:20px;color:var(--ink)}
-.spark{display:flex;align-items:flex-end;gap:3px;height:130px;border-bottom:1px solid var(--line)}
-.spark .bar{flex:1;background:var(--soft);min-width:2px;border-radius:3px 3px 0 0;transition:background .2s}.spark .bar.sep{background:var(--mid)}.spark .bar.mark{background:var(--ink)}.spark .bar:hover{background:var(--ink)}
-.axis{display:flex;justify-content:space-between;margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mid)}
-.markrow{position:relative;height:18px;margin-top:2px}
-.markrow .pin{position:absolute;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graf);transform:translateX(-50%)}
-.markrow .pin:before{content:"";position:absolute;top:-12px;left:50%;width:1px;height:10px;background:var(--ink)}
-.heartrule{display:flex;align-items:center;gap:18px;margin:8px 0 4px}.heartrule:before,.heartrule:after{content:"";flex:1;height:1px;background:var(--line)}.heartrule span{font-size:17px;color:var(--mid);line-height:1}
-section{padding:62px 0}.sec-head{margin-bottom:32px}
-.sec-head .n{display:none}
-.sec-head h2{font-weight:300;font-size:clamp(24px,3.4vw,33px);letter-spacing:-.02em;color:var(--ink)}
-.sec-head p{margin-top:12px;font-size:14px;color:var(--mid);max-width:620px;line-height:1.7}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px;transition:border-color .2s}.card:hover{border-color:var(--graf)}
-.card .ttl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--graf);margin-bottom:5px}
-.card .cap{font-size:13px;color:var(--mid);margin-bottom:22px}
-.chartbox{position:relative;height:300px}.chartbox.tall{height:380px}
-.callout{background:var(--paper);border:1px solid var(--ink);border-radius:var(--r);padding:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.callout .it .n{font-weight:300;font-size:44px;letter-spacing:-.03em;line-height:1;color:var(--ink)}
-.callout .it .l{margin-top:10px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
-.note{font-size:13px;color:var(--mid);margin-top:22px;line-height:1.8}.note b{color:var(--graf);font-weight:600}
-footer{padding:54px 0 84px;border-top:1px solid var(--line);margin-top:52px}
-.sign{text-align:center;font-size:18px;color:var(--mid);margin-bottom:24px;line-height:1}
-.footrow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:baseline}
-.footrow .a{font-weight:500;font-size:13px;color:var(--graf)}.footrow .b{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mid)}
-.artindex{columns:2;column-gap:48px;margin-top:4px}.artindex ul{list-style:none;margin:0;padding:0}.artindex li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);break-inside:avoid}.artindex .an{font-size:13px;font-weight:500;color:var(--graf)}.artindex .av{font-size:13px;font-weight:600;color:var(--mid);font-variant-numeric:tabular-nums;white-space:nowrap}@media(max-width:640px){.artindex{columns:1}}
-.reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}.reveal.in{opacity:1;transform:none}
-@media(max-width:760px){.wrap{padding:0 20px}header{padding:64px 0 36px}.hero{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.callout{grid-template-columns:1fr 1fr;gap:24px;padding:28px}.card{padding:24px}}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
-</style></head><body><div class="wrap">
-<header>
-<div class="kicker"><span class="eyebrow">Usa Discos · Editora Terra-Sul</span><span class="line"></span><span class="eyebrow">YouTube</span></div>
-<h1>Semana Farroupilha<br><b>2026</b></h1>
-<p class="sub">Painel estratégico da grade de publicação, de <b>14 de agosto a 18 de outubro</b>. Versão à prova de upload, com cada vídeo entrando uma única vez.</p>
-<div class="tag">Sem duplicata · pronta para postar</div>
-<div class="hero">
-<div class="cell"><div class="num" id="h1"></div><div class="lab">Dias de grade</div></div>
-<div class="cell"><div class="num" id="h2"></div><div class="lab">Vídeos únicos</div></div>
-<div class="cell"><div class="num" id="h3"></div><div class="lab">Títulos</div></div>
-<div class="cell"><div class="num" id="h4"></div><div class="lab">Artistas</div></div>
+body{font-family:'Montserrat',sans-serif;background:var(--paper);color:var(--graf);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:32px;line-height:1.6}
+.wrap{max-width:560px;width:100%;text-align:center}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--mid)}
+.heart{margin:34px 0 26px;font-size:26px;color:var(--ink);line-height:1}
+h1{font-weight:300;font-size:clamp(42px,12vw,72px);letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.sub{margin-top:22px;font-size:16px;font-weight:400;color:var(--mid);max-width:380px;margin-left:auto;margin-right:auto}
+.divider{width:40px;height:1px;background:var(--line);margin:40px auto 0}
+.sign{margin-top:26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--graf)}
+.sign span{display:block;margin-top:6px;font-weight:400;letter-spacing:.12em;color:var(--mid)}
+.fade{opacity:0;transform:translateY(10px);animation:rise .9s ease forwards}
+.fade.d1{animation-delay:.05s}.fade.d2{animation-delay:.2s}.fade.d3{animation-delay:.35s}.fade.d4{animation-delay:.5s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="eyebrow fade d1">Cris Hohenberger</div>
+<div class="heart fade d2">&#9825;</div>
+<h1 class="fade d2">Em breve</h1>
+<p class="sub fade d3">Uma p&aacute;gina sendo constru&iacute;da com carinho.</p>
+<div class="divider fade d4"></div>
+<div class="sign fade d4">Cris Hohenberger<span>Expert em IA e Marketing para o dia a dia</span></div>
 </div>
-</header>
-<div class="season">
-<div class="head"><span class="t">A temporada, dia a dia</span><span class="eyebrow">Vídeos por dia</span></div>
-<div class="spark" id="spark"></div><div class="markrow" id="markrow"></div>
-<div class="axis"><span>14 Ago</span><span>Setembro</span><span>18 Out</span></div>
-</div>
-<div class="heartrule"><span>♡</span></div>
-<section><div class="sec-head"><div class="n">01</div><h2>Volume por mês</h2><p>Setembro é o ápice da temporada. Agosto aquece e outubro dá sequência.</p></div>
-<div class="grid2"><div class="card"><div class="ttl">Vídeos por mês</div><div class="cap">Quantos vídeos entram em cada mês</div><div class="chartbox"><canvas id="cMes"></canvas></div></div>
-<div class="card"><div class="ttl">Artistas por mês</div><div class="cap">Diversidade de nomes mês a mês</div><div class="chartbox"><canvas id="cArtMes"></canvas></div></div></div></section>
-<section><div class="sec-head"><div class="n">02</div><h2>O formato da semana</h2><p>De quinta a domingo é o grande palco. Segunda a quarta seguem mais leves.</p></div>
-<div class="card" style="border:1px solid var(--line)"><div class="ttl">Média de vídeos por dia da semana</div><div class="cap">A grade carrega o peso onde a audiência é maior</div><div class="chartbox"><canvas id="cDia"></canvas></div></div></section>
-<section><div class="sec-head"><div class="n">03</div><h2>Estilos e categorias</h2><p>A vaneira lidera, como manda a tradição de baile, com milonga, chamamé, xote, valsa e bugio no contraponto.</p></div>
-<div class="grid2"><div class="card"><div class="ttl">Por estilo</div><div class="cap">Vídeos de cada ritmo na temporada</div><div class="chartbox tall"><canvas id="cEst"></canvas></div></div>
-<div class="card"><div class="ttl">Por categoria</div><div class="cap">Como a grade distribui os blocos do catálogo</div><div class="chartbox tall"><canvas id="cCat"></canvas></div></div></div></section>
-<section><div class="sec-head"><div class="n">04</div><h2>Setembro, a vitrine</h2><p>Todas as coletâneas, as 25 Mais, as Top Vaneiras e os Temáticos SF estão concentrados no mês principal.</p></div>
-<div class="callout">
-<div class="it"><div class="n" id="s1"></div><div class="l">25 Mais em setembro</div></div>
-<div class="it"><div class="n" id="s2"></div><div class="l">Top Vaneiras</div></div>
-<div class="it"><div class="n" id="s3"></div><div class="l">Coletâneas</div></div>
-<div class="it"><div class="n" id="s4"></div><div class="l">Temáticos SF</div></div></div>
-<div class="grid2" style="margin-top:1px"><div class="card"><div class="ttl">Coletâneas por mês</div><div class="cap">Todo o acervo de coletâneas em setembro</div><div class="chartbox"><canvas id="cCol"></canvas></div></div>
-<div class="card"><div class="ttl">Pilares de setembro</div><div class="cap">Em quantos dos 30 dias cada artista aparece</div><div class="chartbox"><canvas id="cFoco"></canvas></div></div></div></section>
-<section><div class="sec-head"><div class="n">05</div><h2>Vitrine e descoberta</h2><p>Setembro reúne os grandes sucessos e as coletâneas. Agosto e outubro giram as inéditas, revelando catálogo. Cada vídeo entra uma vez só, sem nenhuma duplicata.</p></div>
-<div class="callout" style="grid-template-columns:repeat(3,1fr)">
-<div class="it"><div class="n" id="z1"></div><div class="l">Vídeos únicos</div></div>
-<div class="it"><div class="n">0</div><div class="l">Repetições</div></div>
-<div class="it"><div class="n">100%</div><div class="l">Do catálogo no ar</div></div></div>
-<div class="card" style="border:1px solid var(--line);margin-top:1px"><div class="ttl">Vitrine x Descoberta por mês</div><div class="cap">Sucessos e coletâneas em setembro, inéditas nas pontas</div><div class="chartbox"><canvas id="cPV"></canvas></div></div>
-<p class="note"><b>À prova de upload.</b> Sem o mesmo vídeo publicado duas vezes, a grade fica fora da zona de conteúdo duplicado do YouTube.</p></section>
-<section><div class="sec-head"><div class="n">06</div><h2>Os nomes da temporada</h2><p>Os artistas mais presentes na grade, do começo ao fim.</p></div>
-<div class="card" style="border:1px solid var(--line)"><div class="ttl">Top artistas por vídeos</div><div class="cap">Os doze mais presentes nos 66 dias</div><div class="chartbox tall"><canvas id="cTop"></canvas></div></div><div class="card" style="margin-top:16px"><div class="ttl">Todos os artistas</div><div class="cap">Os 99 nomes da grade e quantas músicas cada um traz, do mais presente ao mais raro</div><div class="artindex"><ul><li><span class="an">LUIZ MARENCO</span><span class="av">32</span></li><li><span class="an">PORCA VÉIA</span><span class="av">30</span></li><li><span class="an">BAITACA</span><span class="av">27</span></li><li><span class="an">GAROTOS DE OURO</span><span class="av">17</span></li><li><span class="an">JOSÉ CLÁUDIO MACHADO</span><span class="av">17</span></li><li><span class="an">JOCA MARTINS</span><span class="av">15</span></li><li><span class="an">JOÃO LUIZ CORRÊA</span><span class="av">12</span></li><li><span class="an">LEOPOLDO RASSIER</span><span class="av">10</span></li><li><span class="an">OS SERRANOS</span><span class="av">10</span></li><li><span class="an">XIRÚ MISSIONEIRO</span><span class="av">10</span></li><li><span class="an">SUPER BANDA CHOPPÃO</span><span class="av">8</span></li><li><span class="an">TCHÊ BARBARIDADE</span><span class="av">7</span></li><li><span class="an">CANDIEIRO</span><span class="av">6</span></li><li><span class="an">DANTE RAMON LEDESMA</span><span class="av">5</span></li><li><span class="an">OS ATUAIS</span><span class="av">5</span></li><li><span class="an">RAINHA MUSICAL</span><span class="av">5</span></li><li><span class="an">UNÇÃO GAÚCHA</span><span class="av">5</span></li><li><span class="an">CORPO E ALMA</span><span class="av">4</span></li><li><span class="an">JOÃO DE ALMEIDA NETO</span><span class="av">4</span></li><li><span class="an">LEONARDO</span><span class="av">4</span></li><li><span class="an">TCHÊ GURI</span><span class="av">4</span></li><li><span class="an">WILSON PAIM</span><span class="av">4</span></li><li><span class="an">ADAIR DE FREITAS</span><span class="av">3</span></li><li><span class="an">CARLOS MAGRÃO</span><span class="av">3</span></li><li><span class="an">GRUPO MINUANO</span><span class="av">3</span></li><li><span class="an">IEDO SILVA</span><span class="av">3</span></li><li><span class="an">MUSICAL SAN FRANCISCO</span><span class="av">3</span></li><li><span class="an">NOEL GUARANY</span><span class="av">3</span></li><li><span class="an">OS 4 GAUDÉRIOS</span><span class="av">3</span></li><li><span class="an">PIRISCA GRECCO</span><span class="av">3</span></li><li><span class="an">TOQUE DE MÁGICA</span><span class="av">3</span></li><li><span class="an">ÊNIO MEDEIROS</span><span class="av">3</span></li><li><span class="an">BANDO GAÚCHO</span><span class="av">2</span></li><li><span class="an">ELTON SALDANHA</span><span class="av">2</span></li><li><span class="an">ERLI BACH</span><span class="av">2</span></li><li><span class="an">GAITA PONTO E BOTONEIRA</span><span class="av">2</span></li><li><span class="an">GRUPO MOMENTOS</span><span class="av">2</span></li><li><span class="an">GRUPO RODEIO</span><span class="av">2</span></li><li><span class="an">JARI TERRES</span><span class="av">2</span></li><li><span class="an">JOÃO CHAGAS LEITE</span><span class="av">2</span></li><li><span class="an">OS FARRAPOS</span><span class="av">2</span></li><li><span class="an">OS MONARCAS</span><span class="av">2</span></li><li><span class="an">OSWALDIR</span><span class="av">2</span></li><li><span class="an">VALDOMIRO MAICÁ</span><span class="av">2</span></li><li><span class="an">VICTOR HUGO</span><span class="av">2</span></li><li><span class="an">ÂNGELO FRANCO</span><span class="av">2</span></li><li><span class="an">ALMA NOVA</span><span class="av">1</span></li><li><span class="an">BANDA DE MÚSICA DA BASE AÉREA DE CANOAS</span><span class="av">1</span></li><li><span class="an">BANDA STUDIO</span><span class="av">1</span></li><li><span class="an">BANDA VANEIRA</span><span class="av">1</span></li><li><span class="an">BERENICE AZAMBUJA</span><span class="av">1</span></li><li><span class="an">BETO CAETANO</span><span class="av">1</span></li><li><span class="an">BOCHINCHO</span><span class="av">1</span></li><li><span class="an">CAJARANA</span><span class="av">1</span></li><li><span class="an">CÉSAR OLIVEIRA</span><span class="av">1</span></li><li><span class="an">CÉSAR PASSARINHO</span><span class="av">1</span></li><li><span class="an">DÉLCIO TAVARES</span><span class="av">1</span></li><li><span class="an">FOGO DE CHÃO</span><span class="av">1</span></li><li><span class="an">GILDO DE FREITAS</span><span class="av">1</span></li><li><span class="an">GRUPO CAMPEIRISMO</span><span class="av">1</span></li><li><span class="an">GRUPO HELLO</span><span class="av">1</span></li><li><span class="an">GUJO TEIXEIRA</span><span class="av">1</span></li><li><span class="an">IVONIR MACHADO</span><span class="av">1</span></li><li><span class="an">JAIRO LAMBARI FERNANDES</span><span class="av">1</span></li><li><span class="an">JAYME CAETANO BRAUN</span><span class="av">1</span></li><li><span class="an">JÚLIO SALDANHA</span><span class="av">1</span></li><li><span class="an">KAUÃ FONSECA</span><span class="av">1</span></li><li><span class="an">KITARO</span><span class="av">1</span></li><li><span class="an">LOBISOMEM</span><span class="av">1</span></li><li><span class="an">LOLÓ</span><span class="av">1</span></li><li><span class="an">LOS ATIPAK</span><span class="av">1</span></li><li><span class="an">LUIZ CARLOS BORGES</span><span class="av">1</span></li><li><span class="an">MARCELO OLIVEIRA</span><span class="av">1</span></li><li><span class="an">MAURO MORAES</span><span class="av">1</span></li><li><span class="an">MORAEZINHO</span><span class="av">1</span></li><li><span class="an">MUSICAL CORPO E ALMA</span><span class="av">1</span></li><li><span class="an">NETO FAGUNDES</span><span class="av">1</span></li><li><span class="an">NILTON FERREIRA</span><span class="av">1</span></li><li><span class="an">ODILON RAMOS</span><span class="av">1</span></li><li><span class="an">ORLANDINHO ROCHA</span><span class="av">1</span></li><li><span class="an">OS FILHOS DO RIO GRANDE</span><span class="av">1</span></li><li><span class="an">OS GAITEIROS</span><span class="av">1</span></li><li><span class="an">OS GUAPOS</span><span class="av">1</span></li><li><span class="an">OS MIRINS</span><span class="av">1</span></li><li><span class="an">OS MUURIPÁS</span><span class="av">1</span></li><li><span class="an">OSVALDIR</span><span class="av">1</span></li><li><span class="an">PEDRO ORTAÇA</span><span class="av">1</span></li><li><span class="an">PEPE GUERRA</span><span class="av">1</span></li><li><span class="an">PORTO DO SOM</span><span class="av">1</span></li><li><span class="an">RENATO BORGHETTI</span><span class="av">1</span></li><li><span class="an">ROGÉRIO MELO</span><span class="av">1</span></li><li><span class="an">ROTA LUMINOSA</span><span class="av">1</span></li><li><span class="an">RUI BIRIVA</span><span class="av">1</span></li><li><span class="an">SANDRO COELHO</span><span class="av">1</span></li><li><span class="an">SU PAZ</span><span class="av">1</span></li><li><span class="an">TELMO DE LIMA FREITAS</span><span class="av">1</span></li><li><span class="an">TIO NANATO</span><span class="av">1</span></li><li><span class="an">VELHO MILONGUEIRO</span><span class="av">1</span></li><li><span class="an">WILSON DOBBINS</span><span class="av">1</span></li></ul></div></div></section>
-<footer><div class="sign">♡</div><div class="footrow"><span class="a">Painel estratégico · Grade de publicação Semana Farroupilha 2026</span><span class="b">Usa Discos / Editora Terra-Sul</span></div></footer>
-</div>
-<script>
-const DATA={"total_dias": 66, "total_videos": 355, "titulos_distintos": 337, "artistas_total": 99, "artistas_mes": {"Agosto": 54, "Setembro": 45, "Outubro": 50}, "slots_mes": {"Agosto": 100, "Setembro": 156, "Outubro": 99}, "estilos": {"VANEIRA": 131, "MILONGA": 68, "OUTROS": 63, "MIX": 31, "XOTE": 21, "CHAMAMÉ": 17, "VALSA": 13, "BÚGIO": 11}, "categorias": {"INÉDITAS": 160, "100 MAIS": 53, "100 PIORES": 45, "COLETÂNEAS": 29, "TEMÁTICOS SF": 26, "25 MAIS 2026": 21, "TOP VANEIRAS": 15, "NOVOS ARTISTAS": 4, "FRAGMENTADO DVD": 2}, "coletaneas_total": 29, "coletaneas_distintas": 29, "coletaneas_mes": {"Agosto": 0, "Setembro": 29, "Outubro": 0}, "pv_mes": {"Agosto": {"premium": 0, "desc": 100}, "Setembro": {"premium": 91, "desc": 65}, "Outubro": {"premium": 0, "desc": 99}}, "sep_premium": {"25 MAIS 2026": 21, "TOP VANEIRAS": 15, "COLETÂNEAS": 29, "TEMÁTICOS SF": 26}, "foco_setembro": {"BAITACA": 22, "LUIZ MARENCO": 21, "GAROTOS DE OURO": 17, "JOÃO LUIZ CORRÊA": 12}, "top_artistas": [{"artista": "LUIZ MARENCO", "n": 32}, {"artista": "PORCA VÉIA", "n": 30}, {"artista": "BAITACA", "n": 27}, {"artista": "JOSÉ CLÁUDIO MACHADO", "n": 17}, {"artista": "GAROTOS DE OURO", "n": 17}, {"artista": "JOCA MARTINS", "n": 15}, {"artista": "JOÃO LUIZ CORRÊA", "n": 12}, {"artista": "LEOPOLDO RASSIER", "n": 10}, {"artista": "OS SERRANOS", "n": 10}, {"artista": "XIRÚ MISSIONEIRO", "n": 10}, {"artista": "SUPER BANDA CHOPPÃO", "n": 8}, {"artista": "TCHÊ BARBARIDADE", "n": 7}], "tamanho_dia": {"Seg": 4.0, "Ter": 4.0, "Qua": 4.0, "Qui": 6.0, "Sex": 6.0, "Sáb": 6.3, "Dom": 7.0}, "serie": [{"d": "14/08", "n": 6, "m": 8, "dom": 14}, {"d": "15/08", "n": 7, "m": 8, "dom": 15}, {"d": "16/08", "n": 7, "m": 8, "dom": 16}, {"d": "17/08", "n": 4, "m": 8, "dom": 17}, {"d": "18/08", "n": 4, "m": 8, "dom": 18}, {"d": "19/08", "n": 4, "m": 8, "dom": 19}, {"d": "20/08", "n": 6, "m": 8, "dom": 20}, {"d": "21/08", "n": 6, "m": 8, "dom": 21}, {"d": "22/08", "n": 7, "m": 8, "dom": 22}, {"d": "23/08", "n": 7, "m": 8, "dom": 23}, {"d": "24/08", "n": 4, "m": 8, "dom": 24}, {"d": "25/08", "n": 4, "m": 8, "dom": 25}, {"d": "26/08", "n": 4, "m": 8, "dom": 26}, {"d": "27/08", "n": 6, "m": 8, "dom": 27}, {"d": "28/08", "n": 6, "m": 8, "dom": 28}, {"d": "29/08", "n": 7, "m": 8, "dom": 29}, {"d": "30/08", "n": 7, "m": 8, "dom": 30}, {"d": "31/08", "n": 4, "m": 8, "dom": 31}, {"d": "01/09", "n": 4, "m": 9, "dom": 1}, {"d": "02/09", "n": 4, "m": 9, "dom": 2}, {"d": "03/09", "n": 6, "m": 9, "dom": 3}, {"d": "04/09", "n": 6, "m": 9, "dom": 4}, {"d": "05/09", "n": 6, "m": 9, "dom": 5}, {"d": "06/09", "n": 7, "m": 9, "dom": 6}, {"d": "07/09", "n": 4, "m": 9, "dom": 7}, {"d": "08/09", "n": 4, "m": 9, "dom": 8}, {"d": "09/09", "n": 4, "m": 9, "dom": 9}, {"d": "10/09", "n": 6, "m": 9, "dom": 10}, {"d": "11/09", "n": 6, "m": 9, "dom": 11}, {"d": "12/09", "n": 6, "m": 9, "dom": 12}, {"d": "13/09", "n": 7, "m": 9, "dom": 13}, {"d": "14/09", "n": 4, "m": 9, "dom": 14}, {"d": "15/09", "n": 4, "m": 9, "dom": 15}, {"d": "16/09", "n": 4, "m": 9, "dom": 16}, {"d": "17/09", "n": 6, "m": 9, "dom": 17}, {"d": "18/09", "n": 6, "m": 9, "dom": 18}, {"d": "19/09", "n": 6, "m": 9, "dom": 19}, {"d": "20/09", "n": 7, "m": 9, "dom": 20}, {"d": "21/09", "n": 4, "m": 9, "dom": 21}, {"d": "22/09", "n": 4, "m": 9, "dom": 22}, {"d": "23/09", "n": 4, "m": 9, "dom": 23}, {"d": "24/09", "n": 6, "m": 9, "dom": 24}, {"d": "25/09", "n": 6, "m": 9, "dom": 25}, {"d": "26/09", "n": 6, "m": 9, "dom": 26}, {"d": "27/09", "n": 7, "m": 9, "dom": 27}, {"d": "28/09", "n": 4, "m": 9, "dom": 28}, {"d": "29/09", "n": 4, "m": 9, "dom": 29}, {"d": "30/09", "n": 4, "m": 9, "dom": 30}, {"d": "01/10", "n": 6, "m": 10, "dom": 1}, {"d": "02/10", "n": 6, "m": 10, "dom": 2}, {"d": "03/10", "n": 6, "m": 10, "dom": 3}, {"d": "04/10", "n": 7, "m": 10, "dom": 4}, {"d": "05/10", "n": 4, "m": 10, "dom": 5}, {"d": "06/10", "n": 4, "m": 10, "dom": 6}, {"d": "07/10", "n": 4, "m": 10, "dom": 7}, {"d": "08/10", "n": 6, "m": 10, "dom": 8}, {"d": "09/10", "n": 6, "m": 10, "dom": 9}, {"d": "10/10", "n": 6, "m": 10, "dom": 10}, {"d": "11/10", "n": 7, "m": 10, "dom": 11}, {"d": "12/10", "n": 4, "m": 10, "dom": 12}, {"d": "13/10", "n": 4, "m": 10, "dom": 13}, {"d": "14/10", "n": 4, "m": 10, "dom": 14}, {"d": "15/10", "n": 6, "m": 10, "dom": 15}, {"d": "16/10", "n": 6, "m": 10, "dom": 16}, {"d": "17/10", "n": 6, "m": 10, "dom": 17}, {"d": "18/10", "n": 7, "m": 10, "dom": 18}]};
-const INK='#000000',G7='#2B2B2B',G6='#8C8C8C',G4='#8C8C8C',G3='#CFCFCF',LINE='#EAEAEA';
-Chart.defaults.font.family="'Montserrat',sans-serif";Chart.defaults.color=G6;Chart.defaults.font.size=12;
-const valueLabel={id:'valueLabel',afterDatasetsDraw(chart){const ctx=chart.ctx;ctx.save();ctx.font="600 11px 'Montserrat',sans-serif";ctx.fillStyle=G7;const horiz=chart.options.indexAxis==='y';chart.data.datasets.forEach((ds,di)=>{const meta=chart.getDatasetMeta(di);if(meta.hidden)return;meta.data.forEach((el,i)=>{const v=ds.data[i];if(v==null)return;if(horiz){ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(v,el.x+8,el.y);}else{ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(v,el.x,el.y-6);}});});ctx.restore();}};
-const S=(id,v)=>document.getElementById(id).textContent=v;
-S('h1',DATA.total_dias);S('h2',DATA.total_videos);S('h3',DATA.titulos_distintos);S('h4',DATA.artistas_total);
-S('s1',DATA.sep_premium['25 MAIS 2026']);S('s2',DATA.sep_premium['TOP VANEIRAS']);S('s3',DATA.sep_premium['COLETÂNEAS']);S('s4',DATA.sep_premium['TEMÁTICOS SF']);
-S('z1',DATA.total_videos);
-const spark=document.getElementById('spark'),mx=Math.max(...DATA.serie.map(s=>s.n));
-DATA.serie.forEach(s=>{const b=document.createElement('div');b.className='bar'+(s.m===9?' sep':'')+(s.dom===20&&s.m===9?' mark':'');b.style.height=(8+(s.n/mx)*100)+'%';b.title=s.d+' · '+s.n+' vídeos';spark.appendChild(b);});
-const idx=DATA.serie.findIndex(s=>s.m===9&&s.dom===20),mr=document.getElementById('markrow'),pin=document.createElement('span');
-pin.className='pin';pin.textContent='20 Set · Dia do Gaúcho';pin.style.left=((idx+0.5)/DATA.serie.length*100)+'%';mr.appendChild(pin);
-const noGrid={grid:{display:false},border:{color:LINE}},yGrid={grid:{color:LINE,drawTicks:false},border:{display:false},ticks:{precision:0}};
-function barV(id,l,d,thick=64){new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:INK,hoverBackgroundColor:G7,borderRadius:2,maxBarThickness:thick}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:INK,padding:10,cornerRadius:4}},scales:{x:noGrid,y:{...yGrid,beginAtZero:true,grace:'12%'}}},plugins:[valueLabel]});}
-function barH(id,l,d){new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:INK,hoverBackgroundColor:G7,borderRadius:2,maxBarThickness:26}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:INK,padding:10,cornerRadius:4}},scales:{x:{...yGrid,beginAtZero:true,grace:'14%'},y:{grid:{display:false},border:{color:LINE},ticks:{font:{size:11,weight:'500'}}}}},plugins:[valueLabel]});}
-const M=['Agosto','Setembro','Outubro'];
-barV('cMes',M,M.map(m=>DATA.slots_mes[m]));
-barV('cArtMes',M,M.map(m=>DATA.artistas_mes[m]));
-barV('cDia',['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(k=>DATA.tamanho_dia[k]));
-barH('cEst',Object.keys(DATA.estilos),Object.values(DATA.estilos));
-barH('cCat',Object.keys(DATA.categorias),Object.values(DATA.categorias));
-barV('cCol',M,M.map(m=>DATA.coletaneas_mes[m]));
-barH('cFoco',Object.keys(DATA.foco_setembro),Object.values(DATA.foco_setembro));
-new Chart(document.getElementById('cPV'),{type:'bar',data:{labels:M,datasets:[
-{label:'Vitrine',data:M.map(m=>DATA.pv_mes[m].premium),backgroundColor:INK,borderRadius:2,maxBarThickness:46},
-{label:'Descoberta',data:M.map(m=>DATA.pv_mes[m].desc),backgroundColor:G3,borderRadius:2,maxBarThickness:46}]},
-options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:10,boxHeight:10,font:{size:11,weight:'600'}}},tooltip:{backgroundColor:INK,padding:10,cornerRadius:4}},scales:{x:noGrid,y:{...yGrid,beginAtZero:true}}}});
-barH('cTop',DATA.top_artistas.map(x=>x.artista),DATA.top_artistas.map(x=>x.n));
-const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-if(!reduce&&'IntersectionObserver'in window){
-const els=document.querySelectorAll('section,.season');
-els.forEach(e=>e.classList.add('reveal'));
-const io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-els.forEach(e=>io.observe(e));
-}
-</script></body></html>
+</body>
+</html>
