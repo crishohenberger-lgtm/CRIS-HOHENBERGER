@@ -17,8 +17,9 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 .topmark .a { width:34px; background:#1B2A56; }
 .topmark .b { width:12px; background:#D9712A; }
 .cw-brand { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#9AA6C2; font-weight:600; }
-.cw h1 { font-size:27px; font-weight:600; margin:11px 0 6px; color:#2E5AAC; letter-spacing:-.015em; }
-.cw-purpose { font-size:13px; color:#8A93A6; margin:0; max-width:540px; line-height:1.65; }
+.cw h1 { font-size:27px; font-weight:600; margin:13px 0 0; color:#2E5AAC; letter-spacing:-.015em; line-height:1.2; max-width:660px; }
+.cw-deck { margin:15px 0 0; font-size:14px; color:#3A4258; font-weight:500; line-height:1.55; max-width:560px; }
+.cw-sub { margin:7px 0 0; font-size:12.5px; color:#969EB1; line-height:1.55; max-width:540px; }
 .index { margin-top:20px; padding:13px 16px; background:#FAFBFE; border:1px solid #EEF2F9; border-radius:12px; font-size:10.5px; color:#97A1B6; line-height:2; }
 .index .n { color:#D9712A; font-weight:600; }
 .index .d { color:#D6DEEC; margin:0 9px; }
@@ -61,9 +62,15 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 .cn { display:flex; align-items:center; gap:9px; }
 .cd { width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
 .conc { margin-top:42px; padding:26px 28px; background:#F8FAFE; border:1px solid #E3EBF7; border-radius:16px; }
-.conc-l { font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#9AA6C2; font-weight:600; margin-bottom:11px; display:flex; align-items:center; gap:7px; }
-.conc-ic { width:14px; height:14px; stroke:#D9712A; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
-.conc p { margin:0; font-size:13.5px; line-height:1.85; color:#3A4258; }
+.conc-head { display:flex; align-items:center; gap:9px; font-size:14px; font-weight:600; color:#1B2A56; letter-spacing:.05em; text-transform:uppercase; }
+.conc-ic { width:17px; height:17px; stroke:#D9712A; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+.conc-lead { margin:12px 0 18px; font-size:13px; color:#6E7689; line-height:1.6; max-width:580px; }
+.guide { display:flex; flex-direction:column; }
+.grow { display:flex; gap:14px; align-items:baseline; padding:9px 0; border-bottom:1px solid #ECF1F8; }
+.guide .grow:last-child { border-bottom:none; }
+.gk { flex-shrink:0; min-width:104px; font-size:10px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; color:#1B2A56; }
+.gt { flex:1; font-size:12.5px; color:#717A8D; line-height:1.5; }
+.conc-foot { margin:18px 0 0; font-size:12.5px; color:#52596B; line-height:1.65; }
 .footer { margin-top:26px; padding-top:22px; border-top:1px solid #EEF3FA; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .logo-ph { border:1px dashed #CDD8EA; border-radius:11px; padding:15px 24px; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#AEB7C8; text-align:center; line-height:1.6; min-width:134px; }
 .credit { font-size:10px; color:#B2B9C8; text-align:center; }
@@ -74,7 +81,8 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   <div class="topmark"><span class="a"></span><span class="b"></span></div>
   <div class="cw-brand">Canal da Ética · Contato Seguro</div>
   <h1>Painel estratégico de performance de SEO, IEO e GEO</h1>
-  <p class="cw-purpose">Onde a visibilidade no Google e nas IAs vira tráfego, lead e receita. Um só lugar para enxergar o que gera resultado, priorizar o que importa e decidir onde investir.</p>
+  <p class="cw-deck">Onde a visibilidade no Google e nas IAs vira tráfego, lead e receita.</p>
+  <p class="cw-sub">Um só lugar para enxergar o que gera resultado, priorizar o que importa e decidir onde investir.</p>
   <div class="index">
     <span class="n">01</span> Receita <span class="d">·</span> <span class="n">02</span> Funil <span class="d">·</span> <span class="n">03</span> Visibilidade <span class="d">·</span> <span class="n">04</span> Autoridade <span class="d">·</span> <span class="n">05</span> Tráfego <span class="d">·</span> <span class="n">06</span> Tendência <span class="d">·</span> <span class="n">07</span> IA vs concorrentes <span class="d">·</span> <span class="n">08</span> Concorrentes <span class="d">·</span> <span class="n">09</span> Fundação
   </div>
@@ -241,8 +249,15 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="conc">
-    <div class="conc-l"><svg class="conc-ic" viewBox="0 0 24 24"><path d="M5 4h11a1 1 0 0 1 1 1v15H6a1 1 0 0 1-1-1z"/><path d="M9 4v16"/></svg> Como ler este painel</div>
-    <p>A leitura é de cima para baixo, e cada nível explica o que está acima dele. No topo está a receita, o resultado que queremos fazer crescer. Logo abaixo, o funil mostra onde esse resultado é ganho ou perdido, etapa por etapa, e é ali que se identifica o gargalo a atacar primeiro. Os blocos seguintes revelam as alavancas por trás do número. A visibilidade e as posições dizem se estamos sendo encontrados no Google e nas IAs. A autoridade explica por que ranqueamos. O tráfego mostra de onde vem o crescimento e se ele depende da marca ou do SEO. A tendência confirma se o movimento se sustenta no tempo. O comparativo com os concorrentes posiciona cada conquista dentro do mercado, e a fundação de conteúdo revela o trabalho de base que dá origem a tudo. Na prática, quando um indicador do topo oscila, a explicação está sempre em algum bloco abaixo, e é nesse ponto que a decisão se toma. Mais do que medir, este painel existe para direcionar, mostrando onde investir, o que priorizar e qual esforço está, de fato, se convertendo em receita.</p>
+    <div class="conc-head"><svg class="conc-ic" viewBox="0 0 24 24"><path d="M5 4h11a1 1 0 0 1 1 1v15H6a1 1 0 0 1-1-1z"/><path d="M9 4v16"/></svg> Como ler este painel</div>
+    <p class="conc-lead">Leia de cima para baixo. O topo mostra o resultado, e cada bloco abaixo explica como ele foi construído e onde agir.</p>
+    <div class="guide">
+      <div class="grow"><span class="gk">Receita</span><span class="gt">o resultado que realizamos.</span></div>
+      <div class="grow"><span class="gk">Funil</span><span class="gt">onde o resultado é ganho ou perdido, e o gargalo a atacar primeiro.</span></div>
+      <div class="grow"><span class="gk">Alavancas</span><span class="gt">visibilidade, autoridade, tráfego e tendência explicam o número.</span></div>
+      <div class="grow"><span class="gk">Contexto</span><span class="gt">concorrentes e fundação mostram o mercado e a base que sustenta tudo.</span></div>
+    </div>
+    <p class="conc-foot">Quando um indicador do topo oscila, a causa está em algum bloco abaixo. É ali que a decisão se toma.</p>
   </div>
 
   <div class="footer">
