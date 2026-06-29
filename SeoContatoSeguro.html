@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel estratégico de performance · Canal da Ética · Contato Seguro</title>
+<meta name="description" content="Painel estratégico de performance do Canal da Ética da Contato Seguro, da receita à fundação de conteúdo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+* { font-family:'Montserrat',sans-serif; box-sizing:border-box; }
+body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
+.cw { max-width:960px; margin:0 auto; background:#FFFFFF; border:1px solid #E8EDF6; border-radius:20px; padding:38px 34px; }
+.topmark { display:flex; gap:4px; margin-bottom:16px; }
+.topmark span { height:4px; border-radius:2px; }
+.topmark .a { width:34px; background:#1B2A56; }
+.topmark .b { width:12px; background:#D9712A; }
+.cw-brand { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#9AA6C2; font-weight:600; }
+.cw h1 { font-size:27px; font-weight:600; margin:11px 0 6px; color:#2E5AAC; letter-spacing:-.015em; }
+.cw-purpose { font-size:13px; color:#8A93A6; margin:0; max-width:540px; line-height:1.65; }
+.index { margin-top:20px; padding:13px 16px; background:#FAFBFE; border:1px solid #EEF2F9; border-radius:12px; font-size:10.5px; color:#97A1B6; line-height:2; }
+.index .n { color:#D9712A; font-weight:600; }
+.index .d { color:#D6DEEC; margin:0 9px; }
+.hr { height:1px; background:#EEF2F9; margin:26px 0 4px; }
+.sec { margin:38px 0 16px; }
+.sec.first { margin-top:32px; }
+.sec-row { display:flex; align-items:center; gap:11px; padding-bottom:10px; border-bottom:1px solid #EEF3FA; }
+.sec-ic { font-size:17px; color:#2E5AAC; }
+.snum { font-size:12px; font-weight:600; color:#D9712A; letter-spacing:.02em; }
+.nm { font-size:13px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; color:#1B2A56; }
+.psel { margin-left:auto; display:flex; align-items:center; gap:6px; border:1px solid #E1E9F5; border-radius:20px; padding:6px 12px; font-size:11px; color:#7E8AA4; font-weight:500; white-space:nowrap; }
+.ds { margin-top:11px; font-size:12.5px; color:#8A93A6; line-height:1.55; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(156px,1fr)); gap:12px; margin-top:16px; }
+.kpi { background:#fff; border:1px solid #E8EDF6; border-radius:14px; padding:16px 17px; min-height:98px; display:flex; flex-direction:column; }
+.kpi-l { font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:#8390AB; font-weight:600; }
+.kpi-v { font-size:22px; font-weight:600; color:#1B2A56; margin:9px 0 5px; letter-spacing:-.01em; }
+.kpi-s { font-size:10px; color:#A0A8BC; line-height:1.4; margin-top:auto; }
+.funnel { display:flex; align-items:stretch; gap:7px; flex-wrap:wrap; margin-top:16px; }
+.fstep { flex:1 1 86px; background:#fff; border:1px solid #E8EDF6; border-radius:14px; padding:15px 8px; text-align:center; min-height:84px; display:flex; flex-direction:column; justify-content:center; }
+.fstep-l { font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#8390AB; font-weight:600; }
+.fstep-v { font-size:19px; font-weight:600; color:#1B2A56; margin:8px 0 3px; }
+.fstep-s { font-size:10px; color:#A7AFC0; }
+.chev { display:flex; align-items:center; color:#D6DEEC; font-size:16px; }
+.cards2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:12px; margin-top:16px; }
+.cc { background:#fff; border:1px solid #E8EDF6; border-radius:14px; padding:16px 18px; }
+.cc-t { font-size:12.5px; font-weight:600; color:#1B2A56; }
+.lg { display:flex; gap:12px; margin:11px 0 8px; font-size:10.5px; color:#8A93A6; flex-wrap:wrap; }
+.lg span { display:flex; align-items:center; gap:6px; }
+.dot { width:9px; height:3px; border-radius:2px; display:inline-block; }
+.ln { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.gl { stroke:#F1F5FB; stroke-width:1; }
+.tbl { width:100%; border-collapse:collapse; background:#fff; border:1px solid #E8EDF6; border-radius:14px; overflow:hidden; margin-top:16px; }
+.tbl th { font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#A0A9BD; font-weight:600; text-align:right; padding:12px 16px; border-bottom:1px solid #F1F5FB; }
+.tbl th:first-child, .tbl td:first-child { text-align:left; }
+.tbl td { font-size:12.5px; padding:12px 16px; border-bottom:1px solid #F6F9FD; color:#3A4258; }
+.tbl tr:last-child td { border-bottom:none; }
+.cn { display:flex; align-items:center; gap:9px; }
+.cd { width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
+.conc { margin-top:42px; padding:26px 28px; background:#F8FAFE; border:1px solid #E3EBF7; border-radius:16px; }
+.conc-l { font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#9AA6C2; font-weight:600; margin-bottom:11px; display:flex; align-items:center; gap:7px; }
+.conc-l i { color:#D9712A; font-size:14px; }
+.conc p { margin:0; font-size:13.5px; line-height:1.85; color:#3A4258; }
+.footer { margin-top:26px; padding-top:22px; border-top:1px solid #EEF3FA; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.logo-ph { border:1px dashed #CDD8EA; border-radius:11px; padding:15px 24px; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#AEB7C8; text-align:center; line-height:1.6; min-width:134px; }
+.credit { font-size:10px; color:#B2B9C8; text-align:center; }
+</style>
+</head>
+<body>
+<div class="cw">
+  <div class="topmark"><span class="a"></span><span class="b"></span></div>
+  <div class="cw-brand">Canal da Ética · Contato Seguro</div>
+  <h1>Painel estratégico de performance</h1>
+  <p class="cw-purpose">Para acompanhar o movimento de usuários e de agentes de IA, e enxergar o que constrói a receita.</p>
+  <div class="index">
+    <span class="n">01</span> Receita <span class="d">·</span> <span class="n">02</span> Funil <span class="d">·</span> <span class="n">03</span> Visibilidade <span class="d">·</span> <span class="n">04</span> Autoridade <span class="d">·</span> <span class="n">05</span> Tráfego <span class="d">·</span> <span class="n">06</span> Tendência <span class="d">·</span> <span class="n">07</span> IA vs concorrentes <span class="d">·</span> <span class="n">08</span> Concorrentes <span class="d">·</span> <span class="n">09</span> Fundação
+  </div>
+  <div class="hr"></div>
+
+  <div class="sec first">
+    <div class="sec-row"><i class="ti ti-cash sec-ic"></i><span class="snum">01</span><span class="nm">Receita</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> mês atual <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">O resultado de tudo. Começamos por aqui de propósito, e cada bloco abaixo mostra o que construiu esta receita.</div>
+  </div>
+  <div class="grid">
+    <div class="kpi"><div class="kpi-l">MRR</div><div class="kpi-v">R$ —</div><div class="kpi-s">receita recorrente mensal</div></div>
+    <div class="kpi"><div class="kpi-l">ARR</div><div class="kpi-v">R$ —</div><div class="kpi-s">receita recorrente anual</div></div>
+    <div class="kpi"><div class="kpi-l">Ticket médio</div><div class="kpi-v">R$ —</div><div class="kpi-s">valor médio por cliente</div></div>
+    <div class="kpi"><div class="kpi-l">Fechamentos</div><div class="kpi-v">—</div><div class="kpi-s">novos contratos no mês</div></div>
+    <div class="kpi"><div class="kpi-l">SQL</div><div class="kpi-v">—</div><div class="kpi-s">leads aceitos por vendas</div></div>
+    <div class="kpi"><div class="kpi-l">MQL</div><div class="kpi-v">—</div><div class="kpi-s">leads qualificados pelo marketing</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-filter sec-ic"></i><span class="snum">02</span><span class="nm">Funil de resultado</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">O caminho que transforma alcance em cliente. Cada etapa abastece a próxima até chegar na receita.</div>
+  </div>
+  <div class="funnel">
+    <div class="fstep"><div class="fstep-l">Visibilidade</div><div class="fstep-v">—</div><div class="fstep-s">aparições</div></div>
+    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="fstep"><div class="fstep-l">Tráfego</div><div class="fstep-v">—</div><div class="fstep-s">visitas</div></div>
+    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="fstep"><div class="fstep-l">Leads</div><div class="fstep-v">—</div><div class="fstep-s">captados</div></div>
+    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="fstep"><div class="fstep-l">MQL</div><div class="fstep-v">—</div><div class="fstep-s">marketing</div></div>
+    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="fstep"><div class="fstep-l">SQL</div><div class="fstep-v">—</div><div class="fstep-s">vendas</div></div>
+    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="fstep"><div class="fstep-l">Fechamento</div><div class="fstep-v">—</div><div class="fstep-s">clientes</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-eye sec-ic"></i><span class="snum">03</span><span class="nm">Visibilidade e posições</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">Tudo começa aqui: ser encontrado no Google e citado pelas IAs. E não basta ranquear, importa em que posição.</div>
+  </div>
+  <div class="grid">
+    <div class="kpi"><div class="kpi-l">Visibilidade LLMs</div><div class="kpi-v">—</div><div class="kpi-s">presença nas respostas de IA</div></div>
+    <div class="kpi"><div class="kpi-l">Share of voice IA</div><div class="kpi-v">—</div><div class="kpi-s">fatia de menções vs concorrentes</div></div>
+    <div class="kpi"><div class="kpi-l">Posição média IA</div><div class="kpi-v">—</div><div class="kpi-s">ordem média nas respostas</div></div>
+    <div class="kpi"><div class="kpi-l">Sentimento IA</div><div class="kpi-v">—</div><div class="kpi-s">tom das menções, de 0 a 100</div></div>
+    <div class="kpi"><div class="kpi-l">Palavras-chave</div><div class="kpi-v">—</div><div class="kpi-s">termos que ranqueiam no Google</div></div>
+    <div class="kpi"><div class="kpi-l">No top 3</div><div class="kpi-v">—</div><div class="kpi-s">termos nas 3 primeiras posições</div></div>
+    <div class="kpi"><div class="kpi-l">No top 10</div><div class="kpi-v">—</div><div class="kpi-s">termos na primeira página</div></div>
+    <div class="kpi"><div class="kpi-l">No top 100</div><div class="kpi-v">—</div><div class="kpi-s">termos com alguma presença</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-link sec-ic"></i><span class="snum">04</span><span class="nm">Autoridade</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">Por que ranqueamos. A força do domínio vem dos links e dos sites que nos referenciam.</div>
+  </div>
+  <div class="grid">
+    <div class="kpi"><div class="kpi-l">Links conquistados</div><div class="kpi-v">—</div><div class="kpi-s">links de outros sites para o nosso</div></div>
+    <div class="kpi"><div class="kpi-l">Domínios de referência</div><div class="kpi-v">—</div><div class="kpi-s">sites distintos que nos linkam</div></div>
+    <div class="kpi"><div class="kpi-l">Novos links no mês</div><div class="kpi-v">—</div><div class="kpi-s">conquistados no período</div></div>
+    <div class="kpi"><div class="kpi-l">DR</div><div class="kpi-v">—</div><div class="kpi-s">autoridade do domínio, de 0 a 100</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-users sec-ic"></i><span class="snum">05</span><span class="nm">Tráfego e concentração</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">A visibilidade traz quem chega. E aqui vemos se o crescimento veio da marca ou do esforço de SEO.</div>
+  </div>
+  <div class="grid">
+    <div class="kpi"><div class="kpi-l">Usuários únicos</div><div class="kpi-v">—</div><div class="kpi-s">pessoas distintas no site</div></div>
+    <div class="kpi"><div class="kpi-l">Novos usuários</div><div class="kpi-v">—</div><div class="kpi-s">primeira visita</div></div>
+    <div class="kpi"><div class="kpi-l">Cliques</div><div class="kpi-v">—</div><div class="kpi-s">cliques vindos do Google</div></div>
+    <div class="kpi"><div class="kpi-l">Taxa de cliques</div><div class="kpi-v">—</div><div class="kpi-s">cliques sobre aparições</div></div>
+    <div class="kpi"><div class="kpi-l">Taxa de conversão</div><div class="kpi-v">—</div><div class="kpi-s">leads sobre as visitas</div></div>
+    <div class="kpi"><div class="kpi-l">Tráfego de marca</div><div class="kpi-v">—</div><div class="kpi-s">buscaram pelo nome Contato Seguro</div></div>
+    <div class="kpi"><div class="kpi-l">Tráfego não-marca</div><div class="kpi-v">—</div><div class="kpi-s">vieram por termos genéricos</div></div>
+    <div class="kpi"><div class="kpi-l">Orgânico no total</div><div class="kpi-v">—</div><div class="kpi-s">fatia do orgânico em todo o tráfego</div></div>
+    <div class="kpi"><div class="kpi-l">Sessões via IA</div><div class="kpi-v">—</div><div class="kpi-s">vindas de ChatGPT, Gemini e afins</div></div>
+    <div class="kpi"><div class="kpi-l">Concentração</div><div class="kpi-v">—</div><div class="kpi-s">páginas que somam 70% do tráfego</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-trending-up sec-ic"></i><span class="snum">06</span><span class="nm">Tendência</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 12 meses <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">E como esse movimento evolui, mês a mês, em volume.</div>
+  </div>
+  <div class="cards2">
+    <div class="cc"><div class="cc-t">Sessões</div>
+      <svg width="100%" viewBox="0 0 320 112" role="img"><title>Sessões mês a mês</title>
+        <line class="gl" x1="18" y1="98" x2="300" y2="98"/>
+        <rect x="23" y="68" width="13" height="30" rx="2" fill="#1B2A56"/><rect x="46" y="72" width="13" height="26" rx="2" fill="#1B2A56"/><rect x="69" y="78" width="13" height="20" rx="2" fill="#1B2A56"/><rect x="92" y="76" width="13" height="22" rx="2" fill="#1B2A56"/><rect x="115" y="62" width="13" height="36" rx="2" fill="#1B2A56"/><rect x="138" y="70" width="13" height="28" rx="2" fill="#1B2A56"/><rect x="161" y="80" width="13" height="18" rx="2" fill="#1B2A56"/><rect x="184" y="82" width="13" height="16" rx="2" fill="#1B2A56"/><rect x="207" y="58" width="13" height="40" rx="2" fill="#1B2A56"/><rect x="230" y="50" width="13" height="48" rx="2" fill="#1B2A56"/><rect x="253" y="38" width="13" height="60" rx="2" fill="#1B2A56"/><rect x="276" y="44" width="13" height="54" rx="2" fill="#1B2A56"/>
+        <text x="23" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jul</text><text x="274" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jun</text>
+      </svg>
+    </div>
+    <div class="cc"><div class="cc-t">Impressões</div>
+      <svg width="100%" viewBox="0 0 320 112" role="img"><title>Impressões mês a mês</title>
+        <line class="gl" x1="18" y1="98" x2="300" y2="98"/>
+        <rect x="23" y="80" width="13" height="18" rx="2" fill="#2E5AAC"/><rect x="46" y="78" width="13" height="20" rx="2" fill="#2E5AAC"/><rect x="69" y="74" width="13" height="24" rx="2" fill="#2E5AAC"/><rect x="92" y="72" width="13" height="26" rx="2" fill="#2E5AAC"/><rect x="115" y="70" width="13" height="28" rx="2" fill="#2E5AAC"/><rect x="138" y="66" width="13" height="32" rx="2" fill="#2E5AAC"/><rect x="161" y="64" width="13" height="34" rx="2" fill="#2E5AAC"/><rect x="184" y="60" width="13" height="38" rx="2" fill="#2E5AAC"/><rect x="207" y="54" width="13" height="44" rx="2" fill="#2E5AAC"/><rect x="230" y="48" width="13" height="50" rx="2" fill="#2E5AAC"/><rect x="253" y="40" width="13" height="58" rx="2" fill="#2E5AAC"/><rect x="276" y="34" width="13" height="64" rx="2" fill="#2E5AAC"/>
+        <text x="23" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jul</text><text x="274" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jun</text>
+      </svg>
+    </div>
+    <div class="cc"><div class="cc-t">Cliques</div>
+      <svg width="100%" viewBox="0 0 320 112" role="img"><title>Cliques mês a mês</title>
+        <line class="gl" x1="18" y1="98" x2="300" y2="98"/>
+        <rect x="23" y="86" width="13" height="12" rx="2" fill="#7FA3D8"/><rect x="46" y="85" width="13" height="13" rx="2" fill="#7FA3D8"/><rect x="69" y="83" width="13" height="15" rx="2" fill="#7FA3D8"/><rect x="92" y="82" width="13" height="16" rx="2" fill="#7FA3D8"/><rect x="115" y="81" width="13" height="17" rx="2" fill="#7FA3D8"/><rect x="138" y="79" width="13" height="19" rx="2" fill="#7FA3D8"/><rect x="161" y="78" width="13" height="20" rx="2" fill="#7FA3D8"/><rect x="184" y="76" width="13" height="22" rx="2" fill="#7FA3D8"/><rect x="207" y="72" width="13" height="26" rx="2" fill="#7FA3D8"/><rect x="230" y="68" width="13" height="30" rx="2" fill="#7FA3D8"/><rect x="253" y="64" width="13" height="34" rx="2" fill="#7FA3D8"/><rect x="276" y="60" width="13" height="38" rx="2" fill="#7FA3D8"/>
+        <text x="23" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jul</text><text x="274" y="110" font-size="9" fill="#BCC4D2" font-family="Montserrat">jun</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-robot sec-ic"></i><span class="snum">07</span><span class="nm">Visibilidade na IA · vs concorrentes</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">A mesma visibilidade do bloco 03, agora olhada de perto contra o mercado e ao longo do tempo. Todas as marcas com o mesmo peso.</div>
+  </div>
+  <div class="cc">
+    <div class="lg"><span><i class="dot" style="background:#1B2A56"></i>Contato Seguro</span><span><i class="dot" style="background:#2E9E6B"></i>Aliant</span><span><i class="dot" style="background:#7A6FD0"></i>ClickCompliance</span><span><i class="dot" style="background:#E0902C"></i>Deloitte</span><span><i class="dot" style="background:#3F9CC9"></i>Ouvidor Digital</span><span><i class="dot" style="background:#D8694A"></i>Resguarda</span><span><i class="dot" style="background:#C2557E"></i>SafeSpace</span></div>
+    <svg width="100%" viewBox="0 0 600 170" role="img"><title>Visibilidade nas IAs contra concorrentes, todas as marcas com o mesmo peso</title>
+      <line class="gl" x1="30" y1="40" x2="580" y2="40"/><line class="gl" x1="30" y1="78" x2="580" y2="78"/><line class="gl" x1="30" y1="116" x2="580" y2="116"/>
+      <polyline class="ln" stroke="#1B2A56" points="30,58 80,62 130,56 180,60 230,58 280,56 330,60 380,58 430,56 480,60 530,58 580,60"/>
+      <polyline class="ln" stroke="#2E9E6B" points="30,134 80,128 130,120 180,112 230,104 280,96 330,90 380,84 430,80 480,76 530,74 580,72"/>
+      <polyline class="ln" stroke="#3F9CC9" points="30,88 80,86 130,90 180,88 230,84 280,86 330,88 380,86 430,84 480,86 530,88 580,86"/>
+      <polyline class="ln" stroke="#D8694A" points="30,104 80,106 130,102 180,104 230,108 280,106 330,102 380,104 430,106 480,104 530,108 580,106"/>
+      <polyline class="ln" stroke="#7A6FD0" points="30,118 80,116 130,120 180,118 230,122 280,120 330,116 380,118 430,120 480,118 530,122 580,120"/>
+      <polyline class="ln" stroke="#C2557E" points="30,132 80,130 130,134 180,132 230,136 280,134 330,130 380,132 430,134 480,132 530,136 580,134"/>
+      <polyline class="ln" stroke="#E0902C" points="30,146 80,144 130,148 180,146 230,150 280,148 330,144 380,146 430,148 480,146 530,150 580,148"/>
+      <text x="30" y="163" font-size="9" fill="#BCC4D2" font-family="Montserrat">jul</text><text x="330" y="163" font-size="9" fill="#BCC4D2" font-family="Montserrat">jan</text><text x="565" y="163" font-size="9" fill="#BCC4D2" font-family="Montserrat">jun</text>
+    </svg>
+  </div>
+  <table class="tbl">
+    <tr><th>Marca</th><th>Visibilidade</th><th>Share of voice</th><th>Sentimento</th><th>Posição</th></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#1B2A56"></i>Contato Seguro</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#2E9E6B"></i>Aliant</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#7A6FD0"></i>ClickCompliance</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#E0902C"></i>Deloitte</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#3F9CC9"></i>Ouvidor Digital</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#D8694A"></i>Resguarda</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#C2557E"></i>SafeSpace</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+  </table>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-trophy sec-ic"></i><span class="snum">08</span><span class="nm">Concorrentes orgânicos</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> mensal <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">Os mesmos concorrentes do Peec, agora na disputa pela busca do Google.</div>
+  </div>
+  <table class="tbl">
+    <tr><th>Concorrente</th><th>Palavras em comum</th><th>Visibilidade</th><th>Autoridade</th></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#1B2A56"></i>Contato Seguro</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#2E9E6B"></i>Aliant</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#7A6FD0"></i>ClickCompliance</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#E0902C"></i>Deloitte</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#3F9CC9"></i>Ouvidor Digital</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#D8694A"></i>Resguarda</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td><span class="cn"><i class="cd" style="background:#C2557E"></i>SafeSpace</span></td><td>—</td><td>—</td><td>—</td></tr>
+  </table>
+
+  <div class="sec">
+    <div class="sec-row"><i class="ti ti-stack-2 sec-ic"></i><span class="snum">09</span><span class="nm">Fundação de conteúdo e saúde técnica</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> acumulado <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="ds">Na base de tudo, o conteúdo que sustenta cada número acima, e a saúde de indexação que serve de alarme.</div>
+  </div>
+  <div class="grid">
+    <div class="kpi"><div class="kpi-l">Entidades mapeadas</div><div class="kpi-v">—</div><div class="kpi-s">temas-pilar do conteúdo</div></div>
+    <div class="kpi"><div class="kpi-l">Artigos por entidade</div><div class="kpi-v">—</div><div class="kpi-s">profundidade por tema</div></div>
+    <div class="kpi"><div class="kpi-l">Artigos publicados</div><div class="kpi-v">—</div><div class="kpi-s">total no site</div></div>
+    <div class="kpi"><div class="kpi-l">Top 100 atualizadas</div><div class="kpi-v">—</div><div class="kpi-s">das 100 principais, no ano</div></div>
+    <div class="kpi"><div class="kpi-l">Páginas enviadas</div><div class="kpi-v">—</div><div class="kpi-s">submetidas ao Google</div></div>
+    <div class="kpi"><div class="kpi-l">Páginas indexadas</div><div class="kpi-v">—</div><div class="kpi-s">de fato aceitas pelo Google</div></div>
+    <div class="kpi"><div class="kpi-l">Taxa de indexação</div><div class="kpi-v">—</div><div class="kpi-s">indexadas sobre enviadas</div></div>
+  </div>
+
+  <div class="conc">
+    <div class="conc-l"><i class="ti ti-book-2"></i> Como ler este painel</div>
+    <p>Este painel começa pelo fim, e isso é proposital. No topo está a receita, que é o resultado de todo o trabalho. Tudo o que vem abaixo conta, com carinho e clareza, a história de como chegamos até ela. Na base, o conteúdo que construímos. Dele nasce a autoridade. Da autoridade vem a visibilidade no Google e nas IAs. A visibilidade traz o tráfego, o tráfego vira lead, o lead vira cliente, e o cliente vira receita. Bloco a bloco, de cima para baixo, a narrativa vai se fechando, e cada número aqui existe para mostrar como o esforço de cada dia se transforma em resultado.</p>
+  </div>
+
+  <div class="footer">
+    <div class="logo-ph">espaço<br>logo Contato Seguro</div>
+    <div class="credit">Painel estratégico de performance · 2026</div>
+    <div class="logo-ph">espaço<br>logo Search One</div>
+  </div>
+
+</div>
+</body>
+</html>
