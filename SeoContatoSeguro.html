@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel estratégico de performance · Canal da Ética · Contato Seguro</title>
-<meta name="description" content="Painel estratégico de performance do Canal da Ética da Contato Seguro, da receita à fundação de conteúdo.">
+<title>Painel estratégico de performance de SEO, IEO e GEO · Canal da Ética · Contato Seguro</title>
+<meta name="description" content="Painel estratégico de performance de SEO, IEO e GEO do Canal da Ética da Contato Seguro, da receita à fundação de conteúdo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
 <style>
 * { font-family:'Montserrat',sans-serif; box-sizing:border-box; }
 body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
@@ -27,10 +26,12 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 .sec { margin:38px 0 16px; }
 .sec.first { margin-top:32px; }
 .sec-row { display:flex; align-items:center; gap:11px; padding-bottom:10px; border-bottom:1px solid #EEF3FA; }
-.sec-ic { font-size:17px; color:#2E5AAC; }
+.sec-ic { width:17px; height:17px; stroke:#2E5AAC; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 .snum { font-size:12px; font-weight:600; color:#D9712A; letter-spacing:.02em; }
 .nm { font-size:13px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; color:#1B2A56; }
 .psel { margin-left:auto; display:flex; align-items:center; gap:6px; border:1px solid #E1E9F5; border-radius:20px; padding:6px 12px; font-size:11px; color:#7E8AA4; font-weight:500; white-space:nowrap; }
+.pic { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.pic-sm { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 .ds { margin-top:11px; font-size:12.5px; color:#8A93A6; line-height:1.55; }
 .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(156px,1fr)); gap:12px; margin-top:16px; }
 .kpi { background:#fff; border:1px solid #E8EDF6; border-radius:14px; padding:16px 17px; min-height:98px; display:flex; flex-direction:column; }
@@ -42,7 +43,8 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 .fstep-l { font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#8390AB; font-weight:600; }
 .fstep-v { font-size:19px; font-weight:600; color:#1B2A56; margin:8px 0 3px; }
 .fstep-s { font-size:10px; color:#A7AFC0; }
-.chev { display:flex; align-items:center; color:#D6DEEC; font-size:16px; }
+.chev { display:flex; align-items:center; }
+.chev svg { width:15px; height:15px; stroke:#D6DEEC; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
 .cards2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:12px; margin-top:16px; }
 .cc { background:#fff; border:1px solid #E8EDF6; border-radius:14px; padding:16px 18px; }
 .cc-t { font-size:12.5px; font-weight:600; color:#1B2A56; }
@@ -60,7 +62,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 .cd { width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
 .conc { margin-top:42px; padding:26px 28px; background:#F8FAFE; border:1px solid #E3EBF7; border-radius:16px; }
 .conc-l { font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#9AA6C2; font-weight:600; margin-bottom:11px; display:flex; align-items:center; gap:7px; }
-.conc-l i { color:#D9712A; font-size:14px; }
+.conc-ic { width:14px; height:14px; stroke:#D9712A; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 .conc p { margin:0; font-size:13.5px; line-height:1.85; color:#3A4258; }
 .footer { margin-top:26px; padding-top:22px; border-top:1px solid #EEF3FA; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .logo-ph { border:1px dashed #CDD8EA; border-radius:11px; padding:15px 24px; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#AEB7C8; text-align:center; line-height:1.6; min-width:134px; }
@@ -71,16 +73,16 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
 <div class="cw">
   <div class="topmark"><span class="a"></span><span class="b"></span></div>
   <div class="cw-brand">Canal da Ética · Contato Seguro</div>
-  <h1>Painel estratégico de performance</h1>
-  <p class="cw-purpose">Para acompanhar o movimento de usuários e de agentes de IA, e enxergar o que constrói a receita.</p>
+  <h1>Painel estratégico de performance de SEO, IEO e GEO</h1>
+  <p class="cw-purpose">Onde a visibilidade no Google e nas IAs vira tráfego, lead e receita. Um só lugar para enxergar o que gera resultado, priorizar o que importa e decidir onde investir.</p>
   <div class="index">
     <span class="n">01</span> Receita <span class="d">·</span> <span class="n">02</span> Funil <span class="d">·</span> <span class="n">03</span> Visibilidade <span class="d">·</span> <span class="n">04</span> Autoridade <span class="d">·</span> <span class="n">05</span> Tráfego <span class="d">·</span> <span class="n">06</span> Tendência <span class="d">·</span> <span class="n">07</span> IA vs concorrentes <span class="d">·</span> <span class="n">08</span> Concorrentes <span class="d">·</span> <span class="n">09</span> Fundação
   </div>
   <div class="hr"></div>
 
   <div class="sec first">
-    <div class="sec-row"><i class="ti ti-cash sec-ic"></i><span class="snum">01</span><span class="nm">Receita</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> mês atual <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
-    <div class="ds">O resultado de tudo. Começamos por aqui de propósito, e cada bloco abaixo mostra o que construiu esta receita.</div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 12h.01M17.5 12h.01"/></svg><span class="snum">01</span><span class="nm">Receita</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> mês atual <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+    <div class="ds">O resultado de tudo! Começamos por aqui de propósito, e cada bloco abaixo mostra o que construiu esta receita.</div>
   </div>
   <div class="grid">
     <div class="kpi"><div class="kpi-l">MRR</div><div class="kpi-v">R$ —</div><div class="kpi-s">receita recorrente mensal</div></div>
@@ -92,25 +94,25 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-filter sec-ic"></i><span class="snum">02</span><span class="nm">Funil de resultado</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M3 5h18l-7 8.5V20l-4-2v-4.5z"/></svg><span class="snum">02</span><span class="nm">Funil de resultado</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 28 dias <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">O caminho que transforma alcance em cliente. Cada etapa abastece a próxima até chegar na receita.</div>
   </div>
   <div class="funnel">
     <div class="fstep"><div class="fstep-l">Visibilidade</div><div class="fstep-v">—</div><div class="fstep-s">aparições</div></div>
-    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
     <div class="fstep"><div class="fstep-l">Tráfego</div><div class="fstep-v">—</div><div class="fstep-s">visitas</div></div>
-    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
     <div class="fstep"><div class="fstep-l">Leads</div><div class="fstep-v">—</div><div class="fstep-s">captados</div></div>
-    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
     <div class="fstep"><div class="fstep-l">MQL</div><div class="fstep-v">—</div><div class="fstep-s">marketing</div></div>
-    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
     <div class="fstep"><div class="fstep-l">SQL</div><div class="fstep-v">—</div><div class="fstep-s">vendas</div></div>
-    <div class="chev"><i class="ti ti-chevron-right"></i></div>
+    <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
     <div class="fstep"><div class="fstep-l">Fechamento</div><div class="fstep-v">—</div><div class="fstep-s">clientes</div></div>
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-eye sec-ic"></i><span class="snum">03</span><span class="nm">Visibilidade e posições</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><span class="snum">03</span><span class="nm">Visibilidade e posições</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 28 dias <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">Tudo começa aqui: ser encontrado no Google e citado pelas IAs. E não basta ranquear, importa em que posição.</div>
   </div>
   <div class="grid">
@@ -125,7 +127,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-link sec-ic"></i><span class="snum">04</span><span class="nm">Autoridade</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M9 15l6-6"/><path d="M11.5 6.5l1-1a4 4 0 0 1 5.7 5.7l-1 1"/><path d="M12.5 17.5l-1 1a4 4 0 0 1-5.7-5.7l1-1"/></svg><span class="snum">04</span><span class="nm">Autoridade</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 28 dias <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">Por que ranqueamos. A força do domínio vem dos links e dos sites que nos referenciam.</div>
   </div>
   <div class="grid">
@@ -136,7 +138,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-users sec-ic"></i><span class="snum">05</span><span class="nm">Tráfego e concentração</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3 3 0 0 1 0 5.5"/><path d="M20.5 19.5a5.5 5.5 0 0 0-3.5-5"/></svg><span class="snum">05</span><span class="nm">Tráfego e concentração</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 28 dias <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">A visibilidade traz quem chega. E aqui vemos se o crescimento veio da marca ou do esforço de SEO.</div>
   </div>
   <div class="grid">
@@ -153,7 +155,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-trending-up sec-ic"></i><span class="snum">06</span><span class="nm">Tendência</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 12 meses <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg><span class="snum">06</span><span class="nm">Tendência</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 12 meses <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">E como esse movimento evolui, mês a mês, em volume.</div>
   </div>
   <div class="cards2">
@@ -181,7 +183,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-robot sec-ic"></i><span class="snum">07</span><span class="nm">Visibilidade na IA · vs concorrentes</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> últimos 28 dias <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="10" rx="2"/><path d="M12 9V6"/><circle cx="12" cy="4.5" r="1"/><path d="M9.5 13.5v1M14.5 13.5v1"/></svg><span class="snum">07</span><span class="nm">Visibilidade na IA · vs concorrentes</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> últimos 28 dias <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">A mesma visibilidade do bloco 03, agora olhada de perto contra o mercado e ao longo do tempo. Todas as marcas com o mesmo peso.</div>
   </div>
   <div class="cc">
@@ -210,7 +212,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </table>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-trophy sec-ic"></i><span class="snum">08</span><span class="nm">Concorrentes orgânicos</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> mensal <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 5.5H5.5a2 2 0 0 0 0 4H7"/><path d="M16 5.5h2.5a2 2 0 0 1 0 4H17"/><path d="M9.5 20h5l-.7-4h-3.6z"/></svg><span class="snum">08</span><span class="nm">Concorrentes orgânicos</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> mensal <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">Os mesmos concorrentes do Peec, agora na disputa pela busca do Google.</div>
   </div>
   <table class="tbl">
@@ -225,7 +227,7 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </table>
 
   <div class="sec">
-    <div class="sec-row"><i class="ti ti-stack-2 sec-ic"></i><span class="snum">09</span><span class="nm">Fundação de conteúdo e saúde técnica</span><span class="psel"><i class="ti ti-calendar" style="font-size:14px"></i> acumulado <i class="ti ti-chevron-down" style="font-size:12px"></i></span></div>
+    <div class="sec-row"><svg class="sec-ic" viewBox="0 0 24 24"><path d="M12 4l8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4"/></svg><span class="snum">09</span><span class="nm">Fundação de conteúdo e saúde técnica</span><span class="psel"><svg class="pic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg> acumulado <svg class="pic-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
     <div class="ds">Na base de tudo, o conteúdo que sustenta cada número acima, e a saúde de indexação que serve de alarme.</div>
   </div>
   <div class="grid">
@@ -239,8 +241,8 @@ body { margin:0; background:#F2F5FA; padding:28px 16px; color:#1F2638; }
   </div>
 
   <div class="conc">
-    <div class="conc-l"><i class="ti ti-book-2"></i> Como ler este painel</div>
-    <p>Este painel começa pelo fim, e isso é proposital. No topo está a receita, que é o resultado de todo o trabalho. Tudo o que vem abaixo conta, com carinho e clareza, a história de como chegamos até ela. Na base, o conteúdo que construímos. Dele nasce a autoridade. Da autoridade vem a visibilidade no Google e nas IAs. A visibilidade traz o tráfego, o tráfego vira lead, o lead vira cliente, e o cliente vira receita. Bloco a bloco, de cima para baixo, a narrativa vai se fechando, e cada número aqui existe para mostrar como o esforço de cada dia se transforma em resultado.</p>
+    <div class="conc-l"><svg class="conc-ic" viewBox="0 0 24 24"><path d="M5 4h11a1 1 0 0 1 1 1v15H6a1 1 0 0 1-1-1z"/><path d="M9 4v16"/></svg> Como ler este painel</div>
+    <p>A leitura é de cima para baixo, e cada nível explica o que está acima dele. No topo está a receita, o resultado que queremos fazer crescer. Logo abaixo, o funil mostra onde esse resultado é ganho ou perdido, etapa por etapa, e é ali que se identifica o gargalo a atacar primeiro. Os blocos seguintes revelam as alavancas por trás do número. A visibilidade e as posições dizem se estamos sendo encontrados no Google e nas IAs. A autoridade explica por que ranqueamos. O tráfego mostra de onde vem o crescimento e se ele depende da marca ou do SEO. A tendência confirma se o movimento se sustenta no tempo. O comparativo com os concorrentes posiciona cada conquista dentro do mercado, e a fundação de conteúdo revela o trabalho de base que dá origem a tudo. Na prática, quando um indicador do topo oscila, a explicação está sempre em algum bloco abaixo, e é nesse ponto que a decisão se toma. Mais do que medir, este painel existe para direcionar, mostrando onde investir, o que priorizar e qual esforço está, de fato, se convertendo em receita.</p>
   </div>
 
   <div class="footer">
