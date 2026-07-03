@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="darkreader-lock">
 <meta name="supported-color-schemes" content="light">
-<title>Marketing IA First · Contato Seguro</title>
-<meta name="description" content="Como o Marketing da Contato Seguro multiplica a capacidade de entrega sem multiplicar o time.">
+<title>Marketing IA First</title>
+<meta name="description" content="Como um marketing IA First multiplica a capacidade de entrega sem multiplicar o time.">
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Marketing IA First · Contato Seguro">
+<meta property="og:title" content="Marketing IA First">
 <meta property="og:description" content="O marketing que multiplica entregas sem multiplicar o time. A IA apoia. O humano direciona. O time evolui.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crishohenberger.com.br/marketingiafirst.html">
@@ -30,6 +32,7 @@
 
 <style>
 :root{
+  color-scheme:only light;
   --preto:#000000;
   --branco:#FFFFFF;
   --grafite:#2B2B2B;
@@ -43,7 +46,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:#FFFFFF;color-scheme:only light;}
 body{
   font-family:'Montserrat',-apple-system,sans-serif;
   font-weight:400;
@@ -57,6 +60,16 @@ body{
 button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none;}
 
 /* ---------- Barra de progresso ---------- */
+/* Página ciente de tema: em modo escuro, reafirmamos o design original.
+   Isso sinaliza ao navegador que a página cuida do próprio tema
+   e desativa o escurecimento automático por algoritmo. */
+@media (prefers-color-scheme: dark){
+  html,body{background:#FFFFFF !important;color:#000000 !important;}
+  #gate,.gate-campo,.eco-menu button,.passo,.pilar,.caminho,.resultado{background-color:#FFFFFF;}
+  .fundo-off,.eco-painel,.playbook{background-color:#F8F8F8;}
+  .dobra-preta,.segredo,.financeiro,.gate-botao,.agente-chave{background-color:#000000;}
+}
+
 #progresso{
   position:fixed;top:0;left:0;height:2px;width:0;
   background:var(--branco);
@@ -636,7 +649,7 @@ footer .linha{
 <div id="gate">
   <div class="gate-box">
     <svg class="coracao" fill="#000"><use href="#coracao"/></svg>
-    <div class="gate-eyebrow">Contato Seguro · Marketing</div>
+    <div class="gate-eyebrow">Apresentação exclusiva</div>
     <div class="gate-titulo">Marketing IA First</div>
     <div class="gate-sub">Acesso restrito. Digite a senha para continuar.</div>
     <input type="password" id="senha" class="gate-campo" placeholder="Senha" autocomplete="off" aria-label="Senha de acesso">
@@ -652,7 +665,7 @@ footer .linha{
   <section class="secao hero" id="hero">
     <div class="miolo">
       <svg class="coracao palco" fill="#000"><use href="#coracao"/></svg>
-      <div class="eyebrow palco">Contato Seguro · Marketing IA First</div>
+      <div class="eyebrow palco">Marketing IA First</div>
       <h1 class="palco">O marketing que multiplica entregas<br>sem multiplicar o time.</h1>
       <p class="hero-sub palco">Somos uma equipe de Marketing IA First. Isso não significa fazer mais rápido. Significa pensar melhor, organizar melhor e entregar com mais qualidade.</p>
       <div class="hero-stats palco">
@@ -955,7 +968,7 @@ footer .linha{
 
   <footer>
     <svg class="coracao" fill="#000"><use href="#coracao"/></svg>
-    <div class="linha">Contato Seguro · Marketing IA First · 2026</div>
+    <div class="linha">Marketing IA First · 2026</div>
   </footer>
 
 </main>
