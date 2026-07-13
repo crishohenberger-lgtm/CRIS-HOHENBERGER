@@ -482,25 +482,38 @@
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
     const big=document.getElementById('bigStat');
-    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce){ big.textContent='63%'; return; }
+    if(!big) return;
     let done=false;
+
+    function contar(){
+      if(done) return;
+      done=true;
+      const target=63, dur=1600, start=performance.now();
+      const tick=(now)=>{
+        const p=Math.min((now-start)/dur,1);
+        const eased=1-Math.pow(1-p,3);
+        big.textContent=Math.round(eased*target)+'%';
+        if(p<1){ requestAnimationFrame(tick); }
+        else{ big.textContent='63%'; }
+      };
+      requestAnimationFrame(tick);
+    }
+
+    // Dispara quando o número entra na tela
     const statIO=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting && !done){
-          done=true;
-          const target=63, dur=1400, start=performance.now();
-          const tick=(now)=>{
-            const p=Math.min((now-start)/dur,1);
-            const eased=1-Math.pow(1-p,3);
-            big.textContent=Math.round(eased*target)+'%';
-            if(p<1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      });
-    },{threshold:.5});
+      entries.forEach(e=>{ if(e.isIntersecting) contar(); });
+    },{threshold:0.35, rootMargin:'0px 0px -10% 0px'});
     statIO.observe(big);
+
+    // Rede de segurança: se por algum motivo o observador não disparar,
+    // verifica na rolagem se o número já está visível
+    const checarVisivel=()=>{
+      if(done) return;
+      const r=big.getBoundingClientRect();
+      if(r.top < window.innerHeight*0.9 && r.bottom > 0) contar();
+    };
+    window.addEventListener('scroll', checarVisivel, {passive:true});
+    checarVisivel();
   }
 </script>
 </body>
