@@ -359,6 +359,21 @@ h2.t b{font-weight:700}
 .brk h2 .q{color:var(--faint)}
 .brk .msub{margin-top:30px;font-weight:300;font-size:var(--fs-lede);line-height:1.5;color:var(--ink-2);max-width:56ch}
 
+/* ===== slide exclusivo · porta de entrada do Data Room ===== */
+.doc-gate{background:var(--ink)!important}
+.doc-gate .slide-in{position:relative;overflow:hidden}
+.doc-gate .dg-deco{position:absolute;right:clamp(-40px,-4vw,-20px);top:50%;transform:translateY(-50%);font-size:clamp(180px,26vw,340px);font-weight:700;color:rgba(209,156,46,.055);letter-spacing:-.06em;pointer-events:none;user-select:none;line-height:1;font-variant-numeric:tabular-nums}
+.doc-gate .dg-eye{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#c5a028;margin-bottom:22px}
+.doc-gate .dg-title{font-size:var(--fs-hero);font-weight:200;letter-spacing:-.04em;line-height:.96;color:rgba(255,255,255,.95)}
+.doc-gate .dg-title b{font-weight:600;color:#d19c2e}
+.doc-gate .dg-sub{font-size:var(--fs-lede);font-weight:300;color:rgba(255,255,255,.52);margin-top:22px;max-width:50ch;line-height:1.52}
+.doc-gate .dg-nums{display:flex;gap:clamp(24px,4vw,48px);margin-top:36px;flex-wrap:wrap}
+.doc-gate .dg-num .v{font-size:clamp(36px,5.5vw,60px);font-weight:600;letter-spacing:-.03em;color:#d19c2e;line-height:1}
+.doc-gate .dg-num .l{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:7px}
+.doc-gate .dg-cta{display:inline-flex;align-items:center;gap:11px;margin-top:42px;padding:15px 32px;border-radius:100px;background:#d19c2e;color:#17120a;font-size:14px;font-weight:800;letter-spacing:.02em;text-decoration:none;transition:opacity .18s,transform .2s,box-shadow .2s;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(209,156,46,.28)}
+.doc-gate .dg-cta:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 14px 40px rgba(209,156,46,.38)}
+.doc-gate .dg-cta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
 /* ecossistema (fluxo claro) */
 .flow{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:6px}
 .fnode{width:100%;max-width:560px;text-align:center;border:1px solid var(--hair-2);border-radius:14px;padding:12px 22px;background:var(--paper)}
@@ -2012,6 +2027,24 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       <div class="mc"><div class="role">Frente 1</div><div class="nm">Música Gaúcha com IA</div><p>Testes já feitos para gerar composições dentro da estética gaúcha. Resultados promissores, abrindo caminho para fonogramas 100% controlados com custo marginal zero.</p></div>
       <div class="mc"><div class="role">Frente 2</div><div class="nm">Automação total</div><p>Usar IA para automatizar processos inteiros de distribuição e curadoria, multiplicando a capacidade sem aumentar o time.</p></div>
     </div>
+  </div>
+</section>
+
+<section class="slide doc-gate" data-act="m2" data-menu="Vamos conhecer?" data-num="2.8">
+  <div class="slide-in">
+    <div class="dg-deco">DR</div>
+    <p class="dg-eye mv">2.8 · Data Room</p>
+    <h2 class="dg-title mv">A operação<br><b>por dentro.</b></h2>
+    <p class="dg-sub mv">19 planilhas padronizadas, dashboards ao vivo e pastas organizadas. Tudo auditável, disponível agora. A governança que se prova pela transparência.</p>
+    <div class="dg-nums mv">
+      <div class="dg-num"><div class="v">19</div><div class="l">Planilhas padronizadas</div></div>
+      <div class="dg-num"><div class="v">7</div><div class="l">Pastas estruturadas</div></div>
+      <div class="dg-num"><div class="v">1</div><div class="l">Clique para abrir</div></div>
+    </div>
+    <a class="dg-cta mv" data-link="documentacao" href="#" target="_blank" rel="noopener">
+      Vamos conhecer
+      <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
   </div>
 </section>
 
