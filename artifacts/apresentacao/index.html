@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Operação Canções Gaúchas 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#fbfaf8;
+  --ink:#17140f;
+  --ink-2:#3c372f;
+  --soft:#736c62;
+  --faint:#a8a196;
+  --hair:#efece6;
+  --hair-2:#e2ded5;
+  --line-ink:#1c1913;      /* traço-assinatura */
+  --accent:#8f2233;        /* bordô discreto, raiz gaúcha */
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-2:cubic-bezier(.4,0,.2,1);
+  --pad:clamp(30px,6vw,110px);
+  /* escala tipográfica padronizada */
+  --fs-hero:clamp(46px,9.2vw,112px);      /* capa e aberturas de ato */
+  --fs-statement:clamp(30px,5.2vw,62px);  /* frases-cena, respiros, fecho */
+  --fs-title:clamp(28px,4vw,46px);        /* títulos de seção */
+  --fs-lede:clamp(17px,2vw,22px);         /* ledes e subtítulos */
+  --fs-body:15px;                          /* corpo de listas */
+  --fs-sec:13.5px;                         /* textos secundários */
+  --fs-label:11px;                         /* etiquetas e kickers */
+  --fs-chip:12.5px;                        /* chips */
+  /* ritmo de espaçamento */
+  --sp-statement:26px;   /* frase para lede */
+  --sp-title:22px;       /* título para conteúdo */
+  --sp-minor:16px;       /* gaps menores */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Montserrat',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);
+  font-weight:400;line-height:1.6;letter-spacing:.004em;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:rgba(168,52,31,.1)}
+
+/* marca */
+.heart{display:inline-block;vertical-align:middle}
+.heart path{fill:var(--ink)}
+
+/* ===================== GATE ===================== */
+#gate{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;align-items:center;justify-content:center;padding:32px;transition:opacity .9s var(--ease-2),visibility .9s}
+#gate.off{opacity:0;visibility:hidden}
+.gate-in{width:100%;max-width:410px;text-align:center;animation:rise 1s var(--ease) both}
+.gate-in .heart{width:34px;height:32px;margin-bottom:30px;animation:beat 3.4s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.gate-k{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:18px}
+.gate-in h1{font-size:clamp(19px,4.4vw,24px);font-weight:300;letter-spacing:-.01em;line-height:1.32;margin-bottom:10px}
+.gate-in h1 b{font-weight:600}
+.gate-in>p{font-size:13px;color:var(--soft);font-weight:300;margin-bottom:32px}
+.gate-rule{width:44px;height:1px;background:var(--hair-2);margin:0 auto 32px;position:relative}
+.gate-rule::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%)}
+#pw{width:100%;padding:16px 18px;font-family:inherit;font-size:16px;border:1px solid var(--hair-2);border-radius:14px;background:var(--paper-2);color:var(--ink);text-align:center;letter-spacing:.18em;outline:none;transition:border-color .3s,box-shadow .3s,background .3s}
+#pw::placeholder{letter-spacing:.05em;color:var(--faint);font-weight:300}
+#pw:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(23,20,15,.04)}
+#gate.err #pw{border-color:var(--accent);box-shadow:0 0 0 4px rgba(168,52,31,.08);animation:shake .4s}
+#go{width:100%;margin-top:13px;padding:16px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.05em;color:#fff;background:var(--ink);border:none;border-radius:14px;cursor:pointer;transition:transform .2s var(--ease),background .3s}
+#go:hover{background:#000;transform:translateY(-1px)}
+.gate-msg{font-size:12px;color:var(--accent);height:15px;margin-top:12px;opacity:0;transition:opacity .2s;font-weight:500}
+#gate.err .gate-msg{opacity:1}
+.gate-foot{margin-top:40px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:500}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ===================== STAGE ===================== */
+#app{position:fixed;inset:0;opacity:0;transition:opacity 1s var(--ease-2) .1s;background:var(--paper)}
+#app.on{opacity:1}
+.deck{position:absolute;inset:0}
+.slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;visibility:hidden;pointer-events:none;overflow:hidden;transform:scale(1.035);transition:opacity .8s var(--ease-2),transform 1.15s var(--ease),visibility .8s}
+.slide.is-active{transform:scale(1)}
+.slide.is-active{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.slide.is-out{opacity:0;visibility:visible;z-index:1}
+.slide-in{width:100%;max-width:1080px;margin:0 auto;padding:clamp(78px,12vh,130px) var(--pad) clamp(96px,15vh,140px);max-height:100%;overflow:auto;scrollbar-width:none}
+.slide-in::-webkit-scrollbar{display:none}
+
+/* movimento de câmera: entra subindo, sai recuando (sem escurecer) */
+.slide .mv{opacity:0;transform:translateY(26px)}
+.slide.is-active .mv{opacity:1;transform:none;transition:opacity .82s var(--ease-2),transform 1.02s var(--ease)}
+.slide.is-out .mv{opacity:0;transform:translateY(-22px);transition:opacity .5s var(--ease-2),transform .62s var(--ease)}
+.slide .mv.soft{filter:blur(7px)}
+.slide.is-active .mv.soft{filter:blur(0)}
+
+/* ===================== TIPOGRAFIA ===================== */
+.kick{display:flex;align-items:center;gap:14px;font-size:var(--fs-label);letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:34px}
+.kick .idx{color:var(--faint);font-weight:600;font-variant-numeric:tabular-nums}
+.kick .dash{width:26px;height:1px;background:var(--hair-2)}
+
+.d1{font-weight:200;letter-spacing:-.035em;line-height:1;font-size:clamp(44px,8.2vw,104px)}
+.d1 b{font-weight:600}
+.d2{font-weight:300;letter-spacing:-.026em;line-height:1.04;font-size:var(--fs-statement)}
+.d2 b{font-weight:600}
+h2.t{font-weight:300;letter-spacing:-.02em;line-height:1.1;font-size:var(--fs-title);margin-bottom:22px}
+h2.t b{font-weight:600}
+h3.s{font-weight:600;letter-spacing:-.008em;font-size:clamp(17px,2.2vw,21px);margin:0 0 14px}
+.lede{font-weight:300;font-size:var(--fs-lede);line-height:1.5;color:var(--ink-2);max-width:42ch}
+.lede.w{max-width:60ch}
+p{font-weight:400;color:var(--ink-2);margin-bottom:14px;font-size:clamp(14.5px,1.5vw,16px)}
+p.small{font-size:var(--fs-sec);color:var(--soft);font-weight:400}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic}
+.accent{color:var(--accent)}
+
+/* frase-cena (statements) */
+.scene{font-weight:200;letter-spacing:-.025em;line-height:1.12;font-size:var(--fs-statement);color:var(--ink)}
+.scene b{font-weight:600}
+.scene .hh{display:inline-block;width:.58em;height:.58em;vertical-align:-.01em;margin-left:.05em}
+.scene .hh path{fill:var(--accent)}
+.cite{margin-top:32px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600}
+
+/* números grandes */
+.figs{display:grid;gap:clamp(24px,4vw,60px);grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.fig .v{font-weight:300;letter-spacing:-.03em;line-height:.9;font-size:clamp(46px,7vw,82px);font-variant-numeric:tabular-nums}
+.fig .v small{font-size:.36em;font-weight:500;color:var(--soft);letter-spacing:0;margin-left:.14em}
+.fig .l{margin-top:16px;font-size:var(--fs-sec);color:var(--soft);font-weight:500;line-height:1.45;max-width:24ch}
+.fig .l::before{content:"";display:block;width:28px;height:1px;background:var(--hair-2);margin-bottom:13px}
+.figbig .v{font-size:clamp(72px,14vw,168px)}
+
+/* títulos e números: Montserrat (sem serifada) */
+h2.t b{font-weight:700}
+
+/* espaço reservado para foto */
+.photo-ph{border:1px dashed var(--hair-2);border-radius:18px;background:var(--paper-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:clamp(240px,42vh,360px);text-align:center;padding:32px;max-width:820px;margin:6px auto 0}
+.photo-ph .ic{width:42px;height:42px;color:var(--faint)}
+.photo-ph .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.photo-ph .pt{font-size:13.5px;color:var(--soft);font-weight:500}
+.photo-ph .ps{font-size:10.5px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+
+/* plataformas com logo (vitrines da marca) */
+.plats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:780px;margin-top:6px}
+.plat{border:1px solid var(--hair);border-radius:16px;padding:24px 16px;text-align:center;transition:border-color .3s,box-shadow .3s,transform .3s}
+.plat:hover{border-color:var(--hair-2);box-shadow:0 12px 34px rgba(23,20,15,.05);transform:translateY(-3px)}
+.plat .lg{display:block;width:34px;height:34px;margin:0 auto 16px}
+.plat .lg svg{width:100%;height:100%;display:block}
+.plat .lg svg [data-f]{fill:var(--ink)}
+.plat .pnm{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.005em}
+.plat .pv{display:block;margin-top:10px;font-weight:200;font-size:30px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.plat .pu{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);font-weight:500;margin-top:3px}
+@media(max-width:620px){.plats{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== FLUXO DE TRABALHO (etapas conectadas) ===== */
+.wf{display:grid;gap:12px;margin-top:6px}
+.wf.h{grid-auto-flow:column;grid-auto-columns:1fr;align-items:stretch}
+.wstep{position:relative;border:1px solid var(--hair-2);border-radius:14px;padding:16px 18px;background:var(--paper);transition:border-color .3s,box-shadow .3s,transform .3s}
+.wstep:hover{border-color:var(--ink);box-shadow:0 12px 30px rgba(23,20,15,.05);transform:translateY(-2px)}
+.wstep .wn{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:11px}
+.wstep .wt{font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.25;margin-bottom:4px}
+.wstep .wd{font-size:12px;color:var(--soft);font-weight:400;line-height:1.45}
+/* conector vertical */
+.wf:not(.h) .wstep:not(:last-child)::after{content:"";position:absolute;left:29px;bottom:-12px;width:1px;height:12px;background:var(--hair-2);z-index:1}
+/* conector horizontal com seta */
+.wf.h .wstep:not(:last-child)::after{content:"";position:absolute;right:-12px;top:50%;width:12px;height:1px;background:var(--hair-2);z-index:1}
+.wf.h .wstep:not(:last-child)::before{content:"";position:absolute;right:-12px;top:50%;transform:translateY(-50%);border:3px solid transparent;border-left-color:var(--hair-2);z-index:2}
+/* trilha de fases (faixas coloridas por etapa do fluxo) */
+.wlane{display:flex;align-items:center;gap:10px;font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:600;margin:2px 0 10px}
+.wlane .ln{flex:1;height:1px;background:var(--hair)}
+.wf-cap{margin-top:18px;font-size:var(--fs-sec);color:var(--soft);font-weight:300;font-style:italic}
+@media(max-width:820px){
+  .wf.h{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;gap:10px}
+  .wf.h .wstep:not(:last-child)::after,.wf.h .wstep:not(:last-child)::before{display:none}
+  .wf.h .wstep{padding:13px 14px}
+  .wf.h .wstep .wt{font-size:13px}
+  .wf.h .wstep .wd{font-size:11.5px}
+}
+
+/* ===== notas musicais flutuantes (ambiência poética) ===== */
+.notes{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.note-fl{position:absolute;bottom:-60px;color:var(--accent);opacity:0;animation:floatnote linear infinite}
+.note-fl svg{width:100%;height:100%;fill:currentColor;display:block}
+@keyframes floatnote{
+  0%{transform:translateY(0) rotate(0deg);opacity:0}
+  10%{opacity:.10}
+  50%{transform:translateY(-46vh) translateX(18px) rotate(8deg);opacity:.09}
+  90%{opacity:.05}
+  100%{transform:translateY(-96vh) translateX(-10px) rotate(-6deg);opacity:0}
+}
+
+/* ===== time em avatares (estilo lista de contatos) ===== */
+.contacts{max-width:600px;margin:4px auto 0}
+.contact{display:flex;align-items:center;gap:16px;padding:13px 4px;border-bottom:1px solid var(--hair)}
+.contact:last-child{border-bottom:none}
+.avatar{width:clamp(44px,7vw,54px);height:clamp(44px,7vw,54px);border-radius:50%;background:var(--paper-2);border:1px solid var(--hair-2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:var(--soft);flex-shrink:0;letter-spacing:.01em;overflow:hidden;background-size:cover;background-position:center}
+.contact .ci{flex:1;min-width:0}
+.contact .cn{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.contact .cr{font-size:12.5px;color:var(--soft);margin-top:2px;line-height:1.35}
+
+/* ===== ícone fino para métricas ===== */
+/* ===== ícone fino em emblema circular (charme + destaque) ===== */
+.fig .fic{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--hair-2);color:var(--accent);margin-bottom:16px;background:var(--paper)}
+.fig .fic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;display:block}
+.fig.center .fic{margin-left:auto;margin-right:auto}
+
+/* ===== tricolor do RS, marca de capítulo nas transições ===== */
+.tricolor{display:inline-flex;flex-direction:column;gap:3px;margin-bottom:24px}
+.tricolor i{display:block;width:42px;height:3px;border-radius:2px}
+.tricolor i:nth-child(1){background:#9b1c2e}
+.tricolor i:nth-child(2){background:#1f6b46}
+.tricolor i:nth-child(3){background:#d19c2e}
+
+/* logo do YouTube (âncora visual, monocromático) */
+.yt-logo{display:inline-flex;color:var(--ink);align-items:center;gap:10px}
+.yt-logo svg{height:30px;width:auto;display:block}
+.yt-logo.big svg{height:40px}
+.yt-logo .yt-word{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.mc .yt-mini{display:block;height:22px;width:auto;color:var(--ink);margin-bottom:12px}
+.mc .yt-mini svg{height:100%;width:auto;display:block}
+
+/* ===== mockup de navegador (site próprio) ===== */
+.browser{max-width:780px;margin:6px auto 0;border:1px solid var(--hair-2);border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:0 24px 60px rgba(23,20,15,.08)}
+.browser .bar{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--hair);background:var(--paper-2)}
+.browser .dots{display:flex;gap:7px;flex-shrink:0}
+.browser .dots span{width:11px;height:11px;border-radius:50%;background:var(--hair-2)}
+.browser .url{flex:1;display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--hair-2);border-radius:100px;padding:8px 16px;font-size:13px;color:var(--ink-2);font-weight:500;letter-spacing:.01em;min-width:0}
+.browser .url .lock{width:12px;height:12px;flex-shrink:0;color:var(--soft)}
+.browser .url .lock svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6}
+.browser .url b{font-weight:600;color:var(--ink)}
+.browser .view{padding:clamp(22px,3.4vw,34px) clamp(24px,5vw,48px);text-align:center;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%)}
+.browser .view .heart{width:28px;height:26px;margin:0 auto 14px}
+.browser .view .site-k{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:12px}
+.browser .view .site-h{font-weight:200;letter-spacing:-.03em;line-height:1.04;font-size:clamp(26px,4vw,40px)}
+.browser .view .site-h b{font-weight:600}
+.browser .view .site-p{margin-top:12px;font-size:14px;color:var(--soft);font-weight:300;max-width:44ch;margin-left:auto;margin-right:auto}
+.browser .view .site-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
+.browser .view .site-nav span{font-size:11.5px;font-weight:500;padding:7px 15px;border-radius:100px;border:1px solid var(--hair-2);color:var(--ink-2);background:var(--paper)}
+/* CTA para o site */
+.site-cta{display:inline-flex;align-items:center;gap:10px;margin-top:20px;text-decoration:none;background:var(--ink);color:#fff;border-radius:100px;padding:13px 24px;font-size:13.5px;font-weight:600;letter-spacing:.01em;transition:transform .2s var(--ease),background .3s;cursor:pointer}
+.site-cta:hover{background:#000;transform:translateY(-2px)}
+.site-cta svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.browser .url{cursor:pointer;transition:border-color .25s}
+.browser .url:hover{border-color:var(--ink)}
+/* prévia do sistema próprio */
+.browser.system .view{text-align:left}
+.sysprev{display:grid;grid-template-columns:148px 1fr;gap:20px;align-items:start}
+.sysnav{display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--hair);padding-right:18px}
+.sysnav .sh{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:2px}
+.sysnav span{font-size:12.5px;color:var(--soft);font-weight:500}
+.sysnav span.on{color:var(--ink);font-weight:600}
+.systiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.systile{border:1px solid var(--hair);border-radius:12px;padding:15px 14px}
+.systile .stv{font-weight:200;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.systile .stl{font-size:10px;color:var(--soft);text-transform:uppercase;letter-spacing:.09em;margin-top:6px;font-weight:600;line-height:1.3}
+@media(max-width:620px){.sysprev{grid-template-columns:1fr;gap:16px}.sysnav{flex-direction:row;flex-wrap:wrap;gap:8px 14px;border-right:none;border-bottom:1px solid var(--hair);padding:0 0 14px}.sysnav .sh{width:100%;margin:0}.systiles{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== central de canais (perfis clicáveis) ===== */
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px;margin:6px auto 0}
+.channel{display:flex;flex-direction:column;align-items:center;text-align:center;gap:13px;text-decoration:none;border:1px solid var(--hair-2);border-radius:16px;padding:26px 18px;background:var(--paper);color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .2s;cursor:pointer}
+.channel:hover{border-color:var(--ink);box-shadow:0 14px 36px rgba(23,20,15,.06);transform:translateY(-3px)}
+.channel .clogo{width:38px;height:38px;color:var(--ink)}
+.channel .clogo svg{width:100%;height:100%;display:block}
+.channel .cname{font-size:13.5px;font-weight:600;letter-spacing:-.005em}
+.channel .cgo{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.channel .cgo svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.channel:hover .cgo{color:var(--accent)}
+.channel.site{grid-column:1 / -1;flex-direction:row;justify-content:center;gap:16px;background:var(--paper-2)}
+.channel.site .clogo{color:var(--accent)}
+.channel.site .cname{font-size:15px}
+.channel.site .cname b{color:var(--ink)}
+@media(max-width:620px){.channels{grid-template-columns:1fr 1fr}.channel.site{flex-direction:column}}
+
+/* listas */
+.rows{list-style:none;max-width:62ch}
+.rows li{display:flex;gap:24px;padding:19px 2px;border-top:1px solid var(--hair);font-size:var(--fs-body);color:var(--ink-2);line-height:1.58}
+.rows li:last-child{border-bottom:1px solid var(--hair)}
+.rows li .rk{flex-shrink:0;font-weight:600;font-size:11.5px;color:var(--faint);width:30px;padding-top:4px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.rows li b{color:var(--ink);font-weight:600}
+.rows li .num{color:var(--ink);font-weight:600}
+
+/* cartões */
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cards.c2{grid-template-columns:repeat(2,1fr)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.mc{border:1px solid var(--hair);border-radius:16px;padding:22px;transition:border-color .35s,box-shadow .35s,transform .35s;background:var(--paper)}
+.mc:hover{border-color:var(--hair-2);box-shadow:0 14px 40px rgba(23,20,15,.055);transform:translateY(-3px)}
+.mc .role{font-size:var(--fs-label);letter-spacing:.13em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:8px}
+.mc .nm{font-size:16.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:7px}
+.mc p{font-size:var(--fs-sec);color:var(--soft);margin:0;line-height:1.5}
+.mc .big{font-weight:400;font-size:34px;letter-spacing:-.02em;line-height:1;margin-bottom:10px;font-variant-numeric:tabular-nums}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:9px;max-width:64ch}
+.chip{font-size:var(--fs-chip);font-weight:500;padding:8px 15px;border-radius:100px;border:1px solid var(--hair-2);color:var(--ink-2);background:var(--paper-2);white-space:nowrap}
+
+/* tabela */
+.tb{width:100%;border-collapse:collapse;font-size:14px}
+.tb th{text-align:left;font-size:var(--fs-label);letter-spacing:.15em;text-transform:uppercase;color:var(--soft);font-weight:600;padding:0 14px 12px;border-bottom:1px solid var(--hair-2)}
+.tb td{padding:13px 14px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--ink-2);line-height:1.45}
+.tb td:first-child{font-weight:600;color:var(--ink)}
+.tb tr:last-child td{border-bottom:none}
+.tb .yr{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb.tight td,.tb.tight th{padding:9px 12px}
+
+/* nota / destaque / pendência */
+.quoted{border-left:1px solid var(--hair-2);padding-left:22px}
+.note{font-size:var(--fs-sec);line-height:1.6;color:var(--soft);font-weight:300;font-style:italic}
+.hl{font-weight:300;font-size:clamp(17px,2vw,20px);line-height:1.5;color:var(--ink);border-left:2px solid var(--accent);padding-left:22px;max-width:52ch}
+.pending{border:1px dashed var(--hair-2);border-radius:15px;padding:22px 24px;background:var(--paper-2)}
+.pending .pk{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:14px}
+.pending .pk .d{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.6}
+.pending ul{list-style:none}
+.pending li{position:relative;padding:8px 0 8px 20px;font-size:var(--fs-sec);color:var(--soft);border-bottom:1px solid var(--hair)}
+.pending li:last-child{border-bottom:none}
+.pending li::before{content:"";position:absolute;left:2px;top:15px;width:6px;height:1px;background:var(--faint)}
+
+/* layout */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,88px);align-items:center}
+.split.top{align-items:start}
+.stack>*+*{margin-top:18px}
+.center{text-align:center}
+.center .lede,.center .hl{margin-left:auto;margin-right:auto}
+.center .hl{border-left:none;border-top:2px solid var(--accent);padding:20px 0 0;display:inline-block}
+
+/* capa */
+.cover .slide-in{max-width:1160px;padding-top:clamp(56px,8vh,86px);padding-bottom:clamp(78px,10vh,104px)}
+
+/* botões de planilha (Data Room) */
+.btn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:820px}
+.pbtn{display:flex;align-items:center;gap:14px;text-decoration:none;border:1px solid var(--hair-2);border-radius:12px;padding:14px 16px;background:var(--paper);color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .2s;cursor:pointer}
+.pbtn:hover{border-color:var(--ink);box-shadow:0 10px 26px rgba(23,20,15,.06);transform:translateY(-2px)}
+.pbtn .pn{font-size:11px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;flex-shrink:0;width:20px}
+.pbtn .pt{font-size:13.5px;font-weight:500;line-height:1.3;flex:1}
+.pbtn .pa{flex-shrink:0;color:var(--faint);transition:color .2s,transform .2s}
+.pbtn:hover .pa{color:var(--ink);transform:translate(2px,-2px)}
+.pbtn .pa svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
+
+/* slide de respiro */
+.breath .slide-in{text-align:center}
+.breath .bp{font-weight:200;letter-spacing:-.02em;line-height:1.16;font-size:var(--fs-statement);color:var(--ink)}
+.breath .bp b{font-weight:500}
+.breath .bd{width:34px;height:1px;background:var(--hair-2);margin:26px auto 0;position:relative}
+.breath .bd::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7;transform:translate(-50%,-50%)}
+.cover .tag{display:flex;align-items:center;gap:16px;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:38px}
+.cover h1{font-weight:200;letter-spacing:-.045em;line-height:.94;font-size:var(--fs-hero)}
+.cover h1 b{font-weight:600}
+.cover h1 .dot{color:var(--accent)}
+.cover .tagline{margin-top:30px;font-weight:300;font-size:var(--fs-lede);line-height:1.5;color:var(--ink-2);max-width:50ch}
+
+/* abertura de ato */
+.brk .slide-in{max-width:1160px}
+.brk .mo{display:flex;align-items:center;gap:18px;font-size:clamp(11px,1.4vw,14px);letter-spacing:.32em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:26px}
+.brk .ano{font-variant-numeric:tabular-nums;color:var(--accent)}
+.brk h2{font-weight:200;letter-spacing:-.04em;line-height:.98;font-size:var(--fs-hero)}
+.brk h2 b{font-weight:600}
+.brk h2 .q{color:var(--faint)}
+.brk .msub{margin-top:30px;font-weight:300;font-size:var(--fs-lede);line-height:1.5;color:var(--ink-2);max-width:56ch}
+
+/* ecossistema (fluxo claro) */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:6px}
+.fnode{width:100%;max-width:560px;text-align:center;border:1px solid var(--hair-2);border-radius:14px;padding:12px 22px;background:var(--paper)}
+.fnode.core{background:var(--paper-2);border-color:var(--ink);padding:15px}
+.fnode .fk{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:6px}
+.fnode.core .fk{color:var(--accent)}
+.fnode .ft{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.fnode.core .ft{font-size:20px}
+.fnode .fd{font-size:12px;color:var(--soft);font-weight:300;margin-top:5px}
+.fnode .cc{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:9px}
+.fnode .cc span{font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--paper-2);border:1px solid var(--hair);color:var(--ink-2)}
+.farr{width:1px;height:15px;background:var(--hair-2);position:relative;margin:3px 0}
+.farr::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hair-2)}
+.farr .fl{position:absolute;left:14px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.floop{display:flex;align-items:center;gap:11px;margin-top:9px;padding:9px 18px;border:1px solid var(--hair-2);border-radius:100px;font-size:12px;font-weight:500;color:var(--soft)}
+.floop svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.7}
+
+/* encerramento (ainda branco) */
+.end .slide-in{text-align:center;max-width:900px}
+.end .heart{width:40px;height:38px;margin:0 auto 30px}
+.end h2{font-weight:200;letter-spacing:-.03em;font-size:var(--fs-statement);line-height:1.06}
+.end h2 b{font-weight:600}
+.end .es{margin-top:24px;color:var(--soft);font-weight:300;font-size:clamp(14px,1.8vw,17px);letter-spacing:.02em}
+
+/* ===================== TRAÇO-ASSINATURA (self-drawing line) ===================== */
+.sig{position:fixed;left:0;right:0;bottom:64px;height:1px;z-index:30;pointer-events:none;overflow:visible}
+.sig svg{position:absolute;left:0;bottom:0;width:100%;height:2px;overflow:visible}
+.sig path{fill:none;stroke:url(#sigGrad);stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s var(--ease)}
+#app.drawn .sig path{stroke-dashoffset:0}
+.sig .dot{position:absolute;bottom:-2px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0;transition:opacity .5s .8s,left .9s var(--ease)}
+#app.drawn .sig .dot{opacity:1}
+
+/* moldura de cantos, como um quadro (premium, discreta) */
+.frame{position:fixed;inset:0;z-index:32;pointer-events:none}
+.frame span{position:absolute;width:clamp(38px,5vw,68px);height:clamp(38px,5vw,68px);border-color:rgba(28,25,19,.16);border-style:solid;border-width:0}
+.frame .tl{top:clamp(26px,4.5vh,48px);left:clamp(24px,4vw,48px);border-top-width:1px;border-left-width:1px}
+.frame .br{bottom:clamp(74px,10vh,96px);right:clamp(24px,4vw,48px);border-bottom-width:1px;border-right-width:1px}
+/* acento de bandeira sutil (bordô, sem tricolor cheia) */
+.flag{position:fixed;top:clamp(26px,4.5vh,48px);right:clamp(24px,4vw,48px);z-index:34;display:flex;flex-direction:column;gap:3px;pointer-events:none}
+.flag span{display:block;width:16px;height:2px;border-radius:2px;background:var(--accent)}
+.flag span:nth-child(2){opacity:.55}
+.flag span:nth-child(3){opacity:.28}
+/* ficha técnica (rótulo à esquerda, valor à direita) */
+.frows{max-width:640px;margin:6px auto 0;text-align:left}
+.frow{display:flex;justify-content:space-between;align-items:baseline;gap:22px;padding:20px 2px;border-bottom:1px solid var(--hair)}
+.frow:last-child{border-bottom:none}
+.frow .fl{font-size:16px;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+.frow .fv{font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.11em;text-align:right;white-space:nowrap}
+
+/* grão sutil, pele de cinema sobre o branco */
+.grain{position:fixed;inset:0;z-index:33;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:170px 170px}
+
+/* ===================== CHROME ===================== */
+/* ===================== LETTERBOX (cinema) ===================== */
+#lb .lb-t,#lb .lb-b{position:fixed;left:0;right:0;height:clamp(40px,6.5vh,80px);background:var(--ink);z-index:45;pointer-events:none;will-change:transform;transition:transform .55s var(--ease-2)}
+#lb .lb-t{top:0;transform:translateY(-101%)}
+#lb .lb-b{bottom:0;transform:translateY(101%)}
+body.cinema #lb .lb-t{transform:translateY(0)}
+body.cinema #lb .lb-b{transform:translateY(0)}
+body.cinema .frame{opacity:0;transition:opacity .5s var(--ease-2)}
+body.cinema .brand{color:#fff}
+body.cinema .brand .muted{color:rgba(255,255,255,.6)}
+body.cinema .count{color:rgba(255,255,255,.55)}
+body.cinema .count b{color:#fff}
+body.cinema .act{color:rgba(255,255,255,.5)}
+body.cinema .act b{color:rgba(255,255,255,.82)}
+
+.chrome{position:fixed;left:0;right:0;bottom:0;z-index:60;pointer-events:none}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:16px clamp(24px,4vw,44px);gap:16px}
+.bar>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:600;letter-spacing:.01em;color:var(--ink)}
+.brand .heart{width:14px;height:14px}
+.brand .muted{color:var(--faint);font-weight:400}
+.act{position:absolute;left:50%;transform:translateX(-50%);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.act b{color:var(--soft);font-weight:600}
+.nav{display:flex;align-items:center;gap:9px}
+.count{font-size:12px;font-variant-numeric:tabular-nums;color:var(--faint);font-weight:500;letter-spacing:.06em;min-width:58px;text-align:right}
+.count b{color:var(--ink);font-weight:600}
+.nbtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--hair-2);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .15s;color:var(--ink)}
+.nbtn:hover{border-color:var(--ink)}
+.nbtn:active{transform:scale(.94)}
+.nbtn:disabled{opacity:.3;cursor:default}
+.nbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.zones{position:fixed;inset:0 0 62px 0;z-index:40;display:flex;pointer-events:none}
+.zones .z{pointer-events:auto;cursor:pointer}
+.zones .z.prev{flex:0 0 24%;cursor:w-resize}
+.zones .z.next{flex:1;cursor:e-resize}
+
+.hint{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:70;font-size:12px;color:var(--soft);font-weight:500;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--hair);border-radius:100px;padding:9px 16px;box-shadow:0 10px 30px rgba(23,20,15,.06);transition:opacity .6s,transform .6s;pointer-events:none}
+.hint.gone{opacity:0;transform:translateX(-50%) translateY(8px)}
+.hint kbd{font-family:inherit;font-size:11px;font-weight:600;border:1px solid var(--hair-2);border-radius:5px;padding:1px 6px;color:var(--ink);background:var(--paper-2)}
+
+/* ===================== MENU ===================== */
+#menu{position:fixed;inset:0;z-index:150;background:rgba(255,255,255,.98);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .45s var(--ease-2),visibility .45s;overflow-y:auto}
+#menu.open{opacity:1;visibility:visible}
+.menu-in{max-width:880px;margin:0 auto;padding:clamp(48px,9vh,92px) var(--pad)}
+.menu-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:42px}
+.menu-top .mt{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600}
+.menu-top .mt .heart{width:16px;height:16px}
+.menu-close{width:40px;height:40px;border-radius:12px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.menu-close:hover{border-color:var(--ink)}
+.menu-close svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.menu-grp{margin-bottom:32px}
+.menu-lbl{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:10px}
+.menu-lbl .dash{width:18px;height:1px;background:var(--hair-2)}
+.menu-item{display:flex;align-items:baseline;gap:15px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:9px 12px;border-radius:10px;font-family:inherit;font-size:15px;color:var(--soft);transition:background .2s,color .2s}
+.menu-item:hover{background:var(--paper-2);color:var(--ink)}
+.menu-item.here{color:var(--ink);font-weight:500}
+.menu-item .mi-n{font-size:11px;font-weight:600;color:var(--faint);font-variant-numeric:tabular-nums;min-width:26px}
+.menu-item.here .mi-n{color:var(--accent)}
+
+@media(max-width:820px){
+  body{font-size:15px}
+  .split,.split.top{grid-template-columns:1fr;gap:26px}
+  .cards.c2,.cards.c3{grid-template-columns:1fr}
+  .act{display:none}
+  .slide-in{padding:70px clamp(30px,7vw,44px) 88px}
+  .hint{display:none}
+  .rows li{gap:18px;padding:17px 0}
+  .rows li .rk{width:26px}
+  .scene{font-size:clamp(27px,7vw,40px)}
+  .d2{font-size:clamp(28px,7.4vw,40px)}
+  .lede{font-size:clamp(16px,4.4vw,19px)}
+  .mc{padding:18px}
+  .btn-grid{grid-template-columns:1fr}
+  .breath .bp{font-size:clamp(27px,7.4vw,40px)}
+  .figs{grid-template-columns:repeat(2,1fr);gap:clamp(18px,4vw,28px)}
+  .fig .fic{width:38px;height:38px;margin-bottom:12px}
+  .fig .fic svg{width:17px;height:17px}
+}
+@media(max-width:820px) and (orientation:landscape){.slide-in{padding-top:48px}}
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms!important;animation-duration:.001ms!important}
+  .slide .mv{opacity:1;transform:none;filter:none}
+  .sig path{stroke-dashoffset:0}
+}
+
+/* ===================== ASSISTENTE (lupa inteligente) ===================== */
+#ask{position:fixed;inset:0;z-index:160;background:#ffffff;opacity:0;visibility:hidden;transition:opacity .4s var(--ease-2),visibility .4s;overflow-y:auto}
+#ask.open{opacity:1;visibility:visible}
+.ask-in{max-width:760px;margin:0 auto;padding:clamp(40px,8vh,84px) var(--pad) 90px}
+.ask-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.ask-top .at{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600}
+.ask-top .at .heart{width:16px;height:16px}
+.ask-close{width:40px;height:40px;border-radius:12px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.ask-close:hover{border-color:var(--ink)}
+.ask-close svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.ask-field{display:flex;align-items:center;gap:12px;border:1px solid var(--hair-2);border-radius:16px;padding:15px 18px;background:var(--paper-2);transition:border-color .25s,box-shadow .25s,background .25s}
+.ask-field:focus-within{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(23,20,15,.04)}
+.ask-field .mag{width:19px;height:19px;flex-shrink:0;color:var(--soft)}
+.ask-field .mag svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.ask-field input{flex:1;min-width:0;border:none;background:none;outline:none;font-family:inherit;font-size:16px;color:var(--ink);letter-spacing:.005em}
+.ask-field input::placeholder{color:var(--faint);font-weight:300}
+.ask-hint{margin-top:13px;font-size:12.5px;color:var(--faint);font-weight:400}
+.ask-sugs{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.ask-sug{font-size:12.5px;font-weight:500;padding:8px 15px;border-radius:100px;border:1px solid var(--hair-2);color:var(--ink-2);background:var(--paper);cursor:pointer;transition:border-color .2s,color .2s}
+.ask-sug:hover{border-color:var(--ink);color:var(--ink)}
+.ask-results{margin-top:28px}
+.ask-answer{border:1px solid var(--hair-2);border-radius:16px;padding:24px 26px;background:var(--paper);box-shadow:0 14px 40px rgba(23,20,15,.05);margin-bottom:22px}
+.ask-answer .aq{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:13px;display:flex;align-items:center;gap:9px}
+.ask-answer .aq .heart{width:12px;height:12px}
+.ask-answer .aq .heart path{fill:var(--accent)}
+.ask-answer .atext{font-size:16px;line-height:1.62;color:var(--ink-2);font-weight:400}
+.ask-answer .atext b{color:var(--ink);font-weight:600}
+.ask-answer .ajump{display:inline-flex;align-items:center;gap:8px;margin-top:18px;background:var(--ink);color:#fff;border:none;border-radius:100px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .2s var(--ease),background .3s}
+.ask-answer .ajump:hover{background:#000;transform:translateY(-2px)}
+.ask-answer .ajump svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ask-rlbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:0 0 12px}
+.ask-slides{display:flex;flex-direction:column;gap:8px}
+.ask-slide{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--hair);border-radius:12px;padding:14px 16px;background:var(--paper);cursor:pointer;font-family:inherit;transition:border-color .2s,transform .15s}
+.ask-slide:hover{border-color:var(--ink);transform:translateX(2px)}
+.ask-slide .asn{font-size:11px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:40px;letter-spacing:.02em}
+.ask-slide .ast{flex:1;font-size:14px;font-weight:500;color:var(--ink);line-height:1.3}
+.ask-slide .asg{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-left:auto;white-space:nowrap}
+.ask-slide .asa{color:var(--faint);flex-shrink:0}
+.ask-slide .asa svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
+.ask-empty{font-size:14.5px;color:var(--soft);font-weight:300;padding:18px 0;line-height:1.6}
+.ask-ai{margin-top:24px;border-top:1px solid var(--hair);padding-top:22px}
+.ask-ai .aihint{font-size:12.5px;color:var(--soft);font-weight:400;margin-bottom:12px}
+.ask-ai .aibtn{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--hair-2);border-radius:100px;padding:11px 20px;font-size:13px;font-weight:600;color:var(--ink);background:var(--paper);cursor:pointer;font-family:inherit;transition:border-color .2s}
+.ask-ai .aibtn:hover{border-color:var(--ink)}
+.ask-ai .aibtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ask-ai .ainote{font-size:12px;color:var(--faint);margin-top:12px;font-weight:400;line-height:1.55}
+.ask-ai.busy .aibtn{opacity:.55;pointer-events:none}
+.ask-airesp{margin-top:16px;border:1px solid var(--hair-2);border-radius:14px;padding:20px 22px;background:var(--paper-2);font-size:15px;line-height:1.6;color:var(--ink-2)}
+.ask-airesp b{color:var(--ink)}
+/* foto-bolha estilo WhatsApp (artistas e time) */
+.pfoto{width:clamp(60px,10vw,78px);height:clamp(60px,10vw,78px);border-radius:50%;background:var(--paper-2);border:1px solid var(--hair-2);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,2.4vw,22px);font-weight:600;color:var(--soft);flex-shrink:0;background-size:cover;background-position:center;overflow:hidden;letter-spacing:.01em}
+.artist-head{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.artist-head .ah-n{font-size:clamp(21px,3.2vw,30px);font-weight:600;letter-spacing:-.018em;line-height:1.08}
+.artist-head .ah-r{font-size:12.5px;color:var(--soft);font-weight:500;margin-top:4px;letter-spacing:.01em}
+/* microfone e voz no assistente */
+.ask-mic{width:38px;height:38px;flex-shrink:0;border-radius:11px;border:1px solid var(--hair-2);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:border-color .2s,color .2s}
+.ask-mic:hover{border-color:var(--ink)}
+.ask-mic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ask-mic.rec{border-color:var(--accent);color:var(--accent);animation:micpulse 1.3s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(143,34,51,.18)}50%{box-shadow:0 0 0 7px rgba(143,34,51,0)}}
+.ask-speak{margin-left:auto;width:30px;height:30px;border-radius:9px;border:1px solid var(--hair-2);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--soft);transition:border-color .2s,color .2s;flex-shrink:0}
+.ask-speak:hover{border-color:var(--ink);color:var(--ink)}
+.ask-speak svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ask-answer.ask-act{border-left:3px solid var(--accent)}
+.ask-answer a.ajump{text-decoration:none}
+/* hub de demonstração ao vivo */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:8px}
+.demo-card{display:flex;flex-direction:column;border:1px solid var(--hair-2);border-radius:16px;padding:22px;background:var(--paper);text-decoration:none;color:var(--ink);position:relative;min-height:158px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.demo-card:hover{border-color:var(--ink);transform:translateY(-3px);box-shadow:0 16px 40px rgba(23,20,15,.06)}
+.demo-card .di{width:42px;height:42px;border-radius:12px;border:1px solid var(--hair-2);display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:16px}
+.demo-card .di svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.demo-card .dt{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:5px}
+.demo-card .ds{font-size:12.5px;color:var(--soft);font-weight:400;line-height:1.45}
+.demo-card .dgo{position:absolute;top:22px;right:22px;color:var(--faint);transition:color .2s,transform .2s}
+.demo-card:hover .dgo{color:var(--ink);transform:translate(2px,-2px)}
+.demo-card .dgo svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
+.demo-card .dtag{position:absolute;top:24px;right:22px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;display:none}
+.demo-card.pending{opacity:.6;cursor:default}
+.demo-card.pending:hover{transform:none;border-color:var(--hair-2);box-shadow:none}
+.demo-card.pending .dgo{display:none}
+.demo-card.pending .dtag{display:block}
+@media(max-width:820px){.ask-in{padding-top:64px}.ask-answer{padding:20px}}
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-in">
+    <svg class="heart" viewBox="0 0 32 30" aria-hidden="true"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg>
+    <div class="gate-k">Dossiê Estratégico Confidencial</div>
+    <h1><b>Operação Canções Gaúchas</b> 2026</h1>
+    <p>Apresentação institucional para parceiros estratégicos</p>
+    <div class="gate-rule"></div>
+    <input type="password" id="pw" placeholder="Senha de acesso" autocomplete="off" aria-label="Senha de acesso">
+    <button id="go">Entrar na apresentação</button>
+    <div class="gate-msg">Senha incorreta. Tente novamente.</div>
+    <div class="gate-foot">USA Discos · Editora Terra Sul</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="deck" id="deck">
+<!-- ===== ABERTURA ===== -->
+<section class="slide" data-act="abertura" data-menu="O brilho no olho" data-num="">
+  <div class="slide-in center">
+    <p class="scene mv">Toda operação tem números. A nossa começa por um <b class="accent">brilho no olho</b>, e é dele que nasce todo o resto.<span class="hh"><svg viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg></span></p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="Antes de qualquer número" data-num="">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:20ch">Antes de qualquer número, <b>uma equipe</b> que trata cada obra como patrimônio pessoal.</p>
+    <p class="lede w mv" style="margin-top:26px">A disciplina, a governança e os resultados que você verá são consequência direta desse brilho no olho, o ativo intangível que sustenta todos os outros.</p>
+  </div>
+</section>
+
+<section class="slide cover" data-act="abertura" data-menu="Capa" data-num="">
+  <div class="slide-in">
+    <div class="tag mv">Dossiê Estratégico Integral · 2026</div>
+    <h1 class="mv soft"><b>Operação</b><br>Canções Gaúchas<span class="dot">.</span></h1>
+    <p class="tagline mv">A maior plataforma digital de música gaúcha do Brasil. Quarenta anos de catálogo, transformados em dois anos numa operação digital profissionalizada, higienizada e blindada.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="Dois ativos, uma cadeia" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> A operação em uma frase</div>
+    <h2 class="t mv">Uma estrutura que controla<br>a <b>cadeia inteira de direitos</b></h2>
+    <div class="frows mv" style="margin-top:20px">
+      <div class="frow"><span class="fl">USA Discos</span><span class="fv">Masters e fonogramas</span></div>
+      <div class="frow"><span class="fl">Editora Terra Sul</span><span class="fv">Direitos editoriais</span></div>
+      <div class="frow"><span class="fl">YouTube e streaming</span><span class="fv">Distribuição e receita</span></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Master mais publishing. A operação arrecada dos dois lados, sem depender de terceiros.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="A estrutura da reunião" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> A estrutura da reunião</div>
+    <h2 class="t mv">Dois momentos, <b>uma tese só</b></h2>
+    <ul class="rows mv" style="margin-top:10px">
+      <li><span class="rk">01</span><span><b>O Valor do Ativo.</b> História, catálogo, força dos artistas e performance de audiência. O encantamento e o resultado.</span></li>
+      <li><span class="rk">02</span><span><b>A Máquina por Trás.</b> Governança, qualidade de metadados, proteção jurídica e infraestrutura própria. A segurança.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="Começamos ouvindo" data-num="">
+  <div class="slide-in center">
+    <p class="scene mv">Começamos <b>ouvindo</b>.</p>
+    <p class="lede mv" style="margin-top:26px">Antes de mostrar o que construímos, queremos entender o que vocês mais valorizam. Escala, limpeza de direitos, infraestrutura. É isso que vai guiar a conversa.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="Um convite à conversa" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> Um convite à conversa</div>
+    <h2 class="t mv">Anotem o que surgir,<br><b>conversamos ao final</b></h2>
+    <p class="lede mv" style="margin-top:22px">Ao longo da apresentação, sintam-se à vontade para anotar as perguntas e observações que surgirem. No fechamento, reunimos tudo e passamos por cada ponto com calma, juntos. Assim nada se perde e a conversa fica ainda mais rica.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="Um organismo vivo" data-num="">
+  <div class="slide-in center">
+    <p class="scene mv">Não é um estoque de músicas.<br><b>É um organismo vivo.</b></p>
+    <p class="lede mv" style="margin-top:26px">O catálogo é o núcleo de um ecossistema que se retroalimenta: o acervo alimenta as empresas, a equipe transforma o acervo em audiência, a audiência vira receita, e a blindagem protege tudo, gerando mais investimento e valorização.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="abertura" data-menu="O ciclo do ecossistema" data-num="">
+  <div class="slide-in">
+    <div class="flow">
+      <div class="fnode core mv"><div class="fk">O núcleo insubstituível</div><div class="ft">Catálogo de 40 anos</div><div class="fd">Acervo histórico e cultural · USA Discos + Editora Terra Sul</div></div>
+      <div class="farr mv"><span class="fl">alimenta</span></div>
+      <div class="fnode mv"><div class="fk">A máquina</div><div class="ft">Equipe orientada por dados</div><div class="cc"><span>Análise obsessiva</span><span>Sistema próprio</span><span>FUGA</span></div></div>
+      <div class="farr mv"><span class="fl">distribui</span></div>
+      <div class="fnode mv"><div class="fk">Distribuição e curadoria</div><div class="ft">Presença multicanal</div><div class="cc"><span>YouTube</span><span>Streaming</span><span>Redes sociais</span></div></div>
+      <div class="farr mv"><span class="fl">gera</span></div>
+      <div class="fnode mv"><div class="fk">Resultado e blindagem</div><div class="ft">Audiência → receita → controle → proteção</div></div>
+      <div class="floop mv"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6"/><path d="M17 3v3.8h-3.8M7 21v-3.8h3.8"/></svg> Retroalimenta o ciclo com mais investimento e valorização</div>
+    </div>
+  </div>
+</section>
+<!-- ===== O TIME (logo após a abertura) ===== -->
+<section class="slide" data-act="time" data-menu="Antes da máquina, as pessoas" data-num="">
+  <div class="slide-in center">
+    <p class="scene mv">Antes da máquina,<br><b>as pessoas.</b></p>
+    <p class="lede mv" style="margin-top:26px">Uma estrutura enxuta, multifuncional e altamente documentada, onde nenhuma entrega é individual. É gente apaixonada que faz o brilho no olho virar operação.</p>
+  </div>
+</section>
+
+
+
+
+
+
+
+<section class="slide" data-act="time" data-menu="A equipe · 1" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> O time · quem faz acontecer</div>
+    <div class="contacts mv">
+      <div class="contact"><span class="avatar" data-foto="Alex Hohenberger">AH</span><div class="ci"><div class="cn">Alex Hohenberger</div><div class="cr">CEO, Sócio-Diretor e Produtor Fonográfico</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Cris Hohenberger">CH</span><div class="ci"><div class="cn">Cris Hohenberger</div><div class="cr">Diretora de Operações</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Giovana Tolotti">GT</span><div class="ci"><div class="cn">Giovana Tolotti</div><div class="cr">Coordenadora de Operações e YouTube</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Luana Oslo">LO</span><div class="ci"><div class="cn">Luana Oslo</div><div class="cr">Coordenadora de Conteúdo e Redes Sociais</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Pedro Dittgen">PD</span><div class="ci"><div class="cn">Pedro Dittgen</div><div class="cr">Distribuição Digital e Catálogo</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="time" data-menu="A equipe · 2" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> O time · quem faz acontecer</div>
+    <div class="contacts mv">
+      <div class="contact"><span class="avatar" data-foto="Raul Dittgen">RD</span><div class="ci"><div class="cn">Raul Dittgen</div><div class="cr">Assistente de Operações e YouTube</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Letícia Schwalbe">LS</span><div class="ci"><div class="cn">Letícia Schwalbe</div><div class="cr">Assessora Estratégica</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Cynthia Neves">CN</span><div class="ci"><div class="cn">Cynthia Neves</div><div class="cr">Redatora e Analista de Conteúdo</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Keles Alexandre">KA</span><div class="ci"><div class="cn">Keles Alexandre</div><div class="cr">Designer Gráfico</div></div></div>
+      <div class="contact"><span class="avatar" data-foto="Loyslene Jacques e Bernardo Haas">L&amp;B</span><div class="ci"><div class="cn">Loyslene Jacques e Bernardo Haas</div><div class="cr">Jurídico</div></div></div>
+    </div>
+    <p class="note mv" style="margin-top:20px;text-align:center">Toda a equipe é formalizada via contrato de prestação de serviços, garantindo uma relação jurídica limpa e organizada.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="time" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Gente que se importa<br><b>faz a diferença.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="time" data-menu="Os pilares da cultura" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> Os pilares da nossa cultura</div>
+    <div class="cards c3 mv">
+      <div class="mc"><div class="nm">Respeito ao indivíduo</div><p>Cada pessoa e cada artista tratado com dignidade, cuidado e escuta.</p></div>
+      <div class="mc"><div class="nm">Busca pela excelência</div><p>Padrão profissional em cada entrega, do metadado à thumbnail.</p></div>
+      <div class="mc"><div class="nm">Atendimento aos artistas</div><p>O artista no centro, com dedicação individual a cada catálogo.</p></div>
+    </div>
+  </div>
+</section><!-- ===== MOMENTO 1 ===== -->
+<section class="slide brk" data-act="m1" data-menu="Momento 1 · O Valor do Ativo" data-num="01">
+  <div class="slide-in">
+    <span class="tricolor mv"><i></i><i></i><i></i></span>
+    <div class="mo mv"><span class="ano">01</span> Momento 1</div>
+    <h2 class="mv">O Valor<br>do Ativo</h2>
+    <p class="msub mv">História, tamanho do catálogo, força dos artistas e performance de audiência. O encantamento e o resultado.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="A operação em números" data-num="1.0">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.0</span><span class="dash"></span> O retrato · a operação em números</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">40<small>anos</small></div><div class="l">De catálogo histórico e cultural</div></div>
+      <div class="fig"><div class="v">11.893</div><div class="l">Fonogramas com ISRC catalogados</div></div>
+      <div class="fig"><div class="v">350<small>+</small></div><div class="l">Artistas sob gestão</div></div>
+      <div class="fig"><div class="v">524<small>mil</small></div><div class="l">Inscritos no YouTube</div></div>
+      <div class="fig"><div class="v">42,7<small>mi</small></div><div class="l">Views no semestre, 100% orgânicos</div></div>
+      <div class="fig"><div class="v">29,3<small>mil</small></div><div class="l">US$ de receita estimada no YouTube, no semestre</div></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Um retrato antes do detalhe. Tudo o que vem a seguir aprofunda estes números.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Dois anos" data-num="1.0">
+  <div class="slide-in center">
+    <p class="scene mv">Em dois anos, 40 anos de acervo<br><b>viraram operação digital.</b></p>
+    <p class="lede mv" style="margin-top:26px">Um track record recente, verificável e auditado. A prova de velocidade de execução.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Linha do tempo" data-num="1.0">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.0</span><span class="dash"></span> A linha do tempo da transformação</div>
+    <ul class="rows mv" style="max-width:none">
+      <li><span class="rk" style="color:var(--accent)">85–23</span><span>Quarenta anos de gravações, produção e distribuição via USA Discos e Editora Terra Sul.</span></li>
+      <li><span class="rk" style="color:var(--accent)">24</span><span><b>Reorganização completa.</b> Estruturação da equipe, governança, higienização de metadados na FUGA e profissionalização digital.</span></li>
+      <li><span class="rk" style="color:var(--accent)">25</span><span><b>Consolidação.</b> Facebook a <b>94 mil</b>, Instagram dobra para <b>207 mil</b>, TikTok triplica para <b>98 mil</b>. Revitalização integral dos perfis.</span></li>
+      <li><span class="rk" style="color:var(--accent)">26</span><span><b>Maturidade.</b> <b>42,7 mi</b> de views no semestre, OKRs com gamificação, sistema próprio, rebranding e governança consolidada.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Não precisa de conserto" data-num="1.0">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:16ch">A operação não precisa de <b>"conserto".</b></p>
+    <p class="lede w mv" style="margin-top:26px">O trabalho pesado de organização, que normalmente consome anos em catálogos históricos, já foi feito pela equipe atual entre 2024 e 2026, e está documentado.</p>
+    <p class="note mv" style="margin-top:26px;max-width:60ch">Ressalva honesta: é uma gravadora de 40 anos, com camadas históricas naturais. Ainda assim, temos quase 100% de tudo organizado e documentado, e o método para investigar qualquer dado que falte. A operação é controlada e rastreável.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="A maior plataforma" data-num="1.1">
+  <div class="slide-in center">
+    <p class="scene mv">A maior plataforma digital<br>de <b>música gaúcha do Brasil.</b></p>
+    <p class="lede mv" style="margin-top:26px">Alex Hohenberger atua há mais de <b>40 anos</b> no mercado fonográfico do Rio Grande do Sul. Autoridade cultural construída sobre catálogo próprio e uma comunidade real, movida por orgulho, pertencimento e memória afetiva.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="O tamanho do acervo" data-num="1.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.1</span><span class="dash"></span> O catálogo</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">40<small>anos</small></div><div class="l">De acervo histórico e cultural</div></div>
+      <div class="fig"><div class="v">11.893</div><div class="l">Fonogramas com ISRC catalogados</div></div>
+      <div class="fig"><div class="v">1.608</div><div class="l">Álbuns com UPC no catálogo</div></div>
+      <div class="fig"><div class="v">350<small>+</small></div><div class="l">Artistas sob gestão</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Um acervo insubstituível" data-num="1.1">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:18ch">Parte relevante dos artistas <b>já é falecida.</b></p>
+    <p class="lede w mv" style="margin-top:26px">É isso que torna o acervo insubstituível e confere a ele um valor histórico e cultural que só cresce com o tempo. Nativismo, vaneira, música tradicionalista e regional do Rio Grande do Sul.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m1" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Orgulho, pertencimento,<br><b>memória afetiva.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="As duas empresas" data-num="1.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.1</span><span class="dash"></span> Os dois ativos complementares</div>
+    <table class="tb mv">
+      <thead><tr><th>Ativo</th><th>O que detém</th><th>Tipo de receita</th></tr></thead>
+      <tbody>
+        <tr><td>USA Discos</td><td>Fonogramas e masters, ISRCs, gravações</td><td>Direitos conexos: streaming, YouTube, licenciamento de master</td></tr>
+        <tr><td>Editora Terra Sul</td><td>Obras: composições, letras, melodias, contratos</td><td>Direitos autorais: execução pública (UBC), mecânicos, sincronização</td></tr>
+      </tbody>
+    </table>
+    <p class="hl mv" style="margin-top:26px">Controle verticalizado: a operação arrecada pelo master e pelo publishing, sem depender de terceiros. Raro e rentável entre catálogos regionais.</p>
+  </div>
+</section>
+
+
+
+
+<section class="slide" data-act="m1" data-menu="Por que é um ativo raro" data-num="1.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.1</span><span class="dash"></span> Por que isso importa para um parceiro</div>
+    <h2 class="t mv">Um ativo <b>raro de encontrar</b><br>entre catálogos regionais</h2>
+    <div class="cards c3 mv" style="margin-top:8px">
+      <div class="mc"><div class="role">Cadeia completa</div><p>Master e publishing na mesma mão. A receita entra pelos dois lados, sem intermediários.</p></div>
+      <div class="mc"><div class="role">Crescimento orgânico</div><p>Audiência e receita construídas sem mídia paga. O que já existe é base, não teto.</p></div>
+      <div class="mc"><div class="role">Ativo blindado</div><p>Metadados higienizados, direitos auditados e infraestrutura própria. Sem riscos ocultos.</p></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Verticalização, tração orgânica e blindagem jurídica no mesmo lugar. É essa combinação que torna o ativo raro e pronto para escalar.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Top artistas" data-num="1.2">
+  <div class="slide-in center">
+    <p class="scene mv">Nomes de peso histórico,<br><b>engajamento atual.</b></p>
+    <p class="lede mv" style="margin-top:26px">A operação monitora o desempenho individual de cada artista. A seguir, os primeiros mapeados, com dados dos últimos 28 dias.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Baitaca" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Baitaca</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="Baitaca">BA</span><div><div class="ah-n">Baitaca</div><div class="ah-r">Vaneira e humor gaúcho</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">630<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">2,4<small>mi</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">294<small>mil</small></div><div class="l">Novos ouvintes</div></div>
+      <div class="fig"><div class="v">78<small>mil</small></div><div class="l">Novos seguidores</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="João Luiz Corrêa" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · João Luiz Corrêa</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="João Luiz Corrêa">JC</span><div><div class="ah-n">João Luiz Corrêa</div><div class="ah-r">Tradição e milonga</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">489<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">2,28<small>mi</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">155<small>mil</small></div><div class="l">Ouvintes ativos</div></div>
+      <div class="fig"><div class="v">28<small>mil</small></div><div class="l">Novos ouvintes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Porca Véia" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Porca Véia</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="Porca Véia">PV</span><div><div class="ah-n">Porca Véia</div><div class="ah-r">O mais tocado de 2026</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">362<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">2,8<small>mi</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">172<small>mil</small></div><div class="l">Ouvintes ativos</div></div>
+      <div class="fig"><div class="v">23<small>mil</small></div><div class="l">Super ouvintes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Luiz Marenco" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Luiz Marenco</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="Luiz Marenco">LM</span><div><div class="ah-n">Luiz Marenco</div><div class="ah-r">Voz da querência</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">354<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">2<small>mi</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">121<small>mil</small></div><div class="l">Ouvintes ativos</div></div>
+      <div class="fig"><div class="v">+13<small>mil</small></div><div class="l">Super ouvintes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Garotos de Ouro" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Garotos de Ouro</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="Garotos de Ouro">GO</span><div><div class="ah-n">Garotos de Ouro</div><div class="ah-r">Bugio e vaneirão</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">333<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">1,2<small>mi</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">103<small>mil</small></div><div class="l">Ouvintes ativos</div></div>
+      <div class="fig"><div class="v">21<small>mil</small></div><div class="l">Novos ouvintes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Xiru Missioneiro" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Xiru Missioneiro</div>
+    <div class="artist-head mv"><span class="pfoto" data-foto="Xiru Missioneiro">XM</span><div><div class="ah-n">Xiru Missioneiro</div><div class="ah-r">Raiz missioneira</div></div></div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">287<small>mil</small></div><div class="l">Ouvintes mensais</div></div>
+      <div class="fig"><div class="v">879<small>mil+</small></div><div class="l">Streams</div></div>
+      <div class="fig"><div class="v">117<small>mil</small></div><div class="l">Ouvintes ativos</div></div>
+      <div class="fig"><div class="v">28<small>dias</small></div><div class="l">Janela de medição</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Top 10 artistas 2026" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Ranking oficial · os 10 artistas mais tocados em 2026</div>
+    <table class="tb tight mv" style="max-width:620px"><tbody><tr><td class="yr">01</td><td>Porca Véia</td></tr><tr><td class="yr">02</td><td>Garotos de Ouro</td></tr><tr><td class="yr">03</td><td>Luiz Marenco</td></tr><tr><td class="yr">04</td><td>Baitaca</td></tr><tr><td class="yr">05</td><td>José Cláudio Machado</td></tr><tr><td class="yr">06</td><td>Os Serranos</td></tr><tr><td class="yr">07</td><td>Joca Martins</td></tr><tr><td class="yr">08</td><td>João Luiz Corrêa</td></tr><tr><td class="yr">09</td><td>Xirú Missioneiro</td></tr><tr><td class="yr">10</td><td>Leopoldo Rassier</td></tr></tbody></table>
+    <p class="small mv" style="margin-top:14px">Entre os 50 artistas mais tocados do catálogo neste ano.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Top 10 músicas 2026" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Ranking oficial · as 10 músicas mais tocadas em 2026</div>
+    <table class="tb tight mv"><tbody><tr><td class="yr">01</td><td>Milonga abaixo de Mau Tempo</td><td style="color:var(--soft)">José Cláudio Machado</td></tr><tr><td class="yr">02</td><td>Capricha Gaiteiro</td><td style="color:var(--soft)">Garotos de Ouro</td></tr><tr><td class="yr">03</td><td>Nego Bom não se Mistura</td><td style="color:var(--soft)">Baitaca</td></tr><tr><td class="yr">04</td><td>Gaiteiro por Demais</td><td style="color:var(--soft)">Porca Véia</td></tr><tr><td class="yr">05</td><td>Veterano</td><td style="color:var(--soft)">Leopoldo Rassier</td></tr><tr><td class="yr">06</td><td>Não Chora China Véia</td><td style="color:var(--soft)">Garotos de Ouro</td></tr><tr><td class="yr">07</td><td>Baile da Serra</td><td style="color:var(--soft)">Porca Véia</td></tr><tr><td class="yr">08</td><td>Balanço do Bugio</td><td style="color:var(--soft)">Porca Véia</td></tr><tr><td class="yr">09</td><td>Cantador de Campanha</td><td style="color:var(--soft)">Luiz Marenco</td></tr><tr><td class="yr">10</td><td>O Casamento de Doralice</td><td style="color:var(--soft)">Os Serranos</td></tr></tbody></table>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Top 10 álbuns 2026" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Ranking oficial · os 10 álbuns mais tocados em 2026</div>
+    <table class="tb tight mv" style="max-width:680px"><tbody><tr><td class="yr">01</td><td>De Bota e Bombacha</td></tr><tr><td class="yr">02</td><td>Rodeio Campeiro</td></tr><tr><td class="yr">03</td><td>Clássicos da Terra Gaúcha</td></tr><tr><td class="yr">04</td><td>Os Serranos: Interpretam Sucessos Gaúchos, vol. 3</td></tr><tr><td class="yr">05</td><td>Porca Véia Ao Vivo</td></tr><tr><td class="yr">06</td><td>Luiz Marenco</td></tr><tr><td class="yr">07</td><td>35 Mega Sucessos</td></tr><tr><td class="yr">08</td><td>Músicas Gaúchas Inesquecíveis, vol. 2</td></tr><tr><td class="yr">09</td><td>Porca Véia: Os Melhores Sucessos</td></tr><tr><td class="yr">10</td><td>35 Mega Sucessos Gaúchos</td></tr></tbody></table>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Inventário confirmado" data-num="1.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.2</span><span class="dash"></span> Inventário auditável do catálogo</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">11.893</div><div class="l">Fonogramas com ISRC no relatório de royalties 2026</div></div>
+      <div class="fig"><div class="v">1.608</div><div class="l">Álbuns com UPC no catálogo</div></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Números exatos e auditáveis, extraídos direto do relatório de royalties de 2026.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="O maior canal do Brasil" data-num="1.3">
+  <div class="slide-in center">
+    <span class="yt-logo big mv" style="margin-bottom:26px"><svg viewBox="0 0 28 20"><rect x="0.5" y="0.5" width="27" height="19" rx="5.5" fill="currentColor"/><path d="M11.3 5.8l6.4 4.2-6.4 4.2z" fill="#fff"/></svg></span>
+    <p class="scene mv">O maior canal de<br><b>música gaúcha do Brasil.</b></p>
+    <div class="figs mv" style="margin-top:26px;max-width:620px;margin-left:auto;margin-right:auto">
+      <div class="fig center"><div class="v">524<small>mil</small></div><div class="l" style="margin-left:auto;margin-right:auto">Inscritos</div></div>
+      <div class="fig center"><div class="v">6,2<small>mil</small></div><div class="l" style="margin-left:auto;margin-right:auto">Vídeos publicados</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Métricas do semestre" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Métricas absolutas · jan a jul 2026</div>
+    <div class="figs mv">
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><div class="v">42,7<small>mi</small></div><div class="l">Visualizações no semestre</div></div>
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="v">2,48<small>mi</small></div><div class="l">Horas de exibição</div></div>
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.5M20.5 19a5.2 5.2 0 0 0-3-4.7"/></svg></span><div class="v">+30,4<small>mil</small></div><div class="l">Inscritos líquidos</div></div>
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.2c0-1.2 1.1-1.9 2.5-1.9s2.5.7 2.5 1.9-1.1 1.7-2.5 1.7-2.5.6-2.5 1.8 1.1 1.9 2.5 1.9 2.5-.7 2.5-1.9"/></svg></span><div class="v">29.365<small>,05</small></div><div class="l">US$ · Receita estimada</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Antes de produzir, pesquisa" data-num="1.3">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:16ch">Antes de produzir, <b>a equipe pesquisa.</b></p>
+    <p class="lede w mv" style="margin-top:26px">SEO é disciplina estratégica. Se a busca por "Porca Véia" está mais quente que "Baitaca", a produção segue essa demanda, em vez de apostar no escuro. Títulos, thumbnails e telas finais tudo otimizado.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="10 indicadores" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Dez indicadores monitorados continuamente</div>
+    <div class="chips mv">
+      <span class="chip">Visualizações</span><span class="chip">Inscritos</span><span class="chip">Horas assistidas</span><span class="chip">Espectadores únicos</span><span class="chip">Tempo médio</span><span class="chip">CTR</span><span class="chip">Impressões</span><span class="chip">Origem de tráfego</span><span class="chip">Retenção</span><span class="chip">Performance por vídeo</span>
+    </div>
+    <p class="small mv" style="margin-top:16px">Tudo consolidado em dashboards e apresentado em reuniões quinzenais.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="100% orgânico" data-num="1.3">
+  <div class="slide-in center">
+    <p class="scene mv"><b>100% orgânico.</b></p>
+    <p class="lede mv" style="margin-top:26px">A linha "Pago" na tabela de receita por tráfego está zerada. Toda a audiência e a monetização foram construídas organicamente, prova de eficiência editorial real.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Ecossistema de formatos" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> O consumo não depende de um só formato</div>
+    <ul class="rows mv">
+      <li><span class="rk"></span><span><b>96,2%</b> do tempo de exibição vem de vídeos longos.</span></li>
+      <li><span class="rk"></span><span><b>13,1 mi</b> de views em Shorts operam a descoberta e a captação.</span></li>
+      <li><span class="rk"></span><span>Lives e rádio 24h, com duração média de <b>13:41</b>, têm <b>89,9%</b> de espectadores recorrentes. Fidelidade e hábito.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Grade editorial" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> O canal opera como uma emissora de TV</div>
+    <div class="chips mv">
+      <span class="chip">Segunda da Nostalgia</span><span class="chip">Terça do Artista</span><span class="chip">Quarta da Milonga</span><span class="chip">Quinta Campeira</span><span class="chip">Sexta das Coletâneas</span><span class="chip">Sábado da Vaneira</span><span class="chip">Domingo Temático</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Top 3 vídeos" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Top 3 vídeos orgânicos do semestre</div>
+    <table class="tb mv" style="max-width:620px">
+      <tbody>
+        <tr><td>O Que Tem a Rosa</td><td class="yr" style="text-align:right">962 mil</td></tr>
+        <tr><td>Lembranças · Porca Véia</td><td class="yr" style="text-align:right">922 mil</td></tr>
+        <tr><td>Um Bagual Corcoveador</td><td class="yr" style="text-align:right">891 mil</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Motor de captação" data-num="1.3">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:14ch"><b>79,7%</b> vêm de quem ainda não segue.</p>
+    <p class="lede w mv" style="margin-top:26px">Quase 80% da audiência vem de usuários não inscritos, um motor contínuo de captação. A busca orgânica é puxada pelo brand equity dos artistas, com "porca veia", "xiru missioneiro" e "baitaca" liderando.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Funil de impressões" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Funil de impressões</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">187,5<small>mi</small></div><div class="l">Impressões, 41,1% recomendadas pelo YouTube</div></div>
+      <div class="fig"><div class="v">5,1<small>%</small></div><div class="l">CTR, convertendo em 1,1 mi de horas</div></div>
+      <div class="fig"><div class="v">41,8<small>%</small></div><div class="l">Do tempo de exibição vem de Smart TVs</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Shorts, o motor de descoberta" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Shorts · o motor de descoberta</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">13,1<small>mi</small></div><div class="l">Views em Shorts no semestre</div></div>
+      <div class="fig"><div class="v">226,7<small>mil</small></div><div class="l">Marcações "gostei"</div></div>
+      <div class="fig"><div class="v">83,7<small>%</small></div><div class="l">Das views vêm do feed de Shorts</div></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Os Shorts abrem a porta. Captam novos ouvintes que depois migram para as coletâneas longas e a rádio 24h.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="A audiência" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Quem está do outro lado</div>
+    <div class="cards c3 mv">
+      <div class="mc"><div class="role">Geografia</div><p>Forte raiz no Sul, em Porto Alegre, Curitiba, Caxias do Sul e Florianópolis, com presença em São Paulo e irradiação para Argentina, Paraguai, Uruguai, Portugal e EUA.</p></div>
+      <div class="mc"><div class="role">Perfil</div><p>75,6% masculino e maduro, a partir dos 35 anos com pico em 65+. Fiel, ligado à memória e à tradição.</p></div>
+      <div class="mc"><div class="role">Consumo</div><p>O celular alcança, mas a Smart TV concentra o tempo, com média acima de 6 minutos. Doméstico e imersivo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Um público fiel e maduro" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Um público que fica, não que passa</div>
+    <table class="tb tight mv" style="max-width:560px">
+      <thead><tr><th>Faixa etária</th><th style="text-align:right">Participação</th></tr></thead>
+      <tbody>
+        <tr><td>A partir de 65 anos</td><td class="yr" style="text-align:right">23,0%</td></tr>
+        <tr><td>55 a 64 anos</td><td class="yr" style="text-align:right">20,3%</td></tr>
+        <tr><td>45 a 54 anos</td><td class="yr" style="text-align:right">18,7%</td></tr>
+        <tr><td>35 a 44 anos</td><td class="yr" style="text-align:right">15,8%</td></tr>
+        <tr><td>25 a 34 anos</td><td class="yr" style="text-align:right">13,0%</td></tr>
+      </tbody>
+    </table>
+    <p class="hl mv" style="margin-top:24px">Quase 78% da audiência tem mais de 35 anos, com pico nos 65+, e 75,6% é masculina. Um público adulto, fiel, ligado à memória e à tradição. Público que fica é receita previsível.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Redes · amplificação" data-num="1.3">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:15ch">Cinco posts por dia, <b>mês inteiro agendado.</b></p>
+    <p class="lede w mv" style="margin-top:26px">As redes operam sob @asmelhorescancoesgauchas, em Instagram, TikTok, Facebook, Threads e LinkedIn, agendadas via MLabs e rastreadas por Found.ee.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Posts que descobrem" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> A estratégia mudou com o algoritmo</div>
+    <p class="lede w mv">Shorts de lives eram a captação principal. Hoje, os posts estáticos com trechos de letras são o formato de maior performance, com <b>20 mil</b> ou mais views. Frases, caça-palavras, cortes, carrosséis e interativos.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Resultados 2025 · alcance" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> 2025 · o ano da maturidade</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Facebook</div><div class="big">93.991</div><p>De 1.766 seguidores. Mais <b>34 mi</b> de views, pico de <b>8,89 mi</b> em setembro.</p></div>
+      <div class="mc"><div class="role">Instagram</div><div class="big">207.145</div><p>De 106 mil. Mais <b>27 mi</b> de pessoas alcançadas, engajamento de <b>25 a 39%</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Resultados 2025 · engajamento" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> 2025 · o ano da maturidade</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">TikTok</div><div class="big">98 mil</div><p>De 31 mil. Mais <b>17 mi</b> de views e mais <b>5,78 mi</b> de curtidas.</p></div>
+      <div class="mc"><div class="role">Threads</div><div class="big">23 mil</div><p>De 12 mil. Automações via ManyChat em posts com mais de <b>1.000 comentários</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Alcance mundial" data-num="1.3">
+  <div class="slide-in center">
+    <p class="scene mv">Raiz no Sul,<br><b>alcance mundial.</b></p>
+    <div class="figs mv" style="max-width:760px;margin:26px auto 0">
+      <div class="fig center"><span class="fic"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span><div class="v">95,9<small>%</small></div><div class="l" style="margin:0 auto">Do público no Brasil, com 41 mi de views</div></div>
+      <div class="fig center"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"/></svg></span><div class="v">40<small>+</small></div><div class="l" style="margin:0 auto">Países alcançados no ano</div></div>
+    </div>
+    <p class="lede mv" style="margin-top:26px">Argentina, Paraguai, Uruguai, Portugal, Estados Unidos, França, Alemanha, Japão. A cultura gaúcha atravessa fronteiras.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Engajamento e retenção" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Engajamento e retenção</div>
+    <div class="figs mv">
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.3l6 3.7-6 3.7z"/></svg></span><div class="v">47,6<small>%</small></div><div class="l">Continuam assistindo após o início do vídeo</div></div>
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="v">4:25</div><div class="l">Duração média de visualização no canal</div></div>
+      <div class="fig"><span class="fic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6"/><path d="M17 3v3.8h-3.8M7 21v-3.8h3.8"/></svg></span><div class="v">89,9<small>%</small></div><div class="l">Espectadores recorrentes nas lives</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Além do vídeo" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Presença além do vídeo</div>
+    <div class="cards c2 mv">
+      <div class="mc"><span class="yt-mini"><svg viewBox="0 0 28 20"><rect x="0.5" y="0.5" width="27" height="19" rx="5.5" fill="currentColor"/><path d="M11.3 5.8l6.4 4.2-6.4 4.2z" fill="#fff"/></svg></span><div class="role">YouTube Music</div><div class="big">1,8 mi</div><p>Visualizações do catálogo já consumidas como música, não só como vídeo.</p></div>
+      <div class="mc"><div class="role">Tela grande</div><div class="big">41,8%</div><p>Do tempo de exibição vem de Smart TVs. O celular domina o alcance, a TV concentra o tempo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Posicionamento e rebranding" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Posicionamento estratégico</div>
+    <h2 class="t mv">4º canal mais sugerido<br>na busca por <b>"música gaúcha"</b></h2>
+    <p class="lede w mv" style="margin-top:26px">E um rebranding guiado por SEO em curso, de "As Melhores Canções Gaúchas" para <b>"As Melhores Músicas Gaúchas"</b>, alinhando a marca ao termo mais pesquisado e impulsionando o crescimento orgânico.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Site próprio" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> Presença digital própria, o site oficial</div>
+    <div class="browser mv">
+      <div class="bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <a class="url" href="https://asmelhorescancoesgauchas.com.br" target="_blank" rel="noopener"><span class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span>asmelhorescancoesgauchas.<b>com.br</b></span></a>
+      </div>
+      <div class="view">
+        <svg class="heart" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z" fill="#8f2233"/></svg>
+        <div class="site-k">As Melhores Músicas Gaúchas</div>
+        <div class="site-h">O portal da<br><b>música gaúcha</b></div>
+        <div class="site-p">Catálogo, artistas, playlists e a história da cultura do pampa, num endereço só nosso.</div>
+        <div class="site-nav"><span>Catálogo</span><span>Artistas</span><span>Playlists</span><span>Rádio 24h</span><span>Sobre</span></div>
+        <a class="site-cta" href="https://asmelhorescancoesgauchas.com.br" target="_blank" rel="noopener">Visitar o site <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Central de canais" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> Os perfis oficiais da marca, em um clique</div>
+    <div class="channels mv">
+        <a class="channel" href="#">
+          <span class="clogo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M6.6 9.4c3.6-1 7.6-.7 10.6 1.1M7 12.5c3-.8 6.2-.5 8.7 1.05M7.6 15.3c2.3-.6 4.8-.4 6.9.8" fill="none" stroke="#fff" stroke-width="1.35" stroke-linecap="round"/></svg></span>
+          <span class="cname">Spotify</span>
+          <span class="cgo">Abrir perfil <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </a>
+        <a class="channel" href="#">
+          <span class="clogo"><svg viewBox="0 0 24 24"><rect x="2.4" y="2.4" width="19.2" height="19.2" rx="5.2" fill="currentColor"/><path d="M10 8.3l6-1.25v6.15" fill="none" stroke="#fff" stroke-width="1.35" stroke-linecap="round"/><circle cx="9" cy="14.6" r="1.9" fill="#fff"/><circle cx="15.6" cy="12.9" r="1.7" fill="#fff"/></svg></span>
+          <span class="cname">Amazon Music</span>
+          <span class="cgo">Abrir perfil <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </a>
+        <a class="channel" href="#">
+          <span class="clogo"><svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="2" y="14.5" width="3.6" height="3"/><rect x="7.1" y="11.5" width="3.6" height="6"/><rect x="12.2" y="8.5" width="3.6" height="9"/><rect x="17.3" y="5.5" width="3.6" height="12"/></g></svg></span>
+          <span class="cname">Deezer</span>
+          <span class="cgo">Abrir perfil <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </a>
+        <a class="channel site" href="https://asmelhorescancoesgauchas.com.br" target="_blank" rel="noopener">
+          <span class="clogo"><svg viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z" fill="currentColor"/></svg></span>
+          <span class="cname">asmelhorescancoesgauchas.<b>com.br</b></span>
+          <span class="cgo">Visitar o site <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </a>
+    </div>
+    <p class="small mv" style="margin-top:16px;color:var(--faint);text-align:center">Links dos perfis do Spotify, Amazon Music e Deezer a inserir pela equipe.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="O diferencial decisivo" data-num="1.3">
+  <div class="slide-in center">
+    <p class="scene mv">Construído organicamente,<br><b>quase sem mídia paga.</b></p>
+    <p class="lede mv" style="margin-top:26px">O crescimento veio de estratégia, curadoria e execução. O que evidencia um enorme potencial de escala com investimento.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Imagine com combustível" data-num="1.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.3</span><span class="dash"></span> A tese de investimento</div>
+    <p class="d2 mv" style="max-width:18ch">Tudo isso com <b>zero em mídia paga.</b></p>
+    <div class="figs mv" style="margin-top:26px">
+      <div class="fig"><div class="v">0</div><div class="l">Investido em mídia paga no semestre</div></div>
+      <div class="fig"><div class="v">42,7<small>mi</small></div><div class="l">Views gerados de forma 100% orgânica</div></div>
+      <div class="fig"><div class="v">+30,4<small>mil</small></div><div class="l">Inscritos líquidos no mesmo período</div></div>
+    </div>
+    <p class="hl mv" style="margin-top:26px">Se a curadoria e o SEO entregam isso sozinhos, o teto com investimento é outro. O motor já está montado, falta combustível.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m1" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">A música gaúcha<br><b>encontra o seu público.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Playlists" data-num="1.4">
+  <div class="slide-in center">
+    <p class="scene mv">Transformar 11.893 fonogramas<br>em <b>portas de entrada.</b></p>
+    <p class="lede mv" style="margin-top:26px">As playlists transformam um acervo gigantesco em vitrines temáticas que alimentam os algoritmos das plataformas.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Números das playlists" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> A engenharia de descoberta</div>
+    <div class="figs mv">
+      <div class="fig"><div class="v">362</div><div class="l">Playlists ativas em cada plataforma</div></div>
+      <div class="fig"><div class="v">1.400<small>+</small></div><div class="l">Vitrines sincronizadas</div></div>
+      <div class="fig"><div class="v">10+10</div><div class="l">Novas por mês, playlists e coletâneas</div></div>
+      <div class="fig"><div class="v">14,3<small>mi</small></div><div class="l">Views em "As 100 Melhores"</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Playlists mais acessadas" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> As playlists mais acessadas · visualizações totais</div>
+    <table class="tb tight mv"><tbody>
+      <tr><td>As 100 Melhores Músicas Gaúchas</td><td class="yr" style="text-align:right">14,3 mi</td></tr>
+      <tr><td>As Melhores de Porca Véia ao Vivo</td><td class="yr" style="text-align:right">3,50 mi</td></tr>
+      <tr><td>As Melhores de Baitaca · DVD</td><td class="yr" style="text-align:right">2,55 mi</td></tr>
+      <tr><td>As Melhores de Luiz Marenco ao Vivo</td><td class="yr" style="text-align:right">2,31 mi</td></tr>
+      <tr><td>Oktoberfest · Super Banda Choppão</td><td class="yr" style="text-align:right">1,40 mi</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="A máquina de coletâneas" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> Como montamos os mixes e as coletâneas</div>
+    <ul class="rows mv">
+      <li><span class="rk">01</span><span><b>Tema por dados.</b> A busca semântica define o conceito: artista, cidade, data, sentimento ou momento de consumo.</span></li>
+      <li><span class="rk">02</span><span><b>Curadoria faixa a faixa.</b> Humano e IA selecionam o repertório que conversa com aquele tema.</span></li>
+      <li><span class="rk">03</span><span><b>Coletânea longa.</b> Compilações extensas atendem ao consumo na Smart TV e multiplicam a receita da mesma obra.</span></li>
+      <li><span class="rk">04</span><span><b>Distribuição multicanal.</b> A coletânea é replicada em Spotify, Deezer, Amazon e YouTube.</span></li>
+      <li><span class="rk">05</span><span><b>Reaquecimento.</b> Novas embalagens acordam o algoritmo para o catálogo que já existe.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="IA na curadoria" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> Inteligência artificial na curadoria</div>
+    <h2 class="t mv">Curadoria a quatro mãos,<br><b>humano e IA</b></h2>
+    <ul class="rows mv" style="margin-top:8px">
+      <li><span class="rk"></span><span><b>Busca semântica.</b> Um agente de IA lê o que o público procura no Spotify e no Amazon e sugere o repertório de cada playlist.</span></li>
+      <li><span class="rk"></span><span><b>Construção conjunta.</b> A seleção nasce a quatro mãos, com a sensibilidade humana validando cada faixa proposta.</span></li>
+      <li><span class="rk"></span><span><b>Escala com alma.</b> A IA acelera a produção de 10 playlists e 10 coletâneas por mês, sem perder o critério.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Curadora oficial" data-num="1.4">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:16ch">Vitrine própria, <b>audiência própria.</b></p>
+    <p class="lede w mv" style="margin-top:26px">A marca mantém perfis próprios no Spotify, Deezer, Amazon, Apple e YouTube Music, atuando como curadora oficial do gênero. Não depende das playlists editoriais das plataformas: tem poder de direcionar o consumo dentro de cada serviço.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Vitrines da marca" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> Curadora oficial em cada plataforma</div>
+    <h2 class="t mv" style="margin-bottom:10px"><b>362 playlists</b> ativas em cada uma</h2>
+    <div class="plats mv">
+      <div class="plat">
+        <span class="lg" style="color:var(--ink)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M6.6 9.4c3.6-1 7.6-.7 10.6 1.1M7 12.5c3-.8 6.2-.5 8.7 1.05M7.6 15.3c2.3-.6 4.8-.4 6.9.8" fill="none" stroke="#fff" stroke-width="1.35" stroke-linecap="round"/></svg></span>
+        <span class="pnm">Spotify</span><span class="pv">362</span><span class="pu">playlists</span>
+      </div>
+      <div class="plat">
+        <span class="lg" style="color:var(--ink)"><svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="2" y="14.5" width="3.6" height="3"/><rect x="7.1" y="11.5" width="3.6" height="6"/><rect x="12.2" y="8.5" width="3.6" height="9"/><rect x="17.3" y="5.5" width="3.6" height="12"/></g></svg></span>
+        <span class="pnm">Deezer</span><span class="pv">362</span><span class="pu">playlists</span>
+      </div>
+      <div class="plat">
+        <span class="lg" style="color:var(--ink)"><svg viewBox="0 0 24 24"><rect x="1.5" y="5.4" width="21" height="13.2" rx="4" fill="currentColor"/><path d="M10 9.1l6.2 2.9-6.2 2.9z" fill="#fff"/></svg></span>
+        <span class="pnm">YouTube</span><span class="pv">362</span><span class="pu">playlists</span>
+      </div>
+      <div class="plat">
+        <span class="lg" style="color:var(--ink)"><svg viewBox="0 0 24 24"><rect x="2.4" y="2.4" width="19.2" height="19.2" rx="5.2" fill="currentColor"/><path d="M10 8.3l6-1.25v6.15" fill="none" stroke="#fff" stroke-width="1.35" stroke-linecap="round"/><circle cx="9" cy="14.6" r="1.9" fill="#fff"/><circle cx="15.6" cy="12.9" r="1.7" fill="#fff"/></svg></span>
+        <span class="pnm">Amazon Music</span><span class="pv">362</span><span class="pu">playlists</span>
+      </div>
+    </div>
+    <p class="small mv" style="margin-top:16px">Vitrine própria, audiência própria e poder de direcionamento do consumo dentro de cada serviço.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="Cada playlist em 5 etapas" data-num="1.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">1.4</span><span class="dash"></span> Cada playlist nasce em cinco etapas</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">1</div><div class="wt">Conceito</div><div class="wd">Gêneros, datas, artistas, cidades, sentimentos e momentos de consumo.</div></div>
+      <div class="wstep"><div class="wn">2</div><div class="wt">Curadoria</div><div class="wd">Seleção criteriosa, faixa a faixa, valorizando o catálogo.</div></div>
+      <div class="wstep"><div class="wn">3</div><div class="wt">Identidade</div><div class="wd">Capa no padrão da marca, atualizada semanalmente.</div></div>
+      <div class="wstep"><div class="wn">4</div><div class="wt">Descrição</div><div class="wd">Texto otimizado com SEO para descoberta.</div></div>
+      <div class="wstep"><div class="wn">5</div><div class="wt">Monitorar</div><div class="wd">Revisão contínua, para manter cada playlist viva.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m1" data-menu="A inteligência 80/20" data-num="1.5">
+  <div class="slide-in center">
+    <p class="scene mv">4,9% do catálogo.<br><b>80% da receita.</b></p>
+    <div class="figs mv" style="margin-top:26px;max-width:740px;margin-left:auto;margin-right:auto">
+      <div class="fig center"><div class="v">587</div><div class="l" style="margin-left:auto;margin-right:auto">Fonogramas, de 11.893, concentram 80% dos royalties de 2026</div></div>
+      <div class="fig center"><div class="v">171</div><div class="l" style="margin-left:auto;margin-right:auto">Álbuns, de 1.608, ou 10,6%, geram os mesmos 80%</div></div>
+    </div>
+    <p class="lede mv" style="margin-top:26px">A operação sabe exatamente onde está o valor. Foco guiado por dados, não sorte.</p>
+  </div>
+</section>
+<!-- ===== MOMENTO 2 ===== -->
+<section class="slide brk" data-act="m2" data-menu="Momento 2 · A Máquina por Trás" data-num="02">
+  <div class="slide-in">
+    <span class="tricolor mv"><i></i><i></i><i></i></span>
+    <div class="mo mv"><span class="ano">02</span> Momento 2</div>
+    <h2 class="mv">A Máquina<br>por Trás</h2>
+    <p class="msub mv">Governança, qualidade de metadados, proteção jurídica e infraestrutura própria. A prova de que a operação é sólida, controlada e sem riscos ocultos.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Contar moeda" data-num="2.0">
+  <div class="slide-in center">
+    <p class="scene mv">Nenhum "hit" acidental.<br><b>Milhares de micro-ações.</b></p>
+    <p class="lede mv" style="margin-top:26px">O resultado gigante e orgânico é a soma de micro-ações controladas diariamente. Em um mercado fragmentado, o segredo é contar moeda, não deixar nenhum detalhe escapar.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Os cinco pilares" data-num="2.0">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.0</span><span class="dash"></span> A receita replicável, cinco pilares</div>
+    <ul class="rows mv">
+      <li><span class="rk">01</span><span><b>Estudo obsessivo de dados.</b> Decisão por busca semântica e retenção, não por intuição.</span></li>
+      <li><span class="rk">02</span><span><b>Reaquecimento contínuo.</b> Repost e novas embalagens acordam o algoritmo para o mesmo fonograma.</span></li>
+      <li><span class="rk">03</span><span><b>Máquina de coletâneas.</b> Compilações longas atendem ao consumo na TV e multiplicam a receita.</span></li>
+      <li><span class="rk">04</span><span><b>Formiguinha nos perfis.</b> Cada um dos mais de 350 artistas recebe cuidado individual.</span></li>
+      <li><span class="rk">05</span><span><b>Comunidade.</b> A aba do YouTube transforma o ouvinte passivo em fã da marca.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Estrutura documentada" data-num="2.1">
+  <div class="slide-in center">
+    <p class="scene mv">Nada acontece sem registro.<br><b>Nada se perde.</b></p>
+    <p class="lede mv" style="margin-top:26px">Estrutura enxuta, multifuncional e altamente documentada. O e-mail é o canal oficial, e a operação trabalha por Playbooks: o conhecimento é da empresa, não de indivíduos.</p>
+  </div>
+</section>
+
+
+
+
+<section class="slide" data-act="m2" data-menu="Fluxo de demanda · 1 a 4" data-num="2.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.1</span><span class="dash"></span> Como a máquina gira · do nascimento à execução</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">1</div><div class="wt">Nascimento</div><div class="wd">Diretoria, FUGA, jurídico ou dados originam a demanda.</div></div>
+      <div class="wstep"><div class="wn">2</div><div class="wt">Registro</div><div class="wd">Imediato no Asana: responsável, prazo, prioridade e status.</div></div>
+      <div class="wstep"><div class="wn">3</div><div class="wt">Distribuição</div><div class="wd">A coordenação direciona para quem executa.</div></div>
+      <div class="wstep"><div class="wn">4</div><div class="wt">Execução</div><div class="wd">Feita dentro dos padrões documentados.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Fluxo de demanda · 5 a 7" data-num="2.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.1</span><span class="dash"></span> Como a máquina gira · da validação à memória</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">5</div><div class="wt">Validação</div><div class="wd">Entregas críticas revisadas antes de publicar.</div></div>
+      <div class="wstep"><div class="wn">6</div><div class="wt">Acompanhamento</div><div class="wd">Dailys e monitoramento contínuo do andamento.</div></div>
+      <div class="wstep"><div class="wn">7</div><div class="wt">Conclusão e memória</div><div class="wd">Entrega documentada, aprendizados alimentam o próximo ciclo.</div></div>
+    </div>
+    <p class="wf-cap mv">Nada acontece sem registro, nada se perde.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Reuniões e metas" data-num="2.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.1</span><span class="dash"></span> Rotina e metas</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Reuniões, todas transcritas com IA</div><p>Daily semanal com três perguntas: pendências, o que travou, como destravar. Mais reuniões semanais, quinzenais de OKRs, de projeto e extraordinárias.</p></div>
+      <div class="mc"><div class="role">OKRs e gamificação</div><p>Metas em consenso no início do ano, desdobradas em trimestres. Mais de <b>R$ 3.000,00</b> já distribuídos em incentivos em 2026.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Governança de dados" data-num="2.1">
+  <div class="slide-in">
+    <p class="d2 mv" style="max-width:16ch">Fábrica de dados, <b>não artesanato.</b></p>
+    <p class="lede w mv" style="margin-top:26px"><b>19 planilhas</b> sob padrão único alimentam <b>7 dashboards</b> de BI em Power BI e Looker, com análise em três camadas: diária, semanal e quinzenal. No Drive, a regra é simples: se não é encontrável, não existe. Nomenclatura obrigatória em caixa alta, termos separados por ponto e ano quando aplicável, como em <b>DADOS.YOUTUBE.2026</b>.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m2" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Método,<br><b>não sorte.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Planejamento por dados" data-num="2.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.1</span><span class="dash"></span> Como planejamos o que vai ao ar</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Calendário de lançamentos</div><p>Cada publicação é planejada com antecedência, com data, responsável e formato definidos.</p></div>
+      <div class="mc"><div class="role">Checklist das 500</div><p>A produção é guiada pelas 500 músicas mais tocadas do ano anterior, na regra 80/20.</p></div>
+      <div class="mc"><div class="role">Grade editorial fixa</div><p>Sete temas semanais dão consistência, como uma emissora de TV.</p></div>
+      <div class="mc"><div class="role">SEO antes de produzir</div><p>A busca decide o que produzir, direcionando o esforço para a demanda real.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m2" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Nenhum nome<br><b>fica para trás.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Acervo higienizado" data-num="2.2">
+  <div class="slide-in center">
+    <p class="scene mv">Um banco de dados<br><b>rigorosamente higienizado.</b></p>
+    <p class="lede mv" style="margin-top:26px">Enquanto o mercado perde receita com metadados incorretos, a operação entrega um acervo limpo, validado e rastreável.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Jornada do artista · 1 a 5" data-num="2.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.2</span><span class="dash"></span> A jornada do artista · da entrada ao perfil</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">1</div><div class="wt">Entrada</div><div class="wd">Obra sob gestão, com validação jurídica.</div></div>
+      <div class="wstep"><div class="wn">2</div><div class="wt">Preparação</div><div class="wd">Digitalização, áudio e imagens tratados com IA.</div></div>
+      <div class="wstep"><div class="wn">3</div><div class="wt">Cadastro</div><div class="wd">Na FUGA: faixas, créditos, ISRC e letras.</div></div>
+      <div class="wstep"><div class="wn">4</div><div class="wt">Distribuição</div><div class="wd">Nas plataformas de streaming.</div></div>
+      <div class="wstep"><div class="wn">5</div><div class="wt">Perfil</div><div class="wd">Foto, biografia, Canvas, letras e pseudônimos.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Jornada do artista · 6 a 10" data-num="2.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.2</span><span class="dash"></span> A jornada do artista · da descoberta ao ciclo</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">6</div><div class="wt">Descoberta</div><div class="wd">Playlists próprias, Shorts e rádio 24/7.</div></div>
+      <div class="wstep"><div class="wn">7</div><div class="wt">Amplificação</div><div class="wd">Redes sociais e links rastreáveis.</div></div>
+      <div class="wstep"><div class="wn">8</div><div class="wt">Monitoramento</div><div class="wd">Por dashboards, artista a artista.</div></div>
+      <div class="wstep"><div class="wn">9</div><div class="wt">Direitos</div><div class="wd">Proteção jurídica contínua.</div></div>
+      <div class="wstep"><div class="wn">10</div><div class="wt">Ciclo</div><div class="wd">Os dados realimentam a curadoria.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Todo artista é prioridade" data-num="2.2">
+  <div class="slide-in center">
+    <p class="scene mv">Todo artista <b>é prioridade.</b></p>
+    <p class="lede mv" style="margin-top:26px">O mercado cuida só de quem dá mais retorno. A operação faz o oposto: revitalização integral, artista por artista, com prioridade para os falecidos e os mais abandonados. Perfil largado é descoberta perdida, dinheiro deixado na mesa.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Obra x versões · a preencher" data-num="2.2">
+  <div class="slide-in">
+    <div class="pending mv" style="max-width:720px">
+      <div class="pk"><span class="d"></span> Marcação Elvis</div>
+      <ul><li>Tabela detalhada obra x versões, cruzando obras únicas com ISRCs e versões</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Checklist de revitalização" data-num="2.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.2</span><span class="dash"></span> O que é feito em cada perfil</div>
+    <table class="tb tight mv">
+      <tbody>
+        <tr><td>Foto e imagens</td><td>Qualificação por IA, recuperando fotografias históricas em alta definição.</td></tr>
+        <tr><td>Biografia</td><td>Criação e revisão, dando contexto e identidade.</td></tr>
+        <tr><td>Letras</td><td>Adição integral, essencial para o público e o algoritmo.</td></tr>
+        <tr><td>Canvas</td><td>Vídeos curtos em loop que elevam o padrão visual.</td></tr>
+        <tr><td>Títulos e nomes</td><td>Padronização em caixa alta e organização de pseudônimos.</td></tr>
+      </tbody>
+    </table>
+    <p class="note mv" style="margin-top:16px">Compliance inegociável: a operação atua apenas nos perfis onde detém os direitos. Tudo gira na Planilha de Revisão de Perfis, transparente e auditável.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m2" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Cada entrega,<br><b>um padrão.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Celebrado pelo Spotify" data-num="2.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.2</span><span class="dash"></span> Marcos celebrados pelo próprio Spotify</div>
+    <div class="chips mv">
+      <span class="chip">César Oliveira, Lúcio Yanel &amp; Rogério Villagran · 25.000</span>
+      <span class="chip">Renato Borghetti · 25.000</span>
+      <span class="chip">Leopoldo Rassier · 10.000</span>
+      <span class="chip">Iedo Silva · 5.000</span>
+      <span class="chip">AlmaNova · 1.000</span>
+    </div>
+    <p class="hl mv" style="margin-top:22px">Não são lançamentos. É catálogo que voltou a circular. Quando o perfil é bem cuidado, o algoritmo entrega e o ouvinte encontra.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Fábrica de conteúdo" data-num="2.2">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.2</span><span class="dash"></span> Produção industrializada, alma artesanal</div>
+    <p class="lede w mv">Edição no Filmora sobre uma cama pronta, de <b>10 a 15 artistas</b> por semana. Duração travada em cerca de <b>57 segundos</b> para reaproveitar no TikTok. O maior gargalo é a legendagem: o vocabulário gaúcho é único no mundo, apoiado pelo Dicionário Gaúcho. Todo conteúdo leva atribuição de intérprete e compositor.</p>
+  </div>
+</section>
+
+<section class="slide breath" data-act="m2" data-menu="Respiro" data-num="">
+  <div class="slide-in">
+    <p class="bp mv">Emoção antes<br><b>da informação.</b></p>
+    <div class="bd mv"></div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="O moat cultural" data-num="2.3">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.3</span><span class="dash"></span> Autenticidade como sistema replicável</div>
+    <div class="cards c3 mv">
+      <div class="mc"><div class="role">Documento 1</div><div class="nm">Manual da Marca</div><p>Identidade visual completa. Cada peça imediatamente reconhecível.</p></div>
+      <div class="mc"><div class="role">Documento 2</div><div class="nm">Tom de Voz</div><p>Emoção antes da informação, conversa de galpão. Pertencimento imediato.</p></div>
+      <div class="mc"><div class="role">Documento 3</div><div class="nm">Dicionário Gaúcho</div><p>Glossário exclusivo que blinda a marca. Não se compra nem se improvisa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="IA potencializa" data-num="2.4">
+  <div class="slide-in center">
+    <p class="scene mv">A IA potencializa.<br><b>A validação humana decide.</b></p>
+    <p class="lede mv" style="margin-top:26px">A operação usa IA de forma madura. Ela nunca substitui o trabalho criativo, e toda entrega passa por validação humana e verificação de créditos.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Uso estratégico da IA" data-num="2.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.4</span><span class="dash"></span> Onde a IA entra</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Recuperação em 4K</div><p>Freepik restaura imagens originais de baixa resolução sem descaracterizar o artista.</p></div>
+      <div class="mc"><div class="role">Produção criativa</div><p>Sora e Grok criam vídeos afetivos ao som do catálogo.</p></div>
+      <div class="mc"><div class="role">Memória institucional</div><p>Gemini transcreve todas as reuniões.</p></div>
+      <div class="mc"><div class="role">Leitura de algoritmos</div><p>Claude apoia a interpretação de indicadores e a revisão de conteúdo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="O arsenal" data-num="2.4">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.4</span><span class="dash"></span> O arsenal e seus porquês</div>
+    <table class="tb tight mv">
+      <tbody>
+        <tr><td>Gestão</td><td>Asana e Google Workspace.</td></tr>
+        <tr><td>Distribuição</td><td>FUGA e FUGA Score 2.0 (mais de <b>880 videoclipes</b> só no Spotify) e Tune My Music.</td></tr>
+        <tr><td>Streaming</td><td>Spotify, Apple, Amazon, Deezer e YT Music for Artists.</td></tr>
+        <tr><td>Transmissão</td><td>YouTube Studio, Gyre (rádio 24/7) e StreamYard.</td></tr>
+        <tr><td>Redes</td><td>MLabs, ManyChat, Found.ee e Meta Business Suite.</td></tr>
+        <tr><td>Dados e SEO</td><td>Chartmetric, SemRush e Google Trends.</td></tr>
+        <tr><td>BI e infra</td><td>Power BI, Looker, DocuSign, Cloudflare e Hostinger.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="O catálogo está blindado" data-num="2.5">
+  <div class="slide-in center">
+    <p class="scene mv">O catálogo <b>está blindado.</b></p>
+    <p class="lede mv" style="margin-top:26px">A gestão jurídica não é reativa nem terceirizada às pressas. É um fluxo estruturado de proteção ativa, conduzido por Loyslene Jacques e Bernardo Haas.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Fluxo jurídico" data-num="2.5">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.5</span><span class="dash"></span> O fluxo jurídico, oito etapas conectadas</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">1</div><div class="wt">Identificação</div></div>
+      <div class="wstep"><div class="wn">2</div><div class="wt">Registro</div></div>
+      <div class="wstep"><div class="wn">3</div><div class="wt">Encaminhamento</div></div>
+      <div class="wstep"><div class="wn">4</div><div class="wt">Análise técnica</div></div>
+      <div class="wstep"><div class="wn">5</div><div class="wt">Complementação</div></div>
+      <div class="wstep"><div class="wn">6</div><div class="wt">Definição de medidas</div></div>
+      <div class="wstep"><div class="wn">7</div><div class="wt">Retorno</div></div>
+      <div class="wstep"><div class="wn">8</div><div class="wt">Acompanhamento</div></div>
+    </div>
+    <p class="wf-cap mv">Cada notificação percorre o mesmo caminho, do alerta ao acompanhamento.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Conformidade" data-num="2.5">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.5</span><span class="dash"></span> Regras inegociáveis de conteúdo</div>
+    <ul class="rows mv">
+      <li><span class="rk"></span><span>Atribuição de autoria em todas as publicações.</span></li>
+      <li><span class="rk"></span><span>Uso exclusivo de imagens do próprio catálogo.</span></li>
+      <li><span class="rk"></span><span>Letras sempre no texto original, nunca parafraseadas.</span></li>
+      <li><span class="rk"></span><span>Nenhum crédito publicado sem confirmação no catálogo.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Recuperação ativa" data-num="2.5">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.5</span><span class="dash"></span> Proteção e recuperação ativa</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Content ID ativo</div><p>Controle semanal de disputas e reivindicações. A operação vigia o ativo constantemente.</p></div>
+      <div class="mc"><div class="role">Atuação como terceiro</div><p>Com toda a documentação em mãos, a equipe ajuda a plataforma a resolver o conflito e liberar a monetização rápido.</p></div>
+      <div class="mc"><div class="role">Parceria FUGA</div><p>Alinhamento periódico, otimização de metadados e resolução de pendências.</p></div>
+      <div class="mc"><div class="role">Acervo de décadas</div><p>Contratos e encartes digitalizados com identificador único por artista, por exemplo <b>USA.001, 5 Avenida</b>. Rastreabilidade jurídica imediata.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Transparência · riscos" data-num="2.5">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.5</span><span class="dash"></span> Riscos mapeados e em tratamento</div>
+    <table class="tb tight mv">
+      <tbody>
+        <tr><td>Retidos UBC e ECAD</td><td><b>265 músicas</b> com documentação, mas sem ISRC no ECAD. Diagnóstico feito, resta o cadastro.</td></tr>
+        <tr><td>Processos YouTube</td><td>Mais de <b>50 casos</b>, com destaque para a queda temporária em setembro, já restabelecida.</td></tr>
+        <tr><td>Documentação</td><td>Dois artistas com documentação ainda não localizada.</td></tr>
+        <tr><td>Contrato de exceção</td><td>João Luiz Corrêa tem cláusula de <b>2%</b>, a única do catálogo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="A obra é eterna" data-num="2.5.1">
+  <div class="slide-in center">
+    <p class="scene mv">O fonograma pode ser regravado.<br><b>A obra é eterna.</b></p>
+    <p class="lede mv" style="margin-top:26px">A Editora Terra Sul é a camada mais perene e valorizável dos direitos da música, e passou por um turnaround completo conduzido pela equipe atual.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="O turnaround da editora" data-num="2.5.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.5.1</span><span class="dash"></span> Editora Terra Sul · o turnaround, quatro etapas</div>
+    <div class="wf h mv">
+      <div class="wstep"><div class="wn">1</div><div class="wt">Contratos</div><div class="wd">Levantamento de todos os contratos de edição.</div></div>
+      <div class="wstep"><div class="wn">2</div><div class="wt">Cadastro</div><div class="wd">Obras cadastradas no back office e na UBC.</div></div>
+      <div class="wstep"><div class="wn">3</div><div class="wt">Faturamento</div><div class="wd">Reconstituição da arrecadação dos últimos 5 anos.</div></div>
+      <div class="wstep"><div class="wn">4</div><div class="wt">Regularização</div><div class="wd">Pagamentos aos artistas em dia.</div></div>
+    </div>
+    <p class="hl mv" style="margin-top:22px">Hoje, uma editora limpa, auditada e em pleno funcionamento.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Editora · dados a preencher" data-num="2.5.1">
+  <div class="slide-in">
+    <div class="pending mv" style="max-width:720px">
+      <div class="pk"><span class="d"></span> Marcação Cris / Elvis · dados da Editora Terra Sul</div>
+      <ul>
+        <li>Obras registradas e administradas pela editora</li>
+        <li>Compositores vinculados e contratos de edição vigentes</li>
+        <li>Histórico de arrecadação editorial na UBC</li>
+        <li>Obras com múltiplas gravações, cada versão multiplica a receita</li>
+        <li>Situação dos registros e documentação das cessões</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Segurança sob pressão" data-num="2.6">
+  <div class="slide-in center">
+    <p class="scene mv">Uma segurança<br><b>forjada sob pressão.</b></p>
+    <p class="lede mv" style="margin-top:26px">Na Semana Farroupilha, o pico de faturamento, o canal sofreu uma tentativa de invasão, uma <b>live falsa de criptomoedas</b>. Foi neutralizada rápido e mudou a cultura: a segurança virou rotina preventiva.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Governança de acessos" data-num="2.6">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.6</span><span class="dash"></span> Governança de acessos</div>
+    <div class="cards c3 mv">
+      <div class="mc"><div class="role">Credenciais</div><p>Centralizadas e documentadas, sem risco de perda de ativos digitais.</p></div>
+      <div class="mc"><div class="role">Dois administradores</div><p>Workspace em dois computadores bloqueados fisicamente, Alex e Luana.</p></div>
+      <div class="mc"><div class="role">2FA obrigatório</div><p>Autenticação em duas etapas inegociável em Google, Meta, YouTube, FUGA e Asana.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Auditoria e vigilância" data-num="2.6">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.6</span><span class="dash"></span> Auditoria e vigilância ativa</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Auditoria mensal</div><p>Os logs do Google Workspace são revisados todo mês para identificar qualquer anomalia.</p></div>
+      <div class="mc"><div class="role">Controle geográfico · o caso da VPN</div><p>Um acesso de outro estado disparou o alerta. A coordenação isolou o caso, confirmou o uso de VPN por um membro e liberou. A vigilância é ativa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Soberania do ativo" data-num="2.6">
+  <div class="slide-in center">
+    <p class="scene mv">Soberania total<br><b>sobre o ativo.</b></p>
+    <p class="lede mv" style="margin-top:26px">Além da FUGA, um sistema próprio e independente guarda todos os dados do catálogo. Metadados, históricos e contratos permanecem com o proprietário. Se um dia trocar de distribuidora, nada se perde.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Sistema próprio" data-num="2.6">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.6</span><span class="dash"></span> O sistema próprio, soberania sobre o dado</div>
+    <div class="browser system mv">
+      <div class="bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url"><span class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span>sistema interno · <b>catálogo soberano</b></span></div>
+      </div>
+      <div class="view">
+        <div class="sysprev">
+          <div class="sysnav">
+            <div class="sh">Módulos</div>
+            <span class="on">Catálogo</span>
+            <span>Direitos</span>
+            <span>Financeiro</span>
+            <span>Contratos</span>
+            <span>Segurança</span>
+          </div>
+          <div class="systiles">
+            <div class="systile"><div class="stv">11.893</div><div class="stl">Fonogramas</div></div>
+            <div class="systile"><div class="stv">1.608</div><div class="stl">Álbuns</div></div>
+            <div class="systile"><div class="stv">350<span style="font-size:.6em">+</span></div><div class="stl">Artistas</div></div>
+          </div>
+        </div>
+        <a class="site-cta" href="#" style="margin-top:24px">Acessar o sistema <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+    <p class="small mv" style="margin-top:16px;color:var(--faint);text-align:center">Além da FUGA, um sistema próprio e independente guarda todos os dados do catálogo. Link de acesso a inserir pela equipe.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Oportunidades futuras" data-num="2.7">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.7</span><span class="dash"></span> Avenidas prontas para acelerar</div>
+    <div class="cards c2 mv">
+      <div class="mc"><div class="role">Frente 1</div><div class="nm">Música gaúcha com IA</div><p>Testes já feitos para gerar composições dentro da estética gaúcha. Resultados promissores, abrindo caminho para fonogramas 100% controlados com custo marginal zero.</p></div>
+      <div class="mc"><div class="role">Frente 2</div><div class="nm">Automação total</div><p>Usar IA para automatizar processos inteiros de distribuição e curadoria, multiplicando a capacidade sem aumentar o time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Data Room" data-num="2.8">
+  <div class="slide-in center">
+    <p class="scene mv">Transparência total,<br><b>disponível de imediato.</b></p>
+    <p class="lede mv" style="margin-top:26px">19 planilhas padronizadas, dashboards de BI e pastas estruturadas. A governança provada pela disponibilidade.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Planilhas · 01 a 10" data-num="2.8">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.8</span><span class="dash"></span> As 19 planilhas · cada uma abre em um clique</div>
+    <div class="btn-grid mv">
+      <a class="pbtn" href="#"><span class="pn">01</span><span class="pt">Revisão For Artists</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">02</span><span class="pt">Calendário de Lançamentos</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">03</span><span class="pt">Cronograma YouTube</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">04</span><span class="pt">Crescimento Artistas</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">05</span><span class="pt">OKRs 2026</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">06</span><span class="pt">Redes Sociais</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">07</span><span class="pt">Dashboards YouTube</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">08</span><span class="pt">Dashboards Streaming</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">09</span><span class="pt">Relatório Financeiro</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">10</span><span class="pt">Conflitos YouTube</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+    </div>
+    <p class="small mv" style="margin-top:16px;color:var(--faint)">Links a serem inseridos pela equipe.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Planilhas · 11 a 19" data-num="2.8">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.8</span><span class="dash"></span> As 19 planilhas · cada uma abre em um clique</div>
+    <div class="btn-grid mv">
+      <a class="pbtn" href="#"><span class="pn">11</span><span class="pt">Reivindicações · Jurídico</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">12</span><span class="pt">Retidos UBC</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">13</span><span class="pt">Controle de Obras · Editora</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">14</span><span class="pt">Cadastro de Compositores</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">15</span><span class="pt">Dicionário da Cultura Gaúcha</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">16</span><span class="pt">Manual da Marca</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">17</span><span class="pt">Inventário de Catálogo</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">18</span><span class="pt">Controle de Senhas</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a class="pbtn" href="#"><span class="pn">19</span><span class="pt">Auditoria de Segurança</span><span class="pa"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+    </div>
+    <p class="small mv" style="margin-top:16px;color:var(--faint)">Links a serem inseridos pela equipe.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="m2" data-menu="Pastas · a preencher" data-num="2.8">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.8</span><span class="dash"></span> Patrimônio visual</div>
+    <div class="cards c3 mv" style="margin-bottom:18px">
+      <div class="mc"><div class="nm">Artistas</div><p>Fotos oficiais em alta resolução, requalificadas por IA.</p></div>
+      <div class="mc"><div class="nm">Marketing 2026</div><p>Identidades, logomarcas, capas e materiais.</p></div>
+      <div class="mc"><div class="nm">YouTube 2026</div><p>Vídeos originais, thumbnails e apoio.</p></div>
+    </div>
+    <div class="pending mv"><div class="pk"><span class="d"></span> Aguardando links reais da equipe</div><ul><li>Keles e Raul: links das 19 planilhas e das 3 pastas</li></ul></div>
+  </div>
+</section>
+
+<!-- ===== DEMONSTRAÇÃO AO VIVO ===== -->
+<section class="slide brk" data-act="demo" data-menu="Demonstração ao vivo" data-num="03">
+  <div class="slide-in">
+    <span class="tricolor mv"><i></i><i></i><i></i></span>
+    <div class="mo mv"><span class="ano">03</span> Demonstração</div>
+    <h2 class="mv">Ao vivo,<br>agora.</h2>
+    <p class="msub mv">Isto não é slide. Com um clique, abrimos a operação rodando de verdade: documentação, painéis de redes e YouTube, governança e o Drive. Transparência que se vê na hora.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="demo" data-menu="Abrir a operação · um clique" data-num="3.0">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">3.0</span><span class="dash"></span> Abrir a operação · cada painel em um clique</div>
+    <div class="demo-grid mv">
+      <a class="demo-card" data-link="documentacao" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Documentação</span><span class="ds">Onde vive a operação: processos, manuais e histórico completo.</span>
+      </a>
+      <a class="demo-card" data-link="redes" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Painel de Redes Sociais</span><span class="ds">Publicação e métricas das redes, em tempo real.</span>
+      </a>
+      <a class="demo-card" data-link="painelYoutube" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Painel do YouTube</span><span class="ds">Programação, publicações e performance do canal.</span>
+      </a>
+      <a class="demo-card" data-link="governanca" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Governança e BI</span><span class="ds">As 19 planilhas e os dashboards de inteligência da operação.</span>
+      </a>
+      <a class="demo-card" data-link="drive" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Drive da operação</span><span class="ds">Pastas de artistas, marketing e conteúdo, organizadas.</span>
+      </a>
+      <a class="demo-card" data-link="site" target="_blank" rel="noopener">
+        <span class="di"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+        <span class="dgo"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span><span class="dtag">a conectar</span>
+        <span class="dt">Site oficial</span><span class="ds">asmelhorescancoesgauchas.com.br, catálogo, artistas e rádio 24h.</span>
+      </a>
+    </div>
+    <p class="small mv" style="margin-top:16px;color:var(--faint)">Os destinos abrem em nova aba, ao vivo. Cadastre cada endereço na lista LINKS, no início do código, e ficam prontos aqui e na assistente.</p>
+  </div>
+</section>
+
+<!-- ===== FECHO · fim da apresentação para o parceiro ===== -->
+<section class="slide end" data-act="fecho" data-menu="Encerramento" data-num="">
+  <div class="slide-in">
+    <svg class="heart mv" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg>
+    <h2 class="mv">Um ativo higienizado, blindado<br>e <b>pronto para escalar.</b></h2>
+    <div class="es mv">Operação Canções Gaúchas 2026 · USA Discos · Editora Terra Sul</div>
+  </div>
+</section>
+
+<section class="slide" data-act="fecho" data-menu="Vamos construir juntos" data-num="">
+  <div class="slide-in center">
+    <span class="tricolor mv"><i></i><i></i><i></i></span>
+    <p class="scene mv">Vamos construir<br><b>o próximo capítulo juntos.</b></p>
+    <p class="lede mv" style="margin-top:26px">A operação está pronta. O convite é para unir este catálogo à sua visão e à sua escala, e multiplicar o que já cresce sozinho.</p>
+    <div class="frows mv" style="margin-top:30px">
+      <div class="frow"><span class="fl">Alex Hohenberger</span><span class="fv">CEO · Produtor Fonográfico</span></div>
+      <div class="frow"><span class="fl">Cris Hohenberger</span><span class="fv">Diretora de Operações</span></div>
+      <div class="frow"><span class="fl">Site oficial</span><span class="fv">asmelhorescancoesgauchas.com.br</span></div>
+    </div>
+    <p class="small mv" style="margin-top:18px;color:var(--faint)">E-mail e telefone de contato a inserir pela equipe.</p>
+  </div>
+</section>
+
+<!-- ===== USO INTERNO · apêndice da equipe, após o fecho ===== -->
+<section class="slide brk" data-act="interno" data-menu="Material de apoio" data-num="">
+  <div class="slide-in">
+    <span class="tricolor mv"><i></i><i></i><i></i></span>
+    <div class="mo mv">Uso interno · Bastidor</div>
+    <h2 class="mv">Material<br>de apoio</h2>
+    <p class="msub mv">Respostas para as 14 perguntas estratégicas dos parceiros e o checklist de preparação. Para uso exclusivo da equipe.</p>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="FAQ · compilações" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> FAQ · seleção e compilações</div>
+    <ul class="rows mv">
+      <li><span class="rk">02</span><span><b>Seleção das compilações.</b> Orientada por busca semântica no Spotify e Amazon, construída a quatro mãos com apoio de IA. Controle pela FUGA, replicada em todas as plataformas.</span></li>
+      <li><span class="rk">03</span><span><b>Mesmos fonogramas em várias?</b> Sim, estratégia deliberada para multiplicar as portas de entrada.</span></li>
+      <li><span class="rk">04</span><span><b>Volume por ano.</b> 362 playlists ativas por plataforma, mais 10 playlists e 10 coletâneas novas por mês.</span></li>
+      <li><span class="rk">05</span><span><b>Impacto.</b> Medido pelo crescimento da base. O segredo foi a virada para caixa alta, e a preparação para a busca por voz.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="FAQ · vídeo e sistema" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> FAQ · produção e sistema</div>
+    <ul class="rows mv">
+      <li><span class="rk">06</span><span><b>Volume de vídeo.</b> 100% interno, mais de <b>300 vídeos</b> este ano, guiados pelo checklist das <b>500 músicas</b> mais tocadas, na regra <b>80/20</b>.</span></li>
+      <li><span class="rk">07</span><span><b>Formatos.</b> No YouTube, coletâneas na TV e Shorts para captação. No Spotify, Canvas. Nas redes, posts estáticos de letras.</span></li>
+      <li><span class="rk">08</span><span><b>Sistema.</b> FUGA para distribuição e royalties, mais sistema proprietário como backup soberano. Fluxo diário no Asana.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="FAQ · redes e mídia" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> FAQ · redes e mídia paga</div>
+    <ul class="rows mv">
+      <li><span class="rk">09</span><span><b>Quais redes.</b> Instagram, TikTok, Facebook, Threads e LinkedIn, sob @asmelhorescancoesgauchas, administração interna de Luana e Cynthia.</span></li>
+      <li><span class="rk">10</span><span><b>Mídia paga?</b> Não. Tudo 100% orgânico. Variações de views no YouTube se devem à sazonalidade da Semana Farroupilha, não a queda de performance.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="FAQ · Editora Terra Sul" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> FAQ · a Editora Terra Sul</div>
+    <ul class="rows mv">
+      <li><span class="rk">11</span><span><b>Coleta de royalties.</b> Após turnaround: contratos validados, obras cadastradas na UBC, faturamento reconstituído dos últimos <b>5 anos</b>, pagamentos regularizados, exceto <b>7 autores</b> não localizados.</span></li>
+      <li><span class="rk">12</span><span><b>UBEM?</b> Sem relação. Toda a arrecadação editorial é pela UBC.</span></li>
+      <li><span class="rk">13–14</span><span><b>Gestão e repasses.</b> Carlos Mills com Cris Weinberger. Royalties coletados pela UBC e repassados conforme os contratos de cessão e a lei.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="FAQ · licenciamento a preencher" data-num="">
+  <div class="slide-in">
+    <div class="pending mv" style="max-width:720px">
+      <div class="pk"><span class="d"></span> Marcação Elvis · Bloco 1</div>
+      <ul>
+        <li>Volume médio de licenciamentos e sincronizações anuais dos últimos 5 anos</li>
+        <li>Tabela de obras únicas versus ISRCs e versões</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="interno" data-menu="Checklist pré-reunião" data-num="">
+  <div class="slide-in">
+    <div class="kick mv"><span class="dash"></span> Checklist interno de preparação</div>
+    <ul class="rows mv">
+      <li><span class="rk" style="color:var(--accent)">✓</span><span><b>Cris.</b> Oportunidades futuras e perguntas do FAQ. Concluído.</span></li>
+      <li><span class="rk"></span><span><b>Cris e equipe.</b> Confirmar a denominação oficial dos parceiros.</span></li>
+      <li><span class="rk"></span><span><b>Elvis.</b> Inventário real e tabela obra x versões.</span></li>
+      <li><span class="rk"></span><span><b>Cris e Elvis.</b> Dados da Editora Terra Sul.</span></li>
+      <li><span class="rk"></span><span><b>Giovana e Luana.</b> Resultados de OKRs 2026 das redes.</span></li>
+      <li><span class="rk"></span><span><b>Keles e Raul.</b> Links das 19 planilhas e 3 pastas.</span></li>
+      <li><span class="rk"></span><span><b>Raul e equipe.</b> Prints do Spotify dos 50 principais artistas.</span></li>
+    </ul>
+  </div>
+</section>
+
+  </div>
+
+  <!-- traço-assinatura -->
+  <div class="sig"><svg viewBox="0 0 1000 2" preserveAspectRatio="none"><defs><linearGradient id="sigGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f2233" stop-opacity="1"/><stop offset="1" stop-color="#8f2233" stop-opacity="0.12"/></linearGradient></defs><path d="M0 1 L1000 1"/></svg><span class="dot" id="sigDot"></span></div>
+
+  <!-- moldura, acento de bandeira e grão (camada premium) -->
+  <div class="frame"><span class="tl"></span><span class="br"></span></div>
+  <div id="lb" aria-hidden="true"><div class="lb-t"></div><div class="lb-b"></div></div>
+  <div class="flag"><span></span><span></span><span></span></div>
+  <div class="grain"></div>
+
+  <div class="hint" id="hint"><kbd>←</kbd><kbd>→</kbd> ou clique para navegar</div>
+
+  <div class="chrome">
+    <div class="bar">
+      <div class="brand"><svg class="heart" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg><span>Canções Gaúchas 2026</span></div>
+      <div class="act"><b id="actName">Abertura</b></div>
+      <div class="nav">
+        <button class="nbtn" id="askBtn" aria-label="Perguntar à apresentação"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+        <button class="nbtn" id="menuBtn" aria-label="Índice"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button class="nbtn" id="prevBtn" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <span class="count"><b id="cur">1</b> / <span id="tot">1</span></span>
+        <button class="nbtn" id="nextBtn" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div id="menu">
+  <div class="menu-in">
+    <div class="menu-top">
+      <div class="mt"><svg class="heart" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg>Índice da apresentação</div>
+      <button class="menu-close" id="menuClose" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div id="menuBody"></div>
+  </div>
+</div>
+
+<!-- ASSISTENTE (lupa inteligente) -->
+<div id="ask">
+  <div class="ask-in">
+    <div class="ask-top">
+      <div class="at"><svg class="heart" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg>Pergunte à apresentação</div>
+      <button class="ask-close" id="askClose" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ask-field">
+      <span class="mag"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+      <input id="askInput" type="text" placeholder="Pergunte qualquer coisa sobre a operação..." autocomplete="off" aria-label="Pergunta">
+      <button class="ask-mic" id="askMic" aria-label="Perguntar por voz" title="Perguntar por voz" hidden><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></button>
+    </div>
+    <div class="ask-hint">Pergunte sobre a operação ou peça para abrir um destino: site, YouTube, Spotify, planilhas, Drive. Exclusiva das Melhores Canções Gaúchas.</div>
+    <div class="ask-sugs" id="askSugs"></div>
+    <div class="ask-results" id="askResults"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var SENHA="@12345";
+  var gate=document.getElementById('gate'),app=document.getElementById('app'),pw=document.getElementById('pw'),go=document.getElementById('go');
+  function unlock(){if(pw.value===SENHA){gate.classList.add('off');app.classList.add('on');setTimeout(function(){gate.style.display='none';boot();},760);}else{gate.classList.add('err');pw.select();setTimeout(function(){gate.classList.remove('err');},700);}}
+  go.addEventListener('click',unlock);
+  pw.addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
+  window.addEventListener('load',function(){pw.focus();});
+
+  var slides,cur=0,busy=false;
+  var ACTS={abertura:'Abertura',time:'O Time',m1:'Momento 1',m2:'Momento 2',demo:'Demonstração',fecho:'Fecho',interno:'Uso interno'};
+
+  function boot(){
+    slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    document.getElementById('tot').textContent=slides.length;
+    buildMenu();bindNav();initAsk();applyPhotos();applyLinks();
+    show(0,true);
+    setTimeout(function(){app.classList.add('drawn');},260);
+    var hint=document.getElementById('hint');
+    var hide=function(){hint.classList.add('gone');};
+    setTimeout(hide,5400);
+    window.addEventListener('keydown',function h(e){if(['ArrowRight','ArrowLeft',' '].indexOf(e.key)>-1){hide();window.removeEventListener('keydown',h);}});
+  }
+
+  function show(i,instant){
+    if(i<0||i>=slides.length||(busy&&!instant))return;
+    var old=cur;cur=i;
+    slides.forEach(function(s,idx){
+      if(idx===i){
+        s.classList.remove('is-out');s.classList.add('is-active');s.setAttribute('aria-hidden','false');
+        var mv=s.querySelectorAll('.mv');
+        mv.forEach(function(el,k){el.style.transitionDelay=(instant?0:(90+k*88))+'ms';});
+        var si=s.querySelector('.slide-in');if(si)si.scrollTop=0;
+      }else if(idx===old&&!instant){
+        s.classList.remove('is-active');s.classList.add('is-out');s.setAttribute('aria-hidden','true');
+        setTimeout(function(){if(cur!==idx){s.classList.remove('is-out');}},640);
+      }else{
+        s.classList.remove('is-active');s.classList.remove('is-out');s.setAttribute('aria-hidden','true');
+        s.querySelectorAll('.mv').forEach(function(el){el.style.transitionDelay='0ms';});
+      }
+    });
+    document.getElementById('cur').textContent=i+1;
+    var act=slides[i].getAttribute('data-act')||'abertura';
+    document.getElementById('actName').textContent=ACTS[act]||'Abertura';
+    // letterbox cinema: cenas emocionais e aberturas de ato
+    document.body.classList.toggle('cinema', slides[i].classList.contains('brk')||!!slides[i].querySelector('.scene'));
+    // traço + ponto de progresso
+    var pct=slides.length>1?(i/(slides.length-1))*100:100;
+    document.getElementById('sigDot').style.left='calc('+pct+'% - 2px)';
+    document.getElementById('prevBtn').disabled=(i===0);
+    document.getElementById('nextBtn').disabled=(i===slides.length-1);
+    updateHere(i);
+    runCounters(slides[i],instant);
+    if(!instant){busy=true;setTimeout(function(){busy=false;},420);}
+  }
+  function next(){show(cur+1);}
+  function prev(){show(cur-1);}
+
+  function bindNav(){
+    document.getElementById('nextBtn').addEventListener('click',next);
+    document.getElementById('prevBtn').addEventListener('click',prev);
+    // clique para avançar, mas nunca sobre links, botões ou campos
+    document.getElementById('deck').addEventListener('click',function(e){
+      if(document.getElementById('menu').classList.contains('open'))return;
+      if(e.target.closest('a,button,input,.pbtn,.no-adv'))return;
+      if(e.clientX < window.innerWidth*0.24) prev(); else next();
+    });
+    // links ainda sem destino (href="#") não recarregam a página
+    document.addEventListener('click',function(e){var a=e.target.closest('a');if(a&&(a.getAttribute('href')||'')==='#')e.preventDefault();});
+    window.addEventListener('keydown',function(e){
+      if(document.getElementById('ask').classList.contains('open')){if(e.key==='Escape')closeAsk();return;}
+      if(document.getElementById('menu').classList.contains('open')){if(e.key==='Escape')closeMenu();return;}
+      switch(e.key){
+        case'ArrowRight':case'PageDown':case' ':case'ArrowDown':e.preventDefault();next();break;
+        case'ArrowLeft':case'PageUp':case'ArrowUp':e.preventDefault();prev();break;
+        case'Home':e.preventDefault();show(0);break;
+        case'End':e.preventDefault();show(slides.length-1);break;
+        case'Escape':case'm':case'M':openMenu();break;
+      }
+    });
+    var x0=null,y0=null,d=document.getElementById('deck');
+    d.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+    d.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)){dx<0?next():prev();}x0=null;},{passive:true});
+    document.getElementById('menuBtn').addEventListener('click',openMenu);
+    document.getElementById('menuClose').addEventListener('click',closeMenu);
+  }
+
+  var menuData=[];
+  function buildMenu(){
+    var body=document.getElementById('menuBody'),groups={},order=[];
+    slides.forEach(function(s,i){
+      var act=s.getAttribute('data-act')||'abertura',label=s.getAttribute('data-menu');
+      if(!label)return;
+      if(!groups[act]){groups[act]=[];order.push(act);}
+      groups[act].push({i:i,label:label,num:s.getAttribute('data-num')||''});
+    });
+    order.forEach(function(act){
+      var grp=document.createElement('div');grp.className='menu-grp';
+      var lbl=document.createElement('div');lbl.className='menu-lbl';lbl.innerHTML='<span class="dash"></span>'+(ACTS[act]||act);
+      grp.appendChild(lbl);
+      groups[act].forEach(function(it){
+        var b=document.createElement('button');b.className='menu-item';
+        b.innerHTML='<span class="mi-n">'+(it.num||'')+'</span><span>'+it.label+'</span>';
+        b.addEventListener('click',function(){closeMenu();show(it.i);});
+        grp.appendChild(b);menuData.push({i:it.i,el:b});
+      });
+      body.appendChild(grp);
+    });
+  }
+  function updateHere(i){var best=null;menuData.forEach(function(m){m.el.classList.remove('here');if(m.i<=i&&(!best||m.i>best.i))best=m;});if(best)best.el.classList.add('here');}
+  function openMenu(){document.getElementById('menu').classList.add('open');}
+  function closeMenu(){document.getElementById('menu').classList.remove('open');}
+
+
+  // ----- contagem animada dos números (com sufixo) -----
+  function runCounters(slide,instant){
+    var els=slide.querySelectorAll('.fig .v,.mc .big,.plat .pv,.figbig .v');
+    els.forEach(function(el){
+      var node=el.firstChild;
+      if(!node||node.nodeType!==3)return;                       // precisa começar por texto
+      var raw=node.nodeValue;
+      if(raw.indexOf(':')>-1)return;                            // ignora horários (4:25, 13:41)
+      var m=raw.match(/^(\s*)(\+?)([\d.]+(?:,\d+)?)(.*)$/);
+      if(!m)return;
+      var lead=m[1],sign=m[2],numStr=m[3],suffix=m[4];
+      if(/[0-9]/.test(suffix))return;                           // ignora 10+10 e afins
+      var dec=(numStr.split(',')[1]||'').length;
+      var target=parseFloat(numStr.replace(/\./g,'').replace(',','.'));
+      if(isNaN(target))return;
+      function out(v){return lead+sign+fmt(v,dec)+suffix;}
+      if(instant){node.nodeValue=out(target);return;}
+      var dur=1150,t0=null;
+      node.nodeValue=out(0);
+      function step(ts){
+        if(!t0)t0=ts;
+        var p=Math.min((ts-t0)/dur,1);
+        var e=1-Math.pow(1-p,3);
+        node.nodeValue=out(target*e);
+        if(p<1)requestAnimationFrame(step);
+        else node.nodeValue=out(target);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  function fmt(v,dec){
+    return v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+  }
+
+  /* ================= ASSISTENTE (lupa inteligente, local) ================= */
+  var AI_ENDPOINT="/api/perguntar"; // função no Vercel (opcional). Sem ela, o assistente já responde localmente.
+
+  /* FOTOS · cole aqui o link de cada foto (deixe em branco para manter as iniciais) */
+  var PHOTOS={
+    "Baitaca":"", "João Luiz Corrêa":"", "Porca Véia":"", "Luiz Marenco":"", "Garotos de Ouro":"", "Xiru Missioneiro":"",
+    "Alex Hohenberger":"", "Cris Hohenberger":"", "Giovana Tolotti":"", "Luana Oslo":"", "Pedro Dittgen":"",
+    "Raul Dittgen":"", "Letícia Schwalbe":"", "Cynthia Neves":"", "Keles Alexandre":"", "Loyslene Jacques e Bernardo Haas":""
+  };
+  function applyPhotos(){
+    Array.prototype.slice.call(document.querySelectorAll('[data-foto]')).forEach(function(el){
+      var u=PHOTOS[el.getAttribute('data-foto')];
+      if(u){el.style.backgroundImage="url('"+u+"')";el.textContent="";}
+    });
+  }
+
+  /* LINKS · a assistente e o hub de demonstração só abrem estes destinos. Cole os endereços. */
+  var LINKS={
+    site:"https://asmelhorescancoesgauchas.com.br",
+    youtube:"https://www.youtube.com/@asmelhorescancoesgauchas",
+    documentacao:"", // documentação da operação (Drive, Notion ou Doc)
+    redes:"",        // painel de redes sociais (publicação e métricas)
+    painelYoutube:"",// painel/dashboard do YouTube
+    governanca:"",   // planilhas e dashboards de BI
+    drive:"",        // pasta-raiz do Drive conectado
+    radio:"",        // rádio 24h ao vivo
+    spotify:{"baitaca":"","porca veia":"","luiz marenco":"","joao luiz correa":"","garotos de ouro":"","xiru missioneiro":""},
+    planilhas:{"royalties":"","financeiro":"","catalogo":"","playlists":"","youtube":"","redes":"","okrs":"","artistas":""},
+    pastas:{"artistas":"","fotos":"","marketing":"","youtube":"","baitaca":"","porca veia":"","luiz marenco":""}
+  };
+  var ARTISTS={"baitaca":"Baitaca","porca veia":"Porca Véia","luiz marenco":"Luiz Marenco","joao luiz correa":"João Luiz Corrêa","garotos de ouro":"Garotos de Ouro","xiru missioneiro":"Xiru Missioneiro"};
+  function cap(s){return ARTISTS[s]||(s.charAt(0).toUpperCase()+s.slice(1));}
+  function findArtist(n){for(var k in ARTISTS){if(n.indexOf(k)>-1)return k;}return null;}
+  function findKey(n,obj){var hit=null;for(var k in obj){if(n.indexOf(k)>-1&&(!hit||k.length>hit.length))hit=k;}return hit;}
+  function applyLinks(){
+    Array.prototype.slice.call(document.querySelectorAll('[data-link]')).forEach(function(el){
+      var u=LINKS[el.getAttribute('data-link')];
+      if(u){el.setAttribute('href',u);el.classList.remove('pending');}
+      else{el.setAttribute('href','#');el.classList.add('pending');el.addEventListener('click',function(e){e.preventDefault();});}
+    });
+  }
+  var ISOPEN=/\b(abrir|abre|abra|acessar|acessa|acesse|mostrar|mostra|mostre|vai|ir|leva|link|perfil|open)\b/;
+  function detectAction(q){
+    var n=norm(q);
+    if(!ISOPEN.test(n))return null;
+    if(/\bsite\b/.test(n))return{label:"Site oficial",url:LINKS.site};
+    if(/\bradio\b/.test(n))return{label:"Rádio 24h",url:LINKS.radio};
+    if(/\bspotify\b/.test(n)){var a=findArtist(n);return{label:"Spotify"+(a?" · "+ARTISTS[a]:""),url:a?LINKS.spotify[a]:""};}
+    if((/\byoutube\b|\bcanal\b/.test(n))&&!/planilha/.test(n))return{label:"Canal no YouTube",url:LINKS.youtube};
+    if(/\bdocumentacao|documentos|documento\b/.test(n))return{label:"Documentação",url:LINKS.documentacao};
+    if(/\brede|redes\b/.test(n))return{label:"Painel de Redes Sociais",url:LINKS.redes};
+    if(/\bgovernanca|dashboard|dashboards\b/.test(n))return{label:"Governança e BI",url:LINKS.governanca};
+    if(/\bplanilha|planilhas\b/.test(n)){var pk=findKey(n,LINKS.planilhas);return{label:"Planilha"+(pk?" · "+cap(pk):""),url:pk?LINKS.planilhas[pk]:""};}
+    if(/\bpasta|pastas|drive\b/.test(n)){var kk=findKey(n,LINKS.pastas)||findArtist(n);return{label:kk?("Pasta · "+cap(kk)):"Drive da operação",url:(kk&&LINKS.pastas[kk])?LINKS.pastas[kk]:LINKS.drive};}
+    return null;
+  }
+  var HEART='<svg class="heart" viewBox="0 0 32 30"><path d="M16 28C16 28 2 19.5 2 9.9 2 5.4 5.5 2 9.7 2c2.7 0 5 1.4 6.3 3.6C17.3 3.4 19.6 2 22.3 2 26.5 2 30 5.4 30 9.9 30 19.5 16 28 16 28Z"/></svg>';
+  var ARR='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var EXT='<svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg>';
+  var BOLT='<svg viewBox="0 0 24 24" width="12" height="12" style="fill:none;stroke:#8f2233;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;vertical-align:middle"><path d="M13 3L5 13h6l-1 8 8-11h-6z"/></svg>';
+  var STOP={de:1,da:1,do:1,das:1,dos:1,e:1,o:1,a:1,os:1,as:1,um:1,uma:1,uns:1,que:1,qual:1,quais:1,como:1,quanto:1,quantos:1,quantas:1,tem:1,ter:1,em:1,no:1,na:1,nos:1,nas:1,pra:1,para:1,por:1,com:1,sem:1,se:1,sao:1,ao:1,aos:1,me:1,meu:1,minha:1,sobre:1,ha:1,foi:1,ser:1,esta:1,estao:1,isso:1,essa:1,esse:1,ou:1,qnt:1};
+  function norm(s){return (s||"").toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9%\s]/g,' ').replace(/\s+/g,' ').trim();}
+  function toks(s){return norm(s).split(' ').filter(function(t){return t.length>=2&&!STOP[t];});}
+
+  var KB=[
+    {k:"receita faturamento dinheiro monetizacao ganho ganhos us dolar youtube estimada fatura rende",a:"No YouTube, a receita estimada foi de <b>US$ 29.365</b> no semestre (jan a jul de 2026), <b>100% orgânica</b>. A linha de tráfego pago está zerada: toda a monetização foi construída sem mídia paga.",g:"Métricas do semestre"},
+    {k:"views visualizacoes visualizacao audiencia semestre trafego horas exibicao",a:"Foram <b>42,7 milhões</b> de visualizações no semestre, com <b>2,48 milhões</b> de horas de exibição e <b>+30,4 mil</b> inscritos líquidos. Tudo orgânico.",g:"Métricas do semestre"},
+    {k:"inscritos subscribers seguidores youtube canal base videos",a:"O canal tem <b>524 mil inscritos</b> e mais de <b>6,2 mil vídeos</b> publicados. No semestre, foram <b>+30,4 mil</b> inscritos líquidos.",g:"O maior canal do Brasil"},
+    {k:"catalogo acervo tamanho fonogramas isrc albuns upc musicas quantidade",a:"O catálogo reúne <b>11.893 fonogramas</b> com ISRC e <b>1.608 álbuns</b> com UPC, números auditáveis do relatório de royalties de 2026, sobre <b>40 anos</b> de acervo.",g:"O tamanho do acervo"},
+    {k:"artistas cantores interpretes gestao quantidade",a:"São mais de <b>350 artistas</b> sob gestão, de gêneros como nativismo, vaneira e tradicionalista. Parte relevante já é falecida, o que torna o acervo insubstituível.",g:"O tamanho do acervo"},
+    {k:"historia anos quarenta alex hohenberger origem comeco fundacao quando",a:"A operação nasce do trabalho de <b>Alex Hohenberger</b>, há mais de <b>40 anos</b> no mercado fonográfico do RS. Em apenas dois anos, esse acervo virou uma operação digital profissionalizada.",g:"A maior plataforma"},
+    {k:"editora terra sul publishing obras direitos autorais ubc compositores turnaround edicao",a:"A Editora Terra Sul detém as <b>obras</b> (composições, letras, contratos) e arrecada direitos autorais pela <b>UBC</b>. Passou por um turnaround completo: contratos validados, obras cadastradas, faturamento dos últimos <b>5 anos</b> reconstituído e pagamentos regularizados. Hoje é limpa e auditada.",g:"O turnaround da editora"},
+    {k:"usa discos gravadora label master masters fonograma conexos",a:"A USA Discos é a gravadora, titular dos <b>fonogramas e masters</b>, com ISRCs e gravações. Arrecada direitos conexos: streaming, YouTube e licenciamento de master.",g:"As duas empresas"},
+    {k:"master publishing verticalizacao verticalizado cadeia direitos dois ativos pontas controle",a:"A operação controla a <b>cadeia inteira de direitos</b>: master (USA Discos) e publishing (Editora Terra Sul) na mesma mão. Arrecada pelos dois lados, sem depender de terceiros, algo raro entre catálogos regionais.",g:"As duas empresas"},
+    {k:"organico organica midia paga trafego pago investimento anuncios ads",a:"Toda a audiência e a receita foram construídas de forma <b>100% orgânica</b>, praticamente sem mídia paga. É prova de eficiência editorial, e sinal de enorme potencial de escala com investimento.",g:"Imagine com combustível"},
+    {k:"playlists coletaneas vitrines spotify deezer amazon curadoria",a:"São <b>362 playlists ativas</b> em cada plataforma (Spotify, Deezer, YouTube e Amazon), mais de <b>1.400 vitrines</b> sincronizadas, com <b>10 playlists e 10 coletâneas novas por mês</b>. A playlist As 100 Melhores soma <b>14,3 milhões</b> de views.",g:"Números das playlists"},
+    {k:"top artistas maiores ranking mais tocados principais porca garotos baitaca marenco",a:"Os artistas mais tocados em 2026 são <b>Porca Véia, Garotos de Ouro, Luiz Marenco, Baitaca</b> e José Cláudio Machado, seguidos de Os Serranos, Joca Martins, João Luiz Corrêa, Xiru Missioneiro e Leopoldo Rassier.",g:"Top 10 artistas 2026"},
+    {k:"top musicas mais tocadas ranking hits sucessos faixas",a:"As músicas mais tocadas em 2026 são lideradas por <b>Milonga abaixo de Mau Tempo</b> (José Cláudio Machado), <b>Capricha Gaiteiro</b> (Garotos de Ouro) e <b>Nego Bom não se Mistura</b> (Baitaca).",g:"Top 10 músicas 2026"},
+    {k:"baitaca ouvintes streams seguidores",a:"Baitaca tem <b>630 mil</b> ouvintes mensais, <b>2,4 milhões</b> de streams e <b>78 mil</b> novos seguidores nos últimos 28 dias.",g:"Baitaca"},
+    {k:"porca veia ouvintes streams",a:"Porca Véia soma <b>362 mil</b> ouvintes mensais, <b>2,8 milhões</b> de streams e <b>23 mil</b> super ouvintes. É o artista mais tocado do catálogo em 2026.",g:"Porca Véia"},
+    {k:"luiz marenco ouvintes streams",a:"Luiz Marenco tem <b>354 mil</b> ouvintes mensais, <b>2 milhões</b> de streams e mais de <b>13 mil</b> super ouvintes.",g:"Luiz Marenco"},
+    {k:"joao luiz correa contrato clausula excecao porcento",a:"João Luiz Corrêa tem <b>489 mil</b> ouvintes mensais. É também o único contrato do catálogo com cláusula de exceção de <b>2%</b>.",g:"João Luiz Corrêa"},
+    {k:"publico perfil audiencia quem assiste homens mulheres masculino genero",a:"O público é <b>75,6% masculino</b> e maduro: quase <b>78%</b> tem mais de 35 anos, com pico nos <b>65+</b>. Público fiel, ligado à memória e à tradição, o que gera receita previsível.",g:"Um público fiel e maduro"},
+    {k:"idade faixa etaria etario velho jovem maduro sessenta",a:"Por faixa etária: <b>65+</b> concentra 23%, <b>55 a 64</b> 20,3%, <b>45 a 54</b> 18,7%, <b>35 a 44</b> 15,8% e <b>25 a 34</b> 13%.",g:"Um público fiel e maduro"},
+    {k:"geografia paises cidades onde brasil argentina sul mundo internacional exterior",a:"<b>95,9%</b> do público está no Brasil, com forte raiz no Sul (Porto Alegre, Curitiba, Caxias, Florianópolis) e presença em São Paulo. Alcança <b>mais de 40 países</b>, entre eles Argentina, Paraguai, Uruguai, Portugal e EUA.",g:"Alcance mundial"},
+    {k:"smart tv televisao dispositivos celular tela consumo casa domestico",a:"O celular domina o alcance, mas a <b>Smart TV concentra 41,8%</b> do tempo de exibição, com média acima de 6 minutos. Consumo doméstico e imersivo.",g:"Além do vídeo"},
+    {k:"shorts curtos descoberta captacao",a:"Os Shorts geraram <b>13,1 milhões</b> de views no semestre, <b>226,7 mil</b> curtidas, e <b>83,7%</b> vindas do feed de Shorts. São o motor de descoberta que capta novos ouvintes.",g:"Shorts, o motor de descoberta"},
+    {k:"radio 24h lives live transmissao ao vivo recorrentes fidelidade longos",a:"As lives e a rádio 24h têm duração média de <b>13:41</b> e <b>89,9%</b> de espectadores recorrentes. Vídeos longos respondem por <b>96,2%</b> do tempo de exibição.",g:"Ecossistema de formatos"},
+    {k:"retencao engajamento continuam assistindo duracao media tempo",a:"<b>47,6%</b> continuam assistindo após o início do vídeo, a duração média é de <b>4:25</b>, e as lives têm <b>89,9%</b> de recorrentes.",g:"Engajamento e retenção"},
+    {k:"redes sociais instagram tiktok facebook threads seguidores amplificacao",a:"Em 2025, o Facebook chegou a <b>94 mil</b>, o Instagram dobrou para <b>207 mil</b>, o TikTok triplicou para <b>98 mil</b> e o Threads subiu para <b>23 mil</b>. Cinco posts por dia, mês inteiro agendado.",g:"Resultados 2025 · alcance"},
+    {k:"equipe time pessoas quem trabalha colaboradores funcionarios alex cris giovana luana pedro",a:"Equipe enxuta e multifuncional: <b>Alex</b> (CEO e produtor), <b>Cris</b> (Diretora de Operações), Giovana (Operações e YouTube), Luana (Conteúdo e Redes), Pedro (Distribuição), Raul, Letícia, Cynthia, Keles, e o jurídico Loyslene e Bernardo.",g:"A equipe · 1"},
+    {k:"ia inteligencia artificial freepik sora grok gemini claude ferramentas",a:"A IA potencializa, mas não substitui o humano. <b>Freepik</b> recupera imagens em 4K, <b>Sora e Grok</b> criam vídeos, <b>Gemini</b> transcreve reuniões e <b>Claude</b> apoia a leitura de indicadores. Toda entrega passa por validação humana.",g:"Uso estratégico da IA"},
+    {k:"ferramentas arsenal fuga asana mlabs chartmetric power bi looker stack tecnologia",a:"O arsenal inclui <b>Asana</b> e Google Workspace (gestão), <b>FUGA</b> e Tune My Music (distribuição), MLabs, ManyChat e Found.ee (redes), Chartmetric, SemRush e Google Trends (dados e SEO), Power BI e Looker (BI).",g:"O arsenal"},
+    {k:"juridico direitos protecao content id conflitos loyslene bernardo notificacoes blindagem",a:"A proteção é ativa, conduzida por <b>Loyslene Jacques e Bernardo Haas</b>, num fluxo de 8 etapas. Há controle semanal de <b>Content ID</b>, atuação como terceiro nos processos e acervo documental de décadas com identificador único por artista.",g:"Fluxo jurídico"},
+    {k:"seguranca invasao ataque hacker autenticacao acessos senhas cripto",a:"A segurança virou rotina após uma tentativa de invasão na Semana Farroupilha, neutralizada rápido. Hoje há <b>2FA obrigatório</b>, apenas dois administradores em computadores bloqueados e auditoria mensal dos logs.",g:"Governança de acessos"},
+    {k:"riscos pendencias problemas retidos ubc ecad transparencia processos",a:"Riscos mapeados e em tratamento: <b>265 músicas</b> sem ISRC no ECAD, mais de <b>50 processos</b> no YouTube em acompanhamento, dois artistas com documentação a localizar e a cláusula de 2% do João Luiz Corrêa. Tudo diagnosticado e rastreável.",g:"Transparência · riscos"},
+    {k:"sistema proprio soberania backup fuga independente dados soberano",a:"Além da FUGA, há um <b>sistema próprio e independente</b> com todos os dados do catálogo. Metadados, históricos e contratos ficam com o proprietário. Se trocar de distribuidora, nada se perde.",g:"Sistema próprio"},
+    {k:"governanca dados planilhas dashboards bi processos organizacao drive",a:"A operação roda sobre <b>19 planilhas</b> padronizadas que alimentam <b>7 dashboards</b> de BI em Power BI e Looker, com análise diária, semanal e quinzenal.",g:"Governança de dados"},
+    {k:"okrs metas gamificacao incentivos reunioes premiacao",a:"As metas são construídas em consenso, desdobradas em trimestres e acompanhadas quinzenalmente. Há gamificação, com mais de <b>R$ 3.000</b> em incentivos em 2026. Todas as reuniões são transcritas com IA.",g:"Reuniões e metas"},
+    {k:"oitenta vinte concentracao receita pareto valor foco",a:"A operação sabe onde está o valor: <b>587 fonogramas</b> (4,9% do catálogo) concentram <b>80%</b> dos royalties de 2026, e <b>171 álbuns</b> (10,6%) geram os mesmos 80%.",g:"A inteligência 80/20"},
+    {k:"oportunidades futuro expansao crescimento escala automacao musica nova avenidas",a:"Duas avenidas prontas: criar <b>música gaúcha com IA</b> (testes já promissores, custo marginal quase zero) e a <b>automação total</b> de distribuição e curadoria, multiplicando a capacidade sem aumentar o time.",g:"Oportunidades futuras"},
+    {k:"rebranding nome marca seo cancoes musicas posicionamento busca sugerido",a:"O canal é o <b>4º mais sugerido</b> na busca por música gaúcha. Está em curso um rebranding guiado por SEO, de As Melhores Canções Gaúchas para <b>As Melhores Músicas Gaúchas</b>, para casar com o termo mais buscado.",g:"Posicionamento e rebranding"},
+    {k:"coletaneas mixes compilacoes maquina reaquecimento",a:"As coletâneas nascem por dados (busca semântica), com curadoria faixa a faixa a quatro mãos, humano e IA. Compilações longas atendem ao consumo na Smart TV e multiplicam a receita da mesma obra.",g:"A máquina de coletâneas"},
+    {k:"farroupilha setembro pico faturamento sazonalidade semana",a:"A Semana Farroupilha é o <b>pico de faturamento</b> do ano, no segundo semestre. Comparações com o semestre anterior refletem sazonalidade, não queda de performance.",g:"Segurança sob pressão"},
+    {k:"site portal endereco web dominio pagina oficial",a:"A operação tem site próprio em <b>asmelhorescancoesgauchas.com.br</b>, com infraestrutura própria (Cloudflare e Hostinger), reunindo catálogo, artistas, playlists e a rádio 24h.",g:"Site próprio"},
+    {k:"metadados higienizacao qualidade caixa alta padronizacao limpos",a:"A operação entrega um acervo <b>rigorosamente higienizado</b>: títulos em caixa alta, ISRC validado e créditos revisados manualmente. Metadado errado custa caro e vaza royalties.",g:"Acervo higienizado"},
+    {k:"grade editorial programacao semanal emissora nostalgia milonga vaneira dias",a:"O canal opera como emissora de TV, com grade fixa: Segunda da Nostalgia, Terça do Artista, Quarta da Milonga, Quinta Campeira, Sexta das Coletâneas, Sábado da Vaneira e Domingo Temático.",g:"Grade editorial"}
+  ];
+
+  var slideIdx=[],menuToI={};
+  function buildIdx(){
+    slideIdx=[];menuToI={};
+    slides.forEach(function(s,i){
+      var menu=s.getAttribute('data-menu');if(!menu)return;
+      menuToI[menu]=i;
+      slideIdx.push({i:i,menu:menu,num:s.getAttribute('data-num')||'',act:s.getAttribute('data-act')||'',txt:norm(menu+' '+(s.textContent||''))});
+    });
+  }
+  function scoreKB(qt){
+    var best=null,bestS=0;
+    KB.forEach(function(e){
+      var hay=' '+norm(e.k+' '+e.a)+' ',keys=' '+norm(e.k)+' ',s=0;
+      qt.forEach(function(t){if(keys.indexOf(t)>-1)s+=2;else if(hay.indexOf(t)>-1)s+=1;});
+      if(s>bestS){bestS=s;best=e;}
+    });
+    return bestS>=2?best:null;
+  }
+  function scoreSlides(qt){
+    var arr=[];
+    slideIdx.forEach(function(sl){
+      var s=0;qt.forEach(function(t){if(sl.txt.indexOf(t)>-1)s+=(norm(sl.menu).indexOf(t)>-1?3:1);});
+      if(s>0)arr.push({sl:sl,s:s});
+    });
+    arr.sort(function(a,b){return b.s-a.s;});
+    return arr.slice(0,6).map(function(x){return x.sl;});
+  }
+
+  var ACTNAME2={abertura:'Abertura',time:'O Time',m1:'Momento 1',m2:'Momento 2',demo:'Demonstração',fecho:'Fecho',interno:'Uso interno'};
+  var curQ="";
+  function render(q){
+    curQ=q;var R=document.getElementById('askResults');
+    if(!norm(q)){R.innerHTML='';return;}
+    var qt=toks(q),action=detectAction(q),kb=action?null:scoreKB(qt),sl=scoreSlides(qt),html='';
+    if(action){
+      html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Ação</div>';
+      if(action.url)html+='<div class="atext">Posso abrir <b>'+action.label+'</b> ao vivo para você.</div><a class="ajump" href="'+action.url+'" target="_blank" rel="noopener">Abrir '+action.label+' '+EXT+'</a>';
+      else html+='<div class="atext">Ainda não tenho o link de <b>'+action.label+'</b> cadastrado. É só colar o endereço na lista LINKS, no início do código, e eu passo a abrir na hora.</div>';
+      html+='</div>';
+    }
+    if(kb){
+      var gi=(kb.g&&menuToI[kb.g]!=null)?menuToI[kb.g]:null;
+      html+='<div class="ask-answer"><div class="aq">'+HEART+' Resposta<button class="ask-speak" data-say="1" aria-label="Ouvir resposta" title="Ouvir"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a4 4 0 0 1 0 7"/></svg></button></div><div class="atext">'+kb.a+'</div>';
+      if(gi!=null)html+='<button class="ajump" data-go="'+gi+'">Ir ao slide '+ARR+'</button>';
+      html+='</div>';
+    }
+    if(sl.length){
+      html+='<div class="ask-rlbl">'+(kb?'Onde ver na apresentação':'Slides relacionados')+'</div><div class="ask-slides">';
+      sl.forEach(function(s){html+='<button class="ask-slide" data-go="'+s.i+'"><span class="asn">'+(s.num||'·')+'</span><span class="ast">'+s.menu+'</span><span class="asg">'+(ACTNAME2[s.act]||'')+'</span><span class="asa">'+ARR+'</span></button>';});
+      html+='</div>';
+    }
+    if(!action&&!kb&&!sl.length)html+='<div class="ask-empty">Não encontrei isso nos slides nem nos dados da operação. Como sou exclusiva das Melhores Canções Gaúchas, respondo só sobre ela. Tente outras palavras.</div>';
+    if(!action)html+='<div class="ask-ai" id="askAi"><div class="aihint">Quer uma resposta mais aberta, além dos slides? (usa a IA conectada)</div><button class="aibtn" id="aiBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg> Ampliar com IA</button><div id="aiResp"></div></div>';
+    R.innerHTML=html;
+    Array.prototype.slice.call(R.querySelectorAll('[data-go]')).forEach(function(b){b.addEventListener('click',function(){goTo(parseInt(b.getAttribute('data-go'),10));});});
+    var aib=document.getElementById('aiBtn');if(aib)aib.addEventListener('click',function(){askAI(curQ);});
+    var sp=R.querySelector('[data-say]');if(sp&&kb)sp.addEventListener('click',function(){speak(kb.a);});
+    if(voiceAsked&&kb)speak(kb.a);
+    voiceAsked=false;
+  }
+  function askAI(q){
+    if(!norm(q))return;
+    var box=document.getElementById('askAi'),resp=document.getElementById('aiResp');
+    box.classList.add('busy');resp.innerHTML='<div class="ask-airesp">Consultando a IA...</div>';
+    fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pergunta:q})})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(d){box.classList.remove('busy');var t=(d&&(d.resposta||d.answer))||'Não consegui responder agora.';resp.innerHTML='<div class="ask-airesp">'+t+'</div>';})
+    .catch(function(){box.classList.remove('busy');resp.innerHTML='<div class="ask-airesp">A resposta por IA fica disponível quando a apresentação estiver publicada no Vercel com a função de IA ativa. Por aqui, a busca local já responde tudo o que está na apresentação e nos dados da operação.</div>';});
+  }
+  function goTo(i){closeAsk();setTimeout(function(){show(i);},140);}
+  function stripTags(h){var d=document.createElement('div');d.innerHTML=h;return (d.textContent||'').replace(/\s+/g,' ').trim();}
+  var synth=window.speechSynthesis||null;
+  function speak(txt){if(!synth)return;try{synth.cancel();var u=new SpeechSynthesisUtterance(stripTags(txt));u.lang='pt-BR';u.rate=1.02;synth.speak(u);}catch(e){}}
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
+  var rec=null,voiceAsked=false;
+  function initVoice(){
+    var mic=document.getElementById('askMic');if(!mic)return;
+    if(!SR){mic.hidden=true;return;}
+    mic.hidden=false;
+    mic.addEventListener('click',function(){
+      if(rec){try{rec.stop();}catch(e){}return;}
+      try{
+        rec=new SR();rec.lang='pt-BR';rec.interimResults=false;rec.maxAlternatives=1;
+        mic.classList.add('rec');
+        rec.onresult=function(e){var t=e.results[0][0].transcript;var inp=document.getElementById('askInput');inp.value=t;voiceAsked=true;render(t);};
+        rec.onerror=function(){};
+        rec.onend=function(){mic.classList.remove('rec');rec=null;};
+        rec.start();
+      }catch(e){mic.classList.remove('rec');rec=null;}
+    });
+  }
+  var SUGS=["Abrir o site","Abrir o YouTube","Abrir o Spotify do Porca Véia","Qual a receita do YouTube?","Quantos fonogramas tem o catálogo?","Quem é o público?","Como é a proteção jurídica?","Quantas playlists ativas?"];
+  function openAsk(){document.getElementById('ask').classList.add('open');setTimeout(function(){document.getElementById('askInput').focus();},120);}
+  function closeAsk(){document.getElementById('ask').classList.remove('open');}
+  var _tk=null;
+  function initAsk(){
+    buildIdx();
+    var inp=document.getElementById('askInput'),sugBox=document.getElementById('askSugs');
+    sugBox.innerHTML=SUGS.map(function(s){return '<button class="ask-sug">'+s+'</button>';}).join('');
+    Array.prototype.slice.call(sugBox.querySelectorAll('.ask-sug')).forEach(function(b){b.addEventListener('click',function(){inp.value=b.textContent;render(inp.value);inp.focus();});});
+    inp.addEventListener('input',function(){clearTimeout(_tk);_tk=setTimeout(function(){render(inp.value);},130);});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();render(inp.value);}});
+    document.getElementById('askBtn').addEventListener('click',openAsk);
+    document.getElementById('askClose').addEventListener('click',closeAsk);
+    document.getElementById('ask').addEventListener('click',function(e){if(e.target.id==='ask')closeAsk();});
+    initVoice();
+  }
+})();
+</script>
+</body>
+</html>

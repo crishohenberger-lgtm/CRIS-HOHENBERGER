@@ -1,45 +1,53 @@
-# [Project name]
+# Operação Canções Gaúchas 2026
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Apresentação institucional interativa da Operação Canções Gaúchas (USA Discos + Editora Terra Sul), com 125 slides e a assistente de IA Maya integrada via Claude.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm --filter @workspace/api-server run dev` — API server (porta 8080, via proxy `/api`)
+- `pnpm --filter @workspace/apresentacao run dev` — Apresentação (porta dinâmica, raiz `/`)
+- `pnpm run typecheck` — typecheck completo
+- `pnpm run build` — typecheck + build
+- Não requer DATABASE_URL para funcionar (a apresentação e a Maya não usam banco)
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
+- Apresentação: HTML/CSS/JS vanilla (auto-contido), servido via Vite
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
+- IA (Maya): Anthropic Claude via Replit AI Integrations (sem chave própria)
+- DB: PostgreSQL + Drizzle ORM (disponível mas não usado ainda)
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/apresentacao/index.html` — a apresentação completa (125 slides, CSS e JS inline)
+- `artifacts/api-server/src/routes/perguntar.ts` — rota `/api/perguntar` (Maya com Claude)
+- `lib/integrations-anthropic-ai/` — cliente Anthropic via Replit AI Integrations
+- `attached_assets/` — arquivos originais enviados pela usuária
 
-## Architecture decisions
+## Acesso
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Senha da apresentação: `@12345` (definida no próprio HTML, linha ~2070)
+- Endpoint da Maya: `POST /api/perguntar` com body `{ "pergunta": "..." }`
+- Retorna: `{ "resposta": "..." }`
 
-## Product
+## Publicação no domínio cristinaditgen.com.br
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Para publicar no domínio personalizado:
+1. Clique em "Publish" aqui no Replit para obter a URL de produção
+2. No registrador do domínio, aponte um CNAME para a URL do Replit
+3. Ou use GitHub + Vercel/Netlify com o arquivo `api/perguntar.js` que está nos arquivos enviados
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Não cortar nenhum slide — apenas adicionar conteúdo
+- Publicar em cristinaditgen.com.br
+- Maya é a IA assistente da apresentação (já nomeada no contexto)
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- A apresentação é HTML vanilla puro — não usa React nem componentes Vite
+- O Vite serve o `index.html` diretamente, sem processar JSX/TSX
+- A senha está hardcoded no HTML (`@12345`) — para trocar, edite a linha com `var SENHA`
+- O contexto da Maya está em `perguntar.ts` — para adicionar dados, edite o `CONTEXTO`
