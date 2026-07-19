@@ -2542,13 +2542,17 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
     });
   }
   function scoreKB(qt){
-    var best=null,bestS=0;
+    var scored=[];
     KB.forEach(function(e){
       var hay=' '+norm(e.k+' '+e.a)+' ',keys=' '+norm(e.k)+' ',s=0;
       qt.forEach(function(t){if(keys.indexOf(t)>-1)s+=2;else if(hay.indexOf(t)>-1)s+=1;});
-      if(s>bestS){bestS=s;best=e;}
+      if(s>=2)scored.push({e:e,s:s});
     });
-    return bestS>=2?best:null;
+    scored.sort(function(a,b){return b.s-a.s;});
+    var top=scored.slice(0,1);
+    // include 2nd entry if it scores ≥70% of the first and ≥3 (broad questions get richer answers)
+    if(scored.length>1&&scored[1].s>=Math.max(scored[0].s*0.7,3)&&scored[1].e.g!==scored[0].e.g)top.push(scored[1]);
+    return top.map(function(x){return x.e;});
   }
   function scoreSlides(qt){
     var arr=[];
@@ -2561,11 +2565,13 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   }
 
   var ACTNAME2={abertura:'Abertura',time:'O Time',m1:'Momento 1',m2:'Momento 2',demo:'Demonstração',fecho:'Fecho',interno:'Uso interno'};
+  var SPEAK_ICON='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a4 4 0 0 1 0 7"/></svg>';
+  function mdBold(s){return(s||'').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\n\n+/g,'<br><br>').replace(/\n(?!\n)/g,' ');}
   var curQ="";
   function render(q){
     curQ=q;var R=document.getElementById('askResults');
     if(!norm(q)){R.innerHTML='';return;}
-    var qt=toks(q),action=detectAction(q),kb=action?null:scoreKB(qt),sl=scoreSlides(qt),html='';
+    var qt=toks(q),action=detectAction(q),kbs=action?[]:scoreKB(qt),sl=scoreSlides(qt),html='';
     if(action){
       if(action.isNav){
         html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Navegando</div>';
@@ -2575,39 +2581,52 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       } else {
         html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Ação</div>';
         if(action.url)html+='<div class="atext">Posso abrir <b>'+action.label+'</b> ao vivo para você.</div><a class="ajump" href="'+action.url+'" target="_blank" rel="noopener">Abrir '+action.label+' '+EXT+'</a>';
-        else html+='<div class="atext">Ainda não tenho o link de <b>'+action.label+'</b> cadastrado. É só colar o endereço na lista LINKS, no início do código, e eu passo a abrir na hora.</div>';
+        else html+='<div class="atext">Ainda não tenho o link de <b>'+action.label+'</b> cadastrado. Cole o endereço na lista LINKS no início do código.</div>';
         html+='</div>';
       }
     }
-    if(kb){
+    kbs.forEach(function(kb,ki){
       var gi=(kb.g&&menuToI[kb.g]!=null)?menuToI[kb.g]:null;
-      html+='<div class="ask-answer"><div class="aq">'+HEART+' Resposta<button class="ask-speak" data-say="1" aria-label="Ouvir resposta" title="Ouvir"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a4 4 0 0 1 0 7"/></svg></button></div><div class="atext">'+kb.a+'</div>';
+      var lbl=kbs.length>1?(kb.g||'Resposta'):'Resposta';
+      html+='<div class="ask-answer"><div class="aq">'+HEART+' '+lbl+'<button class="ask-speak" data-ki="'+ki+'" aria-label="Ouvir" title="Ouvir">'+SPEAK_ICON+'</button></div><div class="atext">'+kb.a+'</div>';
       if(gi!=null)html+='<button class="ajump" data-go="'+gi+'">Ir ao slide '+ARR+'</button>';
       html+='</div>';
-    }
+    });
     if(sl.length){
-      html+='<div class="ask-rlbl">'+(kb?'Onde ver na apresentação':'Slides relacionados')+'</div><div class="ask-slides">';
+      html+='<div class="ask-rlbl">'+(kbs.length?'Onde ver na apresentação':'Slides relacionados')+'</div><div class="ask-slides">';
       sl.forEach(function(s){html+='<button class="ask-slide" data-go="'+s.i+'"><span class="asn">'+(s.num||'·')+'</span><span class="ast">'+s.menu+'</span><span class="asg">'+(ACTNAME2[s.act]||'')+'</span><span class="asa">'+ARR+'</span></button>';});
       html+='</div>';
     }
-    if(!action&&!kb&&!sl.length)html+='<div class="ask-empty">Sou exclusiva da Operação Canções Gaúchas 2026 — não respondo sobre outros assuntos. Pergunte sobre artistas, números ou estratégia, ou diga <b>"vai para [tema]"</b> para eu navegar direto ao slide.</div>';
-    if(!action&&(kb||sl.length))html+='<div class="ask-ai" id="askAi"><div class="aihint">Quer que a Maya aprofunde com a IA real?</div><button class="aibtn" id="aiBtn"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Perguntar à Maya</button><div id="aiResp"></div></div>';
+    var noLocal=!action&&!kbs.length&&!sl.length;
+    if(noLocal){
+      // Auto-escalate immediately to AI
+      html+='<div class="ask-ai busy" id="askAi"><div class="aihint">Maya está consultando a IA…</div><div id="aiResp"><div class="ask-airesp" style="color:var(--faint);font-style:italic">Aguarde…</div></div></div>';
+    } else if(!action){
+      html+='<div class="ask-ai" id="askAi"><div class="aihint">Quer que a Maya aprofunde com a IA?</div><button class="aibtn" id="aiBtn"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Perguntar à Maya</button><div id="aiResp"></div></div>';
+    }
     R.innerHTML=html;
     Array.prototype.slice.call(R.querySelectorAll('[data-go]')).forEach(function(b){b.addEventListener('click',function(){goTo(parseInt(b.getAttribute('data-go'),10));});});
     var aib=document.getElementById('aiBtn');if(aib)aib.addEventListener('click',function(){askAI(curQ);});
-    var sp=R.querySelector('[data-say]');if(sp&&kb)sp.addEventListener('click',function(){speak(kb.a);});
+    Array.prototype.slice.call(R.querySelectorAll('[data-ki]')).forEach(function(btn){
+      var ki=parseInt(btn.getAttribute('data-ki'),10);
+      btn.addEventListener('click',function(){if(kbs[ki])speak(kbs[ki].a);});
+    });
     if(action&&action.isNav){var _ni=action.slide;setTimeout(function(){goTo(_ni);},950);}
-    if(voiceAsked&&kb)speak(kb.a);
+    if(noLocal)setTimeout(function(){askAI(curQ);},80);
+    if(voiceAsked&&kbs.length)speak(kbs[0].a);
     voiceAsked=false;
   }
   function askAI(q){
     if(!norm(q))return;
     var box=document.getElementById('askAi'),resp=document.getElementById('aiResp');
-    box.classList.add('busy');resp.innerHTML='<div class="ask-airesp">Consultando a IA...</div>';
-    fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pergunta:q})})
+    if(!box||!resp)return;
+    box.classList.add('busy');
+    if(!resp.querySelector('[style]'))resp.innerHTML='<div class="ask-airesp" style="color:var(--faint);font-style:italic">Maya está pensando…</div>';
+    var slideCtx=slides[cur]?(slides[cur].getAttribute('data-menu')||''):'';
+    fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pergunta:q,slideAtual:slideCtx})})
     .then(function(r){if(!r.ok)throw 0;return r.json();})
-    .then(function(d){box.classList.remove('busy');var t=(d&&(d.resposta||d.answer))||'Não consegui responder agora.';resp.innerHTML='<div class="ask-airesp">'+t+'</div>';})
-    .catch(function(){box.classList.remove('busy');resp.innerHTML='<div class="ask-airesp">A resposta por IA fica disponível quando a apresentação estiver publicada no Vercel com a função de IA ativa. Por aqui, a busca local já responde tudo o que está na apresentação e nos dados da operação.</div>';});
+    .then(function(d){box.classList.remove('busy');var t=(d&&(d.resposta||d.answer))||'Não consegui responder agora.';resp.innerHTML='<div class="ask-airesp">'+mdBold(t)+'</div>';})
+    .catch(function(){box.classList.remove('busy');resp.innerHTML='<div class="ask-airesp" style="color:var(--soft)">A resposta por IA requer a API configurada. A busca local já cobre os dados da operação.</div>';});
   }
   function goTo(i){closeAsk();setTimeout(function(){show(i);},140);}
   function stripTags(h){var d=document.createElement('div');d.innerHTML=h;return (d.textContent||'').replace(/\s+/g,' ').trim();}
@@ -2631,16 +2650,35 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       }catch(e){mic.classList.remove('rec');rec=null;}
     });
   }
-  var SUGS=["Vai para a equipe","Vai para o dashboard financeiro","Abrir o YouTube","Qual a receita do YouTube?","Quantos fonogramas tem o catálogo?","Quem é o público?","Mostra os top artistas","Vai para o encerramento"];
-  function openAsk(){document.getElementById('ask').classList.add('open');setTimeout(function(){document.getElementById('askInput').focus();},120);}
+  function getSugs(){
+    var act=slides[cur]?(slides[cur].getAttribute('data-act')||''):'';
+    var byAct={
+      'time':["Quem é Alex Hohenberger?","Qual é a função de Cris?","Como está dividida a equipe?"],
+      'm1':["Baitaca: ouvintes e streams","Qual a regra 80/20 do catálogo?","Quantos artistas sob gestão?","Quais são as top músicas de 2026?"],
+      'm2':["Qual o arsenal de ferramentas?","Como funciona a grade editorial?","O que é a máquina de coletâneas?","Como a IA é usada na operação?"],
+      'fecho':["Quais são as oportunidades futuras?","Como funciona o rebranding?","Vai para o encerramento"],
+      'demo':["Vai para o canal YouTube","Abre o Spotify","Mostra o dashboard de governança"],
+      'abertura':["O que é a USA Discos?","O que é a Editora Terra Sul?","O que é a verticalização de direitos?"],
+      'interno':["Vai para a equipe","Vai para o encerramento"]
+    };
+    var extra=byAct[act]||[];
+    var base=["Qual a receita do YouTube?","Quantos fonogramas tem o catálogo?","Quem é o público?","Mostra os top artistas"];
+    return extra.concat(base).filter(function(s,i,a){return a.indexOf(s)===i;}).slice(0,8);
+  }
+  function refreshSugs(){
+    var inp=document.getElementById('askInput'),sugBox=document.getElementById('askSugs');
+    if(!inp||!sugBox)return;
+    sugBox.innerHTML=getSugs().map(function(s){return'<button class="ask-sug">'+s+'</button>';}).join('');
+    Array.prototype.slice.call(sugBox.querySelectorAll('.ask-sug')).forEach(function(b){b.addEventListener('click',function(){inp.value=b.textContent;render(inp.value);inp.focus();});});
+  }
+  function openAsk(){document.getElementById('ask').classList.add('open');setTimeout(function(){refreshSugs();document.getElementById('askInput').focus();},80);}
   function closeAsk(){document.getElementById('ask').classList.remove('open');}
   var _tk=null;
   function initAsk(){
     buildIdx();
-    var inp=document.getElementById('askInput'),sugBox=document.getElementById('askSugs');
-    sugBox.innerHTML=SUGS.map(function(s){return '<button class="ask-sug">'+s+'</button>';}).join('');
-    Array.prototype.slice.call(sugBox.querySelectorAll('.ask-sug')).forEach(function(b){b.addEventListener('click',function(){inp.value=b.textContent;render(inp.value);inp.focus();});});
-    inp.addEventListener('input',function(){clearTimeout(_tk);_tk=setTimeout(function(){render(inp.value);},130);});
+    var inp=document.getElementById('askInput');
+    refreshSugs();
+    inp.addEventListener('input',function(){clearTimeout(_tk);_tk=setTimeout(function(){render(inp.value);},140);});
     inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();render(inp.value);}});
     document.getElementById('askBtn').addEventListener('click',openAsk);
     var mb=document.getElementById('mayaBtn');if(mb)mb.addEventListener('click',openAsk);
