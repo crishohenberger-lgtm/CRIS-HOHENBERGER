@@ -619,6 +619,29 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 .logo-nav{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:inline-block;vertical-align:middle}
 .logo-menu{width:20px;height:20px;border-radius:50%;flex-shrink:0;vertical-align:middle;margin-right:2px}
 @media(max-width:480px){.mb-label{display:none}#mayaBtn{padding:13px 16px}}
+
+/* ===== Dashboard Power BI mock ===== */
+.bi-badge{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#F2C811;background:#1a1a2e;border-radius:6px;padding:4px 10px;flex-shrink:0}
+.bi-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.bi-kpi{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:14px 16px}
+.bi-kpi-l{font-size:9.5px;color:var(--soft);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
+.bi-kpi-v{font-size:clamp(18px,2.4vw,24px);font-weight:200;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+.bi-kpi-s{font-size:10.5px;font-weight:600;margin-top:6px}
+.bi-up{color:#006B3F}
+.bi-chart{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:16px 18px;flex:1}
+.bi-chart-label{font-size:9.5px;color:var(--soft);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.bi-bars{display:flex;align-items:flex-end;gap:8px;height:56px}
+.bi-bar{flex:1;background:linear-gradient(180deg,var(--accent) 0%,#c5a028 100%);border-radius:4px 4px 0 0;height:var(--h);position:relative;min-height:6px;opacity:.82}
+.bi-bar span{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--soft);font-weight:600;white-space:nowrap}
+.bi-row{display:flex;gap:10px;align-items:stretch}
+.bi-mini{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:14px 16px;min-width:120px}
+.bi-mini-l{font-size:9.5px;color:var(--soft);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
+.bi-mini-v{font-size:clamp(16px,2vw,20px);font-weight:200;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.bi-pages{display:flex;gap:2px;background:var(--paper-2);border-radius:8px;padding:4px;border:1px solid var(--hair);flex-wrap:wrap}
+.bi-pages span{font-size:11px;font-weight:500;color:var(--soft);padding:5px 11px;border-radius:5px;white-space:nowrap}
+.bi-pages span.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 4px rgba(23,20,15,.08)}
+.bi-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px;flex-wrap:wrap}
+@media(max-width:620px){.bi-kpis{grid-template-columns:repeat(2,1fr)}.bi-row{flex-direction:column}.bi-footer{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -1495,6 +1518,74 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   </div>
 </section>
 
+<section class="slide" data-act="m2" data-menu="Dashboard financeiro · Power BI" data-num="2.1">
+  <div class="slide-in">
+    <div class="kick mv"><span class="idx">2.1</span><span class="dash"></span> Dashboard financeiro ao vivo · Power BI</div>
+    <div class="browser system mv">
+      <div class="bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url"><span class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span>app.powerbi.com · <b>Painel Financeiro</b></span></div>
+        <span class="bi-badge">Power BI</span>
+      </div>
+      <div class="view" style="text-align:left;padding:18px clamp(14px,2.5vw,28px) 20px">
+        <div class="bi-kpis mv">
+          <div class="bi-kpi">
+            <div class="bi-kpi-l">Receita YouTube</div>
+            <div class="bi-kpi-v">US$ 29.365</div>
+            <div class="bi-kpi-s bi-up">▲ 100% orgânico</div>
+          </div>
+          <div class="bi-kpi">
+            <div class="bi-kpi-l">Views · semestre</div>
+            <div class="bi-kpi-v">42,7 Mi</div>
+            <div class="bi-kpi-s bi-up">▲ jan–jul 2026</div>
+          </div>
+          <div class="bi-kpi">
+            <div class="bi-kpi-l">Horas de exibição</div>
+            <div class="bi-kpi-v">2,48 Mi</div>
+            <div class="bi-kpi-s bi-up">▲ Smart TV 41,8%</div>
+          </div>
+          <div class="bi-kpi">
+            <div class="bi-kpi-l">Novos inscritos</div>
+            <div class="bi-kpi-v">+30,4 mil</div>
+            <div class="bi-kpi-s bi-up">▲ líquidos</div>
+          </div>
+        </div>
+        <div class="bi-row mv">
+          <div class="bi-chart">
+            <div class="bi-chart-label">Views mensais · jan–jul 2026</div>
+            <div class="bi-bars">
+              <div class="bi-bar" style="--h:55%"><span>Jan</span></div>
+              <div class="bi-bar" style="--h:63%"><span>Fev</span></div>
+              <div class="bi-bar" style="--h:70%"><span>Mar</span></div>
+              <div class="bi-bar" style="--h:74%"><span>Abr</span></div>
+              <div class="bi-bar" style="--h:87%"><span>Mai</span></div>
+              <div class="bi-bar" style="--h:95%"><span>Jun</span></div>
+              <div class="bi-bar" style="--h:100%"><span>Jul</span></div>
+            </div>
+          </div>
+          <div class="bi-mini">
+            <div class="bi-mini-l">Retenção</div>
+            <div class="bi-mini-v">47,6%</div>
+            <div class="bi-kpi-s bi-up" style="margin-top:6px">▲ após início</div>
+          </div>
+          <div class="bi-mini">
+            <div class="bi-mini-l">CTR impressões</div>
+            <div class="bi-mini-v">5,1%</div>
+            <div class="bi-kpi-s bi-up" style="margin-top:6px">▲ 187,5 Mi impr.</div>
+          </div>
+        </div>
+        <div class="bi-footer">
+          <div class="bi-pages">
+            <span class="on">Financeiro</span><span>YouTube</span><span>Redes</span><span>Catálogo</span><span>Editora</span>
+          </div>
+          <a class="site-cta" data-link="powerbi" style="margin-top:0;font-size:12px;padding:10px 20px">Abrir dashboard <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <p class="small mv" style="margin-top:14px;color:var(--faint);text-align:center">Dashboard atualizado semanalmente. Cole a URL de publicação do Power BI em <code>LINKS.powerbi</code> no código.</p>
+  </div>
+</section>
+
 <section class="slide breath" data-act="m2" data-menu="Respiro" data-num="">
   <div class="slide-in">
     <p class="bp mv">Método,<br><b>não sorte.</b></p>
@@ -2286,6 +2377,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
     redes:"",        // painel de redes sociais (publicação e métricas)
     painelYoutube:"",// painel/dashboard do YouTube
     governanca:"",   // planilhas e dashboards de BI
+    powerbi:"",      // dashboard financeiro Power BI (cole a URL de publicação)
     drive:"",        // pasta-raiz do Drive conectado
     radio:"",        // rádio 24h ao vivo
     spotify:{"baitaca":"","porca veia":"","luiz marenco":"","joao luiz correa":"","garotos de ouro":"","xiru missioneiro":""},
