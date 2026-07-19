@@ -2198,7 +2198,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       <input id="askInput" type="text" placeholder="Pergunte à Maya sobre a operação..." autocomplete="off" aria-label="Pergunta">
       <button class="ask-mic" id="askMic" aria-label="Perguntar por voz" title="Perguntar por voz" hidden><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></button>
     </div>
-    <div class="ask-hint">Maya conhece a operação por completo. Pergunte sobre números, artistas, estratégia ou peça para abrir um destino: site, YouTube, Spotify, planilhas, Drive.</div>
+    <div class="ask-hint">Maya opera a apresentação por você — restrita à Operação Canções Gaúchas. Pergunte sobre números, artistas, estratégia, ou navegue: <b>"vai para a equipe"</b>, <b>"mostra o dashboard"</b>, <b>"abre o YouTube"</b>.</div>
     <div class="ask-sugs" id="askSugs"></div>
     <div class="ask-results" id="askResults"></div>
   </div>
@@ -2398,6 +2398,15 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   var ISOPEN=/\b(abrir|abre|abra|acessar|acessa|acesse|mostrar|mostra|mostre|vai|ir|leva|link|perfil|open)\b/;
   function detectAction(q){
     var n=norm(q);
+    /* ── Navegação por slide ─────────────────────────────────────── */
+    var ISNAV=/\b(vai para|ir para|ir ao|leva ao|leva para|mostra o slide|mostrar slide|abrir slide|slide de|slide do|slide da)\b|naveg/;
+    if(ISNAV.test(n)){
+      var navQ=n.replace(/\b(vai|ir|leva)\s+(para|ao)\b/g,' ').replace(/\bnaveg\w*/g,' ').replace(/\b(mostrar?|abrir?)\s+slide\b/g,' ').replace(/\bslide\s+(de|do|da|dos|das)\b/g,' ').trim();
+      var qt2=toks(navQ.length>=2?navQ:n);
+      var sl2=scoreSlides(qt2);
+      if(sl2.length)return{label:sl2[0].menu,num:sl2[0].num,slide:sl2[0].i,isNav:true};
+    }
+    /* ── Links externos ──────────────────────────────────────────── */
     if(!ISOPEN.test(n))return null;
     if(/\bsite\b/.test(n))return{label:"Site oficial",url:LINKS.site};
     if(/\bradio\b/.test(n))return{label:"Rádio 24h",url:LINKS.radio};
@@ -2405,6 +2414,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
     if((/\byoutube\b|\bcanal\b/.test(n))&&!/planilha/.test(n))return{label:"Canal no YouTube",url:LINKS.youtube};
     if(/\bdocumentacao|documentos|documento\b/.test(n))return{label:"Documentação",url:LINKS.documentacao};
     if(/\brede|redes\b/.test(n))return{label:"Painel de Redes Sociais",url:LINKS.redes};
+    if(/\bpower.?bi\b/.test(n))return{label:"Dashboard Power BI",url:LINKS.powerbi};
     if(/\bgovernanca|dashboard|dashboards\b/.test(n))return{label:"Governança e BI",url:LINKS.governanca};
     if(/\bplanilha|planilhas\b/.test(n)){var pk=findKey(n,LINKS.planilhas);return{label:"Planilha"+(pk?" · "+cap(pk):""),url:pk?LINKS.planilhas[pk]:""};}
     if(/\bpasta|pastas|drive\b/.test(n)){var kk=findKey(n,LINKS.pastas)||findArtist(n);return{label:kk?("Pasta · "+cap(kk)):"Drive da operação",url:(kk&&LINKS.pastas[kk])?LINKS.pastas[kk]:LINKS.drive};}
@@ -2498,10 +2508,17 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
     if(!norm(q)){R.innerHTML='';return;}
     var qt=toks(q),action=detectAction(q),kb=action?null:scoreKB(qt),sl=scoreSlides(qt),html='';
     if(action){
-      html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Ação</div>';
-      if(action.url)html+='<div class="atext">Posso abrir <b>'+action.label+'</b> ao vivo para você.</div><a class="ajump" href="'+action.url+'" target="_blank" rel="noopener">Abrir '+action.label+' '+EXT+'</a>';
-      else html+='<div class="atext">Ainda não tenho o link de <b>'+action.label+'</b> cadastrado. É só colar o endereço na lista LINKS, no início do código, e eu passo a abrir na hora.</div>';
-      html+='</div>';
+      if(action.isNav){
+        html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Navegando</div>';
+        html+='<div class="atext">Levando você para <b>'+(action.num?action.num+' · ':'')+action.label+'</b>…</div>';
+        html+='<button class="ajump" data-go="'+action.slide+'">Ir ao slide '+ARR+'</button>';
+        html+='</div>';
+      } else {
+        html+='<div class="ask-answer ask-act"><div class="aq">'+BOLT+' Ação</div>';
+        if(action.url)html+='<div class="atext">Posso abrir <b>'+action.label+'</b> ao vivo para você.</div><a class="ajump" href="'+action.url+'" target="_blank" rel="noopener">Abrir '+action.label+' '+EXT+'</a>';
+        else html+='<div class="atext">Ainda não tenho o link de <b>'+action.label+'</b> cadastrado. É só colar o endereço na lista LINKS, no início do código, e eu passo a abrir na hora.</div>';
+        html+='</div>';
+      }
     }
     if(kb){
       var gi=(kb.g&&menuToI[kb.g]!=null)?menuToI[kb.g]:null;
@@ -2514,12 +2531,13 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       sl.forEach(function(s){html+='<button class="ask-slide" data-go="'+s.i+'"><span class="asn">'+(s.num||'·')+'</span><span class="ast">'+s.menu+'</span><span class="asg">'+(ACTNAME2[s.act]||'')+'</span><span class="asa">'+ARR+'</span></button>';});
       html+='</div>';
     }
-    if(!action&&!kb&&!sl.length)html+='<div class="ask-empty">Não encontrei isso nos slides nem nos dados da operação. Como sou exclusiva das Melhores Canções Gaúchas, respondo só sobre ela. Tente outras palavras.</div>';
-    if(!action)html+='<div class="ask-ai" id="askAi"><div class="aihint">Quer que a Maya aprofunde com a IA real, além dos slides?</div><button class="aibtn" id="aiBtn"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Perguntar à Maya</button><div id="aiResp"></div></div>';
+    if(!action&&!kb&&!sl.length)html+='<div class="ask-empty">Sou exclusiva da Operação Canções Gaúchas 2026 — não respondo sobre outros assuntos. Pergunte sobre artistas, números ou estratégia, ou diga <b>"vai para [tema]"</b> para eu navegar direto ao slide.</div>';
+    if(!action&&(kb||sl.length))html+='<div class="ask-ai" id="askAi"><div class="aihint">Quer que a Maya aprofunde com a IA real?</div><button class="aibtn" id="aiBtn"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Perguntar à Maya</button><div id="aiResp"></div></div>';
     R.innerHTML=html;
     Array.prototype.slice.call(R.querySelectorAll('[data-go]')).forEach(function(b){b.addEventListener('click',function(){goTo(parseInt(b.getAttribute('data-go'),10));});});
     var aib=document.getElementById('aiBtn');if(aib)aib.addEventListener('click',function(){askAI(curQ);});
     var sp=R.querySelector('[data-say]');if(sp&&kb)sp.addEventListener('click',function(){speak(kb.a);});
+    if(action&&action.isNav){var _ni=action.slide;setTimeout(function(){goTo(_ni);},950);}
     if(voiceAsked&&kb)speak(kb.a);
     voiceAsked=false;
   }
@@ -2554,7 +2572,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       }catch(e){mic.classList.remove('rec');rec=null;}
     });
   }
-  var SUGS=["Abrir o site","Abrir o YouTube","Abrir o Spotify do Porca Véia","Qual a receita do YouTube?","Quantos fonogramas tem o catálogo?","Quem é o público?","Como é a proteção jurídica?","Quantas playlists ativas?"];
+  var SUGS=["Vai para a equipe","Vai para o dashboard financeiro","Abrir o YouTube","Qual a receita do YouTube?","Quantos fonogramas tem o catálogo?","Quem é o público?","Mostra os top artistas","Vai para o encerramento"];
   function openAsk(){document.getElementById('ask').classList.add('open');setTimeout(function(){document.getElementById('askInput').focus();},120);}
   function closeAsk(){document.getElementById('ask').classList.remove('open');}
   var _tk=null;
