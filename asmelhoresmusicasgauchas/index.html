@@ -400,22 +400,42 @@ h2.t b{font-weight:700}
 .doc-gate .dg-cta:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 14px 40px rgba(209,156,46,.38)}
 .doc-gate .dg-cta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-/* ecossistema (fluxo claro) */
-.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:6px}
-.fnode{width:100%;max-width:560px;text-align:center;border:1px solid var(--hair-2);border-radius:14px;padding:12px 22px;background:var(--paper)}
-.fnode.core{background:var(--paper-2);border-color:var(--ink);padding:15px}
-.fnode .fk{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:6px}
-.fnode.core .fk{color:var(--accent)}
-.fnode .ft{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.fnode.core .ft{font-size:20px}
-.fnode .fd{font-size:12px;color:var(--soft);font-weight:300;margin-top:5px}
-.fnode .cc{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:9px}
+/* ecossistema (fluxo redesenhado) */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:4px}
+.fnode{width:100%;max-width:600px;border-radius:14px;padding:14px 22px;background:var(--paper);border:1px solid var(--hair-2)}
+/* núcleo: fundo escuro, dominante */
+.fnode.core{background:var(--ink);border:none;padding:18px 26px;text-align:center;box-shadow:0 8px 32px rgba(23,20,15,.2)}
+/* etapas coloridas: borda esquerda com tricolor gaúcho */
+.fnode.step-a{background:rgba(155,28,46,.055);border:none;border-left:3px solid #9b1c2e;padding-left:20px}
+.fnode.step-b{background:rgba(31,107,70,.055);border:none;border-left:3px solid #1f6b46;padding-left:20px}
+.fnode.step-c{background:rgba(209,156,46,.09);border:none;border-left:3px solid #d19c2e;padding-left:20px}
+/* labels */
+.fnode .fk{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:5px;color:var(--soft)}
+.fnode.core .fk{color:rgba(255,255,255,.5)}
+.fnode.step-a .fk{color:#9b1c2e}
+.fnode.step-b .fk{color:#1f6b46}
+.fnode.step-c .fk{color:#9a7010}
+/* títulos */
+.fnode .ft{font-size:15.5px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+.fnode.core .ft{font-size:21px;color:#fff}
+/* subtítulo do core */
+.fnode .fd{font-size:12px;font-weight:300;margin-top:5px;color:var(--soft)}
+.fnode.core .fd{color:rgba(255,255,255,.55)}
+/* chips */
+.fnode .cc{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;justify-content:flex-start}
+.fnode.core .cc{justify-content:center}
 .fnode .cc span{font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--paper-2);border:1px solid var(--hair);color:var(--ink-2)}
-.farr{width:1px;height:15px;background:var(--hair-2);position:relative;margin:3px 0}
-.farr::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hair-2)}
-.farr .fl{position:absolute;left:14px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600}
-.floop{display:flex;align-items:center;gap:11px;margin-top:9px;padding:9px 18px;border:1px solid var(--hair-2);border-radius:100px;font-size:12px;font-weight:500;color:var(--soft)}
-.floop svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.7}
+.fnode.core .cc span{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.88)}
+.fnode.step-a .cc span{background:rgba(155,28,46,.09);border-color:rgba(155,28,46,.28);color:#7a1525}
+.fnode.step-b .cc span{background:rgba(31,107,70,.09);border-color:rgba(31,107,70,.28);color:#155330}
+.fnode.step-c .cc span{background:rgba(209,156,46,.13);border-color:rgba(209,156,46,.38);color:#7a5b10}
+/* setas */
+.farr{width:2px;height:22px;background:var(--hair-2);position:relative;margin:4px 0}
+.farr::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--hair-2)}
+.farr .fl{position:absolute;left:14px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600}
+/* loop de retroalimentação */
+.floop{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 22px;background:var(--paper);border:1px solid var(--hair);border-radius:100px;font-size:12.5px;font-weight:500;color:var(--soft);max-width:600px;width:100%;box-shadow:0 4px 18px rgba(23,20,15,.06)}
+.floop svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.8;flex-shrink:0}
 
 /* encerramento (ainda branco) */
 .end .slide-in{text-align:center;max-width:900px}
@@ -924,16 +944,16 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   </div>
 </section>
 
-<section class="slide" data-act="abertura" data-menu="O ciclo do ecossistema" data-num="">
+<section class="slide" data-act="abertura" data-menu="O ciclo do ecossistema" data-num="" style="background:var(--paper-2)">
   <div class="slide-in">
     <div class="flow">
       <div class="fnode core mv"><div class="fk">O núcleo insubstituível</div><div class="ft">Catálogo de 40 anos</div><div class="fd">Acervo histórico e cultural · USA Discos + Editora Terra Sul</div></div>
       <div class="farr mv"><span class="fl">alimenta</span></div>
-      <div class="fnode mv"><div class="fk">A máquina</div><div class="ft">Equipe orientada por dados</div><div class="cc"><span>Análise obsessiva</span><span>Sistema próprio</span><span>FUGA</span></div></div>
+      <div class="fnode step-a mv"><div class="fk">A máquina</div><div class="ft">Equipe orientada por dados</div><div class="cc"><span>Análise obsessiva</span><span>Sistema próprio</span><span>FUGA</span></div></div>
       <div class="farr mv"><span class="fl">distribui</span></div>
-      <div class="fnode mv"><div class="fk">Distribuição e curadoria</div><div class="ft">Presença multicanal</div><div class="cc"><span>YouTube</span><span>Streaming</span><span>Redes sociais</span></div></div>
+      <div class="fnode step-b mv"><div class="fk">Distribuição e curadoria</div><div class="ft">Presença multicanal</div><div class="cc"><span>YouTube</span><span>Streaming</span><span>Redes sociais</span></div></div>
       <div class="farr mv"><span class="fl">gera</span></div>
-      <div class="fnode mv"><div class="fk">Resultado e blindagem</div><div class="ft">Audiência → receita → controle → proteção</div></div>
+      <div class="fnode step-c mv"><div class="fk">Resultado e blindagem</div><div class="ft">Audiência → receita → controle → proteção</div></div>
       <div class="floop mv"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6"></path><path d="M17 3v3.8h-3.8M7 21v-3.8h3.8"></path></svg> Retroalimenta o ciclo com mais investimento e valorização</div>
     </div>
   </div>
