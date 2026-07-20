@@ -535,47 +535,61 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 .menu-item .mi-n{font-size:11px;font-weight:600;color:var(--faint);font-variant-numeric:tabular-nums;min-width:26px}
 .menu-item.here .mi-n{color:var(--accent)}
 
-/* ── MODO EDITOR ─────────────────────────────────── */
+/* ── MODO EDITOR ──────────────────────────────────── */
 #menuBtn{position:relative}
 body.editor-mode #menuBtn::after{content:'EDITOR';font-size:7px;font-weight:700;letter-spacing:.1em;background:var(--ink);color:#fff;border-radius:3px;padding:1px 4px;position:absolute;top:3px;right:3px;pointer-events:none}
 .ed-toolbar{display:none;gap:8px;margin-bottom:20px;flex-wrap:wrap;padding:14px;background:var(--paper-2);border-radius:12px}
 body.editor-mode .ed-toolbar{display:flex}
-.ed-mode-label{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);width:100%;margin-bottom:2px}
-.ed-btn{height:34px;padding:0 14px;border-radius:9px;border:1.5px solid var(--hair-2);background:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;color:var(--ink);transition:background .15s,border-color .15s}
+.ed-mode-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);width:100%;margin-bottom:4px}
+.ed-btn{height:34px;padding:0 13px;border-radius:9px;border:1.5px solid var(--hair-2);background:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;color:var(--ink);transition:background .15s,border-color .15s;white-space:nowrap}
 .ed-btn:hover{background:var(--paper-2);border-color:var(--ink)}
+.ed-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ed-btn.primary:hover{opacity:.85}
 .ed-btn.danger{border-color:#a00;color:#a00}
 .ed-btn.danger:hover{background:#fff5f5}
-.ed-add{display:none;width:100%;height:26px;border:1.5px dashed var(--hair-2);border-radius:8px;background:none;cursor:pointer;font-family:inherit;font-size:11px;color:var(--faint);margin:2px 0;transition:border-color .2s,color .2s,background .2s;align-items:center;justify-content:center;gap:5px}
+.ed-arrows{display:none;gap:2px;flex-shrink:0;margin-right:6px}
+body.editor-mode .ed-arrows{display:flex}
+.ed-arrow{width:22px;height:22px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .15s;flex-shrink:0;padding:0;font-family:inherit}
+.ed-arrow:hover{background:var(--paper-2);border-color:var(--ink)}
+.ed-arrow:disabled{opacity:.22;cursor:default;pointer-events:none}
+.ed-add{display:none;width:100%;height:24px;border:1.5px dashed var(--hair-2);border-radius:7px;background:none;cursor:pointer;font-family:inherit;font-size:10.5px;color:var(--faint);margin:2px 0;transition:border-color .2s,color .2s,background .2s;align-items:center;justify-content:center;gap:4px}
 .ed-add:hover{border-color:var(--ink);color:var(--ink);background:var(--paper-2)}
 body.editor-mode .ed-add{display:flex}
-body.editor-mode .menu-item{cursor:grab}
-body.editor-mode .menu-item:active{cursor:grabbing}
-.menu-item.ed-dragging{opacity:.3;background:var(--paper-2)}
-.menu-item.ed-drop-above{box-shadow:0 -2px 0 0 var(--ink)}
-.menu-item.ed-drop-below{box-shadow:0 2px 0 0 var(--ink)}
-.ed-drag-handle{color:var(--hair-2);font-size:15px;margin-right:4px;flex-shrink:0;line-height:1;display:none}
-body.editor-mode .ed-drag-handle{display:inline}
 .slide.ed-placeholder .slide-in{display:flex;align-items:center;justify-content:center;height:100%}
-.ed-ph-inner{text-align:center;color:var(--soft);user-select:none}
-.ed-ph-inner .ed-ph-icon{font-size:48px;margin-bottom:20px;opacity:.35;font-style:normal}
-.ed-ph-inner p{font-size:20px;font-weight:500;margin:0 0 8px;color:var(--ink)}
-.ed-ph-inner small{font-size:13px;color:var(--faint)}
-.menu-item.ph-menu-item .mi-n{color:var(--hair-2)}
-/* briefing no slide placeholder */
-.ed-ph-brief-wrap{width:100%;max-width:560px;margin-top:26px;text-align:left}
-.ed-ph-brief-label{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:9px}
-.ed-ph-brief{width:100%;min-height:120px;border:1.5px solid var(--hair-2);border-radius:12px;padding:13px 16px;font-family:inherit;font-size:13.5px;line-height:1.7;color:var(--ink);background:#fff;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box}
+.ed-ph-inner{text-align:center;color:var(--soft);width:100%;max-width:600px}
+.ed-ph-inner .ed-ph-icon{font-size:40px;margin-bottom:16px;opacity:.3}
+.ed-ph-inner p{font-size:18px;font-weight:500;margin:0 0 6px;color:var(--ink)}
+.ed-ph-brief-wrap{width:100%;margin-top:22px;text-align:left}
+.ed-ph-brief-label{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:8px}
+.ed-ph-brief{width:100%;min-height:110px;border:1.5px solid var(--hair-2);border-radius:12px;padding:12px 15px;font-family:inherit;font-size:13.5px;line-height:1.7;color:var(--ink);background:#fff;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box}
 .ed-ph-brief:focus{border-color:var(--ink)}
 .ed-ph-brief::placeholder{color:var(--faint)}
-/* inline edit de nome e número no índice */
+.ed-note-btn{display:none;margin-left:auto;flex-shrink:0;height:22px;padding:0 8px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;font-size:10px;font-family:inherit;cursor:pointer;color:var(--soft);transition:background .15s,border-color .15s,color .15s;white-space:nowrap}
+body.editor-mode .ed-note-btn{display:flex;align-items:center}
+.ed-note-btn:hover,.ed-note-btn.has-note{border-color:var(--ink);color:var(--ink)}
+.ed-note-btn.has-note{background:var(--paper-2);font-weight:700}
+.ed-note-pop{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:rgba(23,20,15,.5);backdrop-filter:blur(4px)}
+.ed-note-box{background:#fff;border-radius:18px;padding:28px;width:min(520px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.2);display:flex;flex-direction:column;gap:14px}
+.ed-note-box h3{margin:0;font-size:15px;font-weight:700;color:var(--ink)}
+.ed-note-box small{font-size:12px;color:var(--soft);margin-top:-8px;display:block}
+.ed-note-ta{width:100%;min-height:130px;border:1.5px solid var(--hair-2);border-radius:12px;padding:12px 15px;font-family:inherit;font-size:13.5px;line-height:1.7;color:var(--ink);background:#fff;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box}
+.ed-note-ta:focus{border-color:var(--ink)}
+.ed-note-ta::placeholder{color:var(--faint)}
+.ed-note-actions{display:flex;gap:8px;justify-content:flex-end}
+.ed-cmd-panel{margin-top:28px;padding-top:22px;border-top:1px solid var(--hair-2)}
+.ed-cmd-title{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.ed-cmd-ta{width:100%;min-height:90px;border:1.5px solid var(--hair-2);border-radius:12px;padding:12px 15px;font-family:inherit;font-size:13px;line-height:1.65;color:var(--ink);background:#fff;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box;margin-bottom:10px}
+.ed-cmd-ta:focus{border-color:var(--ink)}
+.ed-cmd-ta::placeholder{color:var(--faint)}
+.ed-copy-btn{width:100%;height:40px;border-radius:11px;border:none;background:var(--ink);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:opacity .15s}
+.ed-copy-btn:hover{opacity:.82}
 .mi-editable{background:none;border:1px dashed transparent;border-radius:4px;padding:1px 4px;outline:none;font-family:inherit;font-size:inherit;color:inherit;min-width:14px;display:inline-block;transition:border-color .15s;cursor:default}
 body.editor-mode .mi-editable{cursor:text}
 body.editor-mode .mi-editable:hover{border-color:var(--hair-2)}
 body.editor-mode .mi-editable:focus{border-color:var(--ink);background:#fff}
-/* snippet do briefing no índice */
-.mi-brief-snip{font-size:10px;color:var(--faint);font-style:italic;font-weight:400;margin-left:5px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
-body:not(.editor-mode) .mi-brief-snip{display:none}
-/* ── FIM MODO EDITOR ─────────────────────────────── */
+body.editor-mode .menu-item{align-items:center}
+/* ── FIM MODO EDITOR ──────────────────────────────────── */
+
 @media(max-width:820px){
   body{font-size:15px}
   .split,.split.top{grid-template-columns:1fr;gap:26px}
@@ -2920,11 +2934,11 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
   function closeMenu(){document.getElementById('menu').classList.remove('open');}
 
   // ── MODO EDITOR ────────────────────────────────────────────
-  var editorActive=false,origSlides=[],dragSrcIdx=null,phSeq=0;
-  var ED_KEY='cgMusicasOrder_v3';
+  var editorActive=false,origSlides=[],phSeq=0;
+  var ED_KEY='cgMusicasOrder_v4',ED_NOTES_KEY='cgMusicasNotes_v4',ED_CMD_KEY='cgMusicasCmd_v4';
+  var edNotes={};
 
   function initEditor(){
-    // guardar menu/num originais para detectar renomeações
     origSlides=slides.slice();
     origSlides.forEach(function(s){
       s.setAttribute('data-orig-menu',s.getAttribute('data-menu')||'');
@@ -2932,7 +2946,10 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
     });
     try{
       var saved=localStorage.getItem(ED_KEY);
-      if(saved){var ord=JSON.parse(saved);applyStoredOrder(ord);rebuildMenu();}
+      if(saved){var ord=JSON.parse(saved);applyStoredOrder(ord);}
+      var notes=localStorage.getItem(ED_NOTES_KEY);
+      if(notes)edNotes=JSON.parse(notes);
+      if(saved)rebuildMenu();
     }catch(e){localStorage.removeItem(ED_KEY);}
     var curEl=document.getElementById('cur'),taps=0,tapTimer;
     curEl.addEventListener('click',function(){
@@ -2947,33 +2964,29 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
     ord.forEach(function(k){
       if(typeof k==='number'){
         var s=origSlides[k];if(s){newSlides.push(s);deck.appendChild(s);}
-      } else if(k&&typeof k==='object'){
+      }else if(k&&typeof k==='object'){
         if(typeof k.orig==='number'){
           var s=origSlides[k.orig];
-          if(s){
-            if(k.menu!=null)s.setAttribute('data-menu',k.menu);
-            if(k.num!=null)s.setAttribute('data-num',k.num);
-            newSlides.push(s);deck.appendChild(s);
-          }
-        } else if(k.ph){
-          var ph=makePH(k.ph,k.menu,k.num,k.brief);
-          newSlides.push(ph);deck.appendChild(ph);
+          if(s){if(k.menu!=null)s.setAttribute('data-menu',k.menu);if(k.num!=null)s.setAttribute('data-num',k.num);newSlides.push(s);deck.appendChild(s);}
+        }else if(k.ph){
+          var ph=makePH(k.ph,k.menu,k.num,k.brief);newSlides.push(ph);deck.appendChild(ph);
         }
       }
     });
     if(newSlides.length){slides=newSlides;document.getElementById('tot').textContent=slides.length;}
   }
 
+  function slideKey(s){var eid=s.getAttribute('data-eid');if(eid)return eid;return 'o'+origSlides.indexOf(s);}
+
   function makePH(id,menu,num,brief){
     var ph=document.createElement('section');
     ph.className='slide ed-placeholder';
     ph.setAttribute('data-act','interno');
-    ph.setAttribute('data-menu',menu||'Novo slide \u2014 a definir');
+    ph.setAttribute('data-menu',menu||'Novo slide — a definir');
     ph.setAttribute('data-num',num||'');
     ph.setAttribute('data-eid',id||('p'+(phSeq++)));
     ph.setAttribute('data-brief',brief||'');
-    renderPH(ph);
-    return ph;
+    renderPH(ph);return ph;
   }
 
   function renderPH(ph){
@@ -2984,11 +2997,10 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
     var icon=document.createElement('div');icon.className='ed-ph-icon';icon.textContent='+';
     var title=document.createElement('p');title.textContent=menu;
     var bwrap=document.createElement('div');bwrap.className='ed-ph-brief-wrap';
-    var blabel=document.createElement('label');blabel.className='ed-ph-brief-label';
-    blabel.textContent='Briefing para o agente';
+    var blabel=document.createElement('label');blabel.className='ed-ph-brief-label';blabel.textContent='Briefing para o agente';
     var ta=document.createElement('textarea');
     ta.className='ed-ph-brief no-adv';
-    ta.placeholder='Descreva o que deve ir neste slide. Ex: mostrar m\u00e9tricas do Instagram 2026 comparadas a 2025, incluir gr\u00e1fico de crescimento e top 3 posts.';
+    ta.placeholder='Descreva o que deve ir neste slide. Ex: métricas do Instagram 2026 vs 2025, gráfico de crescimento, top 3 posts.';
     ta.value=brief;
     ta.addEventListener('input',function(){ph.setAttribute('data-brief',ta.value);edSave();});
     bwrap.appendChild(blabel);bwrap.appendChild(ta);
@@ -2999,32 +3011,26 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
   function toggleEditor(){
     editorActive=!editorActive;
     document.body.classList.toggle('editor-mode',editorActive);
-    rebuildMenu();
-    if(editorActive)openMenu();
+    rebuildMenu();if(editorActive)openMenu();
   }
 
   function edSave(){
     var ord=slides.map(function(s){
       var eid=s.getAttribute('data-eid');
-      if(eid){
-        return{ph:eid,menu:s.getAttribute('data-menu')||'',num:s.getAttribute('data-num')||'',brief:s.getAttribute('data-brief')||''};
-      }
-      var origIdx=origSlides.indexOf(s);
-      var curMenu=s.getAttribute('data-menu')||'';
-      var curNum=s.getAttribute('data-num')||'';
-      var origMenu=s.getAttribute('data-orig-menu')||'';
-      var origNum=s.getAttribute('data-orig-num')||'';
-      if(curMenu!==origMenu||curNum!==origNum){
-        return{orig:origIdx,menu:curMenu,num:curNum};
-      }
-      return origIdx;
+      if(eid)return{ph:eid,menu:s.getAttribute('data-menu')||'',num:s.getAttribute('data-num')||'',brief:s.getAttribute('data-brief')||''};
+      var idx=origSlides.indexOf(s);
+      var cm=s.getAttribute('data-menu')||'',cn=s.getAttribute('data-num')||'';
+      if(cm!==(s.getAttribute('data-orig-menu')||'')||cn!==(s.getAttribute('data-orig-num')||''))return{orig:idx,menu:cm,num:cn};
+      return idx;
     });
     localStorage.setItem(ED_KEY,JSON.stringify(ord));
+    localStorage.setItem(ED_NOTES_KEY,JSON.stringify(edNotes));
   }
 
   function edReset(){
-    if(!confirm('Restaurar a ordem e os nomes originais? Os slides marcadores ser\u00e3o removidos.'))return;
-    localStorage.removeItem(ED_KEY);
+    if(!confirm('Restaurar tudo ao original? Ordem, nomes e notas serão apagados.'))return;
+    [ED_KEY,ED_NOTES_KEY,ED_CMD_KEY].forEach(function(k){localStorage.removeItem(k);});
+    edNotes={};
     var deck=document.getElementById('deck');
     slides.forEach(function(s){if(s.classList.contains('ed-placeholder'))s.remove();});
     origSlides.forEach(function(s){
@@ -3037,80 +3043,165 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
     cur=0;rebuildMenu();show(0,true);
   }
 
+  function moveSlide(idx,dir){
+    var ni=idx+dir;if(ni<0||ni>=slides.length)return;
+    var tmp=slides[idx];slides[idx]=slides[ni];slides[ni]=tmp;
+    var deck=document.getElementById('deck');slides.forEach(function(s){deck.appendChild(s);});
+    document.getElementById('tot').textContent=slides.length;
+    edSave();rebuildMenu();
+  }
+
+  function openNotePopup(sk,slideName){
+    var note=edNotes[sk]||'';
+    var pop=document.createElement('div');pop.className='ed-note-pop';
+    var box=document.createElement('div');box.className='ed-note-box';
+    var h3=document.createElement('h3');h3.textContent='Nota para o agente';
+    var sm=document.createElement('small');sm.textContent='Slide: '+slideName;
+    var ta=document.createElement('textarea');ta.className='ed-note-ta no-adv';
+    ta.placeholder='Ex: Mudar título para "Top Artistas 2026". Adicionar logo do Spotify. Mover este slide antes das métricas.';
+    ta.value=note;
+    var acts=document.createElement('div');acts.className='ed-note-actions';
+    var delBtn=document.createElement('button');delBtn.className='ed-btn danger';delBtn.textContent='Apagar nota';
+    delBtn.addEventListener('click',function(){delete edNotes[sk];edSave();pop.remove();rebuildMenu();});
+    var okBtn=document.createElement('button');okBtn.className='ed-btn primary';okBtn.textContent='Salvar nota';
+    okBtn.addEventListener('click',function(){
+      var v=ta.value.trim();if(v){edNotes[sk]=v;}else{delete edNotes[sk];}
+      edSave();pop.remove();rebuildMenu();
+    });
+    acts.appendChild(delBtn);acts.appendChild(okBtn);
+    box.appendChild(h3);box.appendChild(sm);box.appendChild(ta);box.appendChild(acts);
+    pop.appendChild(box);document.body.appendChild(pop);
+    pop.addEventListener('click',function(e){if(e.target===pop)pop.remove();});
+    setTimeout(function(){ta.focus();},60);
+  }
+
+  function generatePrompt(){
+    var lines=[];
+    var d=new Date();
+    var dt=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    lines.push('=== COMANDOS DA EQUIPE — As Melhores Canções Gaúchas ===');
+    lines.push('Gerado em: '+dt);lines.push('');
+
+    var hasChange=slides.some(function(s,i){return s.classList.contains('ed-placeholder')||origSlides.indexOf(s)!==i;});
+    if(hasChange){
+      lines.push('[ ORDEM ATUAL DOS SLIDES ]');
+      var pos=0;
+      slides.forEach(function(s){
+        var label=s.getAttribute('data-menu');if(!label)return;pos++;
+        var num=s.getAttribute('data-num')||'';
+        var isph=s.classList.contains('ed-placeholder');
+        lines.push('  '+String(pos).padStart(3,'0')+'. '+(num?'['+num+'] ':'')+label+(isph?' ← NOVO SLIDE':''));
+      });lines.push('');
+    }
+
+    var phs=slides.filter(function(s){return s.classList.contains('ed-placeholder');});
+    if(phs.length){
+      lines.push('[ SLIDES NOVOS A CRIAR ]');
+      phs.forEach(function(ph,pi){
+        var label=ph.getAttribute('data-menu')||'Novo slide';
+        var num=ph.getAttribute('data-num')||'';
+        var brief=ph.getAttribute('data-brief')||'';
+        var pos=slides.indexOf(ph);
+        var prev=pos>0?slides[pos-1]:null;
+        var next=pos<slides.length-1?slides[pos+1]:null;
+        lines.push('');lines.push('  Slide novo '+(pi+1)+': "'+label+'"'+(num?' (número: '+num+')':''));
+        if(prev&&prev.getAttribute('data-menu'))lines.push('    → após "'+prev.getAttribute('data-menu')+'"');
+        if(next&&next.getAttribute('data-menu'))lines.push('    → antes de "'+next.getAttribute('data-menu')+'"');
+        lines.push('    Briefing: '+(brief||'(não preenchido)'));
+      });lines.push('');
+    }
+
+    var noteKeys=Object.keys(edNotes);
+    if(noteKeys.length){
+      lines.push('[ ANOTAÇÕES POR SLIDE ]');
+      noteKeys.forEach(function(sk){
+        var note=edNotes[sk];if(!note)return;
+        var s=null;slides.forEach(function(sl){if(slideKey(sl)===sk)s=sl;});
+        var name=s?s.getAttribute('data-menu')||sk:sk;
+        lines.push('');lines.push('  Slide "'+name+'":');
+        lines.push('    '+note.replace(/
+/g,'
+    '));
+      });lines.push('');
+    }
+
+    var cmdEl=document.getElementById('ed-global-cmd');
+    var globalCmd=cmdEl?cmdEl.value.trim():'';
+    if(globalCmd){lines.push('[ COMANDO GERAL ]');lines.push(globalCmd);lines.push('');}
+
+    if(!hasChange&&!phs.length&&!noteKeys.length&&!globalCmd)
+      lines.push('(Nenhuma alteração registrada ainda.)');
+
+    return lines.join('\n');
+  }
+
   function rebuildMenu(){
     menuData=[];
-    var body=document.getElementById('menuBody');
-    body.innerHTML='';
+    var body=document.getElementById('menuBody');body.innerHTML='';
     if(editorActive){
       var tb=document.createElement('div');tb.className='ed-toolbar';
       var lbl=document.createElement('div');lbl.className='ed-mode-label';
-      lbl.textContent='Modo editor \u2014 arraste, edite nomes e insira slides';
-      var saveBtn=document.createElement('button');saveBtn.className='ed-btn';
-      saveBtn.textContent='Salvar';
+      lbl.textContent='Modo editor — mova com ↑↓ | edite nomes | adicione notas | insira slides';
+      var saveBtn=document.createElement('button');saveBtn.className='ed-btn';saveBtn.textContent='Salvar';
       saveBtn.addEventListener('click',function(){edSave();var t=this;t.textContent='Salvo!';setTimeout(function(){t.textContent='Salvar';},2000);});
-      var resetBtn=document.createElement('button');resetBtn.className='ed-btn danger';
-      resetBtn.textContent='Restaurar original';
+      var resetBtn=document.createElement('button');resetBtn.className='ed-btn danger';resetBtn.textContent='Restaurar original';
       resetBtn.addEventListener('click',edReset);
-      var exitBtn=document.createElement('button');exitBtn.className='ed-btn';
-      exitBtn.textContent='Sair do editor';
+      var exitBtn=document.createElement('button');exitBtn.className='ed-btn';exitBtn.textContent='Sair do editor';
       exitBtn.addEventListener('click',function(){toggleEditor();});
       tb.appendChild(lbl);tb.appendChild(saveBtn);tb.appendChild(resetBtn);tb.appendChild(exitBtn);
       body.appendChild(tb);
     }
+
     var groups={},groupOrder=[];
     slides.forEach(function(s,i){
       var act=s.getAttribute('data-act')||'abertura',label=s.getAttribute('data-menu');
       if(!label)return;
       if(!groups[act]){groups[act]=[];groupOrder.push(act);}
-      groups[act].push({i:i,label:label,num:s.getAttribute('data-num')||'',brief:s.getAttribute('data-brief')||'',slide:s});
+      groups[act].push({i:i,label:label,num:s.getAttribute('data-num')||'',slide:s});
     });
+
     groupOrder.forEach(function(act){
       var grp=document.createElement('div');grp.className='menu-grp';
       var lbl2=document.createElement('div');lbl2.className='menu-lbl';
       lbl2.innerHTML='<span class="dash"></span>'+(ACTS[act]||act);
       grp.appendChild(lbl2);
       if(editorActive)grp.appendChild(makeAddBtn(act,null,groups[act][0]?groups[act][0].slide:null,true));
+
       groups[act].forEach(function(it){
         var isph=it.slide.classList.contains('ed-placeholder');
+        var sk=slideKey(it.slide);
+        var hasNote=!!edNotes[sk];
+
         var b=document.createElement('button');
         b.className='menu-item'+(isph?' ph-menu-item':'');
-        b.setAttribute('draggable',editorActive?'true':'false');
 
-        // handle de arraste
-        var handle=document.createElement('span');
-        handle.className='ed-drag-handle';handle.textContent='\u2837';
-        b.appendChild(handle);
-
-        // número editável
-        var numEl=document.createElement('span');
-        numEl.className='mi-n';
         if(editorActive){
-          var numEdit=document.createElement('span');
-          numEdit.className='mi-editable';
-          numEdit.contentEditable='true';
-          numEdit.textContent=it.num||'·';
-          numEdit.title='Clique para editar o número';
-          numEdit.addEventListener('blur',function(){
-            var v=numEdit.textContent.trim();
-            if(v==='·')v='';
-            it.slide.setAttribute('data-num',v);
-            edSave();
-          });
+          var arrows=document.createElement('span');arrows.className='ed-arrows';
+          var upBtn=document.createElement('button');upBtn.className='ed-arrow';upBtn.innerHTML='&#8593;';upBtn.title='Mover para cima';
+          if(it.i===0)upBtn.disabled=true;
+          upBtn.addEventListener('click',function(e){e.stopPropagation();moveSlide(it.i,-1);});
+          var dnBtn=document.createElement('button');dnBtn.className='ed-arrow';dnBtn.innerHTML='&#8595;';dnBtn.title='Mover para baixo';
+          if(it.i===slides.length-1)dnBtn.disabled=true;
+          dnBtn.addEventListener('click',function(e){e.stopPropagation();moveSlide(it.i,1);});
+          arrows.appendChild(upBtn);arrows.appendChild(dnBtn);
+          b.appendChild(arrows);
+        }
+
+        var numEl=document.createElement('span');numEl.className='mi-n';
+        if(editorActive){
+          var numEdit=document.createElement('span');numEdit.className='mi-editable';numEdit.contentEditable='true';
+          numEdit.textContent=it.num||'·';numEdit.title='Editar número';
+          numEdit.addEventListener('blur',function(){var v=numEdit.textContent.trim();if(v==='·')v='';it.slide.setAttribute('data-num',v);edSave();});
           numEdit.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();numEdit.blur();}});
           numEl.appendChild(numEdit);
-        } else {
-          numEl.textContent=it.num||'';
-        }
+        }else{numEl.textContent=it.num||'';}
         b.appendChild(numEl);
 
-        // nome editável
-        var nameWrap=document.createElement('span');
+        var nameWrap=document.createElement('span');nameWrap.style.cssText='flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
         if(editorActive){
-          var nameEdit=document.createElement('span');
-          nameEdit.className='mi-editable';
-          nameEdit.contentEditable='true';
-          nameEdit.textContent=it.label;
-          nameEdit.title='Clique para editar o nome';
+          var nameEdit=document.createElement('span');nameEdit.className='mi-editable';nameEdit.contentEditable='true';
+          nameEdit.textContent=it.label;nameEdit.title='Editar nome';
+          nameEdit.style.cssText='max-width:100%;white-space:normal';
           nameEdit.addEventListener('blur',function(){
             var v=nameEdit.textContent.trim()||'Sem nome';
             it.slide.setAttribute('data-menu',v);
@@ -3119,77 +3210,67 @@ body:not(.editor-mode) .mi-brief-snip{display:none}
           });
           nameEdit.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();nameEdit.blur();}});
           nameWrap.appendChild(nameEdit);
-          // snippet de briefing
-          if(it.brief){
-            var snip=document.createElement('span');
-            snip.className='mi-brief-snip';
-            snip.textContent=it.brief;
-            nameWrap.appendChild(snip);
-          }
-        } else {
-          nameWrap.textContent=it.label;
-        }
+        }else{nameWrap.textContent=it.label;}
         b.appendChild(nameWrap);
 
-        // clique para navegar (ignora se está arrastando ou editando texto)
+        if(editorActive){
+          var noteBtn=document.createElement('button');noteBtn.className='ed-note-btn'+(hasNote?' has-note':'');
+          noteBtn.textContent=hasNote?'nota':'+ nota';noteBtn.title='Nota para o agente';
+          noteBtn.addEventListener('click',function(e){e.stopPropagation();openNotePopup(sk,it.label);});
+          b.appendChild(noteBtn);
+        }
+
         b.addEventListener('click',function(e){
-          if(e.target.classList.contains('mi-editable'))return;
-          if(dragSrcIdx===null){closeMenu();show(it.i);}
+          if(e.target.classList.contains('mi-editable')||e.target.classList.contains('ed-note-btn')||e.target.closest('.ed-arrows'))return;
+          closeMenu();show(it.i);
         });
 
-        if(editorActive){
-          b.addEventListener('dragstart',function(e){
-            if(e.target.classList.contains('mi-editable')){e.preventDefault();return;}
-            dragSrcIdx=it.i;b.classList.add('ed-dragging');e.dataTransfer.effectAllowed='move';
-          });
-          b.addEventListener('dragend',function(){
-            b.classList.remove('ed-dragging');
-            body.querySelectorAll('.ed-drop-above,.ed-drop-below').forEach(function(el){el.classList.remove('ed-drop-above','ed-drop-below');});
-            dragSrcIdx=null;
-          });
-          b.addEventListener('dragover',function(e){
-            e.preventDefault();
-            body.querySelectorAll('.ed-drop-above,.ed-drop-below').forEach(function(el){el.classList.remove('ed-drop-above','ed-drop-below');});
-            var r=b.getBoundingClientRect(),mid=r.top+r.height/2;
-            b.classList.add(e.clientY<mid?'ed-drop-above':'ed-drop-below');
-          });
-          b.addEventListener('dragleave',function(){b.classList.remove('ed-drop-above','ed-drop-below');});
-          b.addEventListener('drop',function(e){
-            e.preventDefault();if(dragSrcIdx===null||dragSrcIdx===it.i)return;
-            var r=b.getBoundingClientRect(),before=(e.clientY<r.top+r.height/2);
-            var from=slides.splice(dragSrcIdx,1)[0];
-            var toIdx=slides.indexOf(it.slide);
-            slides.splice(before?toIdx:toIdx+1,0,from);
-            var deck=document.getElementById('deck');slides.forEach(function(s){deck.appendChild(s);});
-            document.getElementById('tot').textContent=slides.length;
-            cur=0;rebuildMenu();show(0,true);
-          });
-        }
         grp.appendChild(b);menuData.push({i:it.i,el:b});
         if(editorActive)grp.appendChild(makeAddBtn(act,it.slide,null,false));
       });
       body.appendChild(grp);
     });
+
+    if(editorActive){
+      var panel=document.createElement('div');panel.className='ed-cmd-panel';
+      var ptitle=document.createElement('div');ptitle.className='ed-cmd-title';ptitle.textContent='Comando geral para o agente';
+      var savedCmd=localStorage.getItem(ED_CMD_KEY)||'';
+      var cmdTa=document.createElement('textarea');cmdTa.className='ed-cmd-ta no-adv';cmdTa.id='ed-global-cmd';
+      cmdTa.placeholder='Comandos gerais. Ex: "Quero mover todos os slides de artistas para antes das métricas." ou "Adicionar slide de patrocinadores após o slide de abertura."';
+      cmdTa.value=savedCmd;
+      cmdTa.addEventListener('input',function(){localStorage.setItem(ED_CMD_KEY,cmdTa.value);});
+      var copyBtn=document.createElement('button');copyBtn.className='ed-copy-btn';
+      copyBtn.textContent='Copiar prompt para o agente';
+      copyBtn.addEventListener('click',function(){
+        var txt=generatePrompt();
+        var self=this;
+        function done(){self.textContent='Copiado!';setTimeout(function(){self.textContent='Copiar prompt para o agente';},2500);}
+        if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(function(){fallbackCopy(txt);done();});}
+        else{fallbackCopy(txt);done();}
+      });
+      panel.appendChild(ptitle);panel.appendChild(cmdTa);panel.appendChild(copyBtn);
+      body.appendChild(panel);
+    }
     updateHere(cur);
   }
 
+  function fallbackCopy(txt){var ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}
+
   function makeAddBtn(act,afterSlide,beforeSlide,isBefore){
-    var btn=document.createElement('button');btn.className='ed-add';
-    btn.textContent='+ inserir slide aqui';
+    var btn=document.createElement('button');btn.className='ed-add';btn.textContent='+ inserir slide aqui';
     btn.addEventListener('click',function(){
-      var ph=makePH(null,null,null,'');
-      ph.setAttribute('data-act',act);
+      var ph=makePH(null,null,null,'');ph.setAttribute('data-act',act);
       var deck=document.getElementById('deck');
       if(isBefore&&beforeSlide){var bi=slides.indexOf(beforeSlide);slides.splice(bi,0,ph);}
       else if(afterSlide){var ai=slides.indexOf(afterSlide);slides.splice(ai+1,0,ph);}
       else{slides.push(ph);}
       slides.forEach(function(s){deck.appendChild(s);});
       document.getElementById('tot').textContent=slides.length;
-      var pi=slides.indexOf(ph);rebuildMenu();show(pi,true);
+      var pi=slides.indexOf(ph);edSave();rebuildMenu();show(pi,true);
     });
     return btn;
   }
-  // ── FIM MODO EDITOR ────────────────────────────────────────
+  // ── FIM MODO EDITOR ──────────────────────────────────────────
 
   // ----- contagem animada dos números (com sufixo) -----
   function runCounters(slide,instant){
