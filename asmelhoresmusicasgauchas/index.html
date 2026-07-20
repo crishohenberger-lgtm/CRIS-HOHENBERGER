@@ -2938,6 +2938,7 @@ body.editor-mode .menu-item{align-items:center}
   var editorActive=false,origSlides=[],phSeq=0;
   var ED_KEY='cgMusicasOrder_v4',ED_NOTES_KEY='cgMusicasNotes_v4',ED_CMD_KEY='cgMusicasCmd_v4';
   var edNotes={};
+  var CMD_SERVER='https://c6995ad5-bf60-4e82-9a57-d3ba59ab9843-00-8yn3z938oxcb.picard.replit.dev/api/commands';
 
   function initEditor(){
     origSlides=slides.slice();
@@ -3026,6 +3027,36 @@ body.editor-mode .menu-item{align-items:center}
     });
     localStorage.setItem(ED_KEY,JSON.stringify(ord));
     localStorage.setItem(ED_NOTES_KEY,JSON.stringify(edNotes));
+    return ord;
+  }
+
+  function edSendToServer(btn){
+    var ord=edSave();
+    var globalCmd=(document.getElementById('ed-global-cmd')||{}).value||'';
+    var payload=JSON.stringify({order:ord,notes:edNotes,globalCmd:globalCmd});
+    var orig=btn?btn.textContent:'';
+    if(btn){btn.textContent='Enviando…';btn.disabled=true;}
+    fetch(CMD_SERVER,{method:'POST',headers:{'Content-Type':'application/json'},body:payload})
+      .then(function(r){return r.json();})
+      .then(function(data){
+        if(btn){
+          if(data.ok){
+            var msg=data.applied?'✓ Aplicado e publicado!':'✓ Salvo!';
+            if(data.hasPending)msg+=' (notas pendentes)';
+            btn.textContent=msg;
+            // se a ordem foi aplicada no servidor, limpa localStorage para evitar conflito no reload
+            if(data.applied){localStorage.removeItem(ED_KEY);localStorage.removeItem(ED_NOTES_KEY);}
+          }else{
+            btn.textContent='Erro — verifique o console';
+          }
+          btn.disabled=false;
+          setTimeout(function(){btn.textContent=orig;},4000);
+        }
+      })
+      .catch(function(e){
+        console.warn('Servidor inacessível:',e.message);
+        if(btn){btn.textContent='Salvo localmente (servidor off)';btn.disabled=false;setTimeout(function(){btn.textContent=orig;},3000);}
+      });
   }
 
   function edReset(){
@@ -3143,8 +3174,8 @@ body.editor-mode .menu-item{align-items:center}
       var tb=document.createElement('div');tb.className='ed-toolbar';
       var lbl=document.createElement('div');lbl.className='ed-mode-label';
       lbl.textContent='Modo editor — mova com ↑↓ | edite nomes | adicione notas | insira slides';
-      var saveBtn=document.createElement('button');saveBtn.className='ed-btn';saveBtn.textContent='Salvar';
-      saveBtn.addEventListener('click',function(){edSave();var t=this;t.textContent='Salvo!';setTimeout(function(){t.textContent='Salvar';},2000);});
+      var saveBtn=document.createElement('button');saveBtn.className='ed-btn primary';saveBtn.textContent='Salvar e publicar';
+      saveBtn.addEventListener('click',function(){edSendToServer(this);});
       var resetBtn=document.createElement('button');resetBtn.className='ed-btn danger';resetBtn.textContent='Restaurar original';
       resetBtn.addEventListener('click',edReset);
       var exitBtn=document.createElement('button');exitBtn.className='ed-btn';exitBtn.textContent='Sair do editor';
