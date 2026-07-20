@@ -28,7 +28,7 @@
   --hair:#efece6;
   --hair-2:#e2ded5;
   --line-ink:#1c1913;      /* traço-assinatura */
-  --accent:#8f2233;        /* bordô discreto, raiz gaúcha */
+  --accent:#17140f;        /* preto — mesma cor do texto principal */
   --ease:cubic-bezier(.16,1,.3,1);
   --ease-2:cubic-bezier(.4,0,.2,1);
   --pad:clamp(30px,6vw,110px);
@@ -75,7 +75,7 @@ body{
 #pw{width:100%;padding:16px 18px;font-family:inherit;font-size:16px;border:1px solid var(--hair-2);border-radius:14px;background:var(--paper-2);color:var(--ink);text-align:center;letter-spacing:.18em;outline:none;transition:border-color .3s,box-shadow .3s,background .3s}
 #pw::placeholder{letter-spacing:.05em;color:var(--faint);font-weight:300}
 #pw:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(23,20,15,.04)}
-#gate.err #pw{border-color:var(--accent);box-shadow:0 0 0 4px rgba(168,52,31,.08);animation:shake .4s}
+#gate.err #pw{border-color:#8f2233;box-shadow:0 0 0 4px rgba(168,52,31,.08);animation:shake .4s}
 #go{width:100%;margin-top:13px;padding:16px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.05em;color:#fff;background:var(--ink);border:none;border-radius:14px;cursor:pointer;transition:transform .2s var(--ease),background .3s}
 #go:hover{background:#000;transform:translateY(-1px)}
 .gate-msg{font-size:12px;color:var(--accent);height:15px;margin-top:12px;opacity:0;transition:opacity .2s;font-weight:500}
@@ -462,7 +462,7 @@ h2.t b{font-weight:700}
 .flag span{display:block;border-radius:2px}
 .flag span:nth-child(1){width:22px;height:2.5px;background:#006B3F;opacity:.78}
 .flag span:nth-child(2){width:16px;height:2.5px;background:#c5a028;opacity:.72;margin-left:3px}
-.flag span:nth-child(3){width:22px;height:2.5px;background:var(--accent);opacity:.68}
+.flag span:nth-child(3){width:22px;height:2.5px;background:#8f2233;opacity:.68}
 /* ficha técnica (rótulo à esquerda, valor à direita) */
 .frows{max-width:640px;margin:6px auto 0;text-align:left}
 .frow{display:flex;justify-content:space-between;align-items:baseline;gap:22px;padding:20px 2px;border-bottom:1px solid var(--hair)}
@@ -682,11 +682,11 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 #radioBtn::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,var(--accent) 66%);
+  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,#8f2233 66%);
   opacity:.75
 }
 #radioPulse{
-  width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;
+  width:7px;height:7px;border-radius:50%;background:#8f2233;flex-shrink:0;
   animation:none
 }
 #radioWidget.live #radioPulse{animation:pulse-ring 1.4s ease-out infinite}
@@ -706,7 +706,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   color:rgba(255,255,255,.4);margin-bottom:10px}
 #radioOpen{
   display:flex;align-items:center;gap:8px;
-  background:var(--accent);color:#fff;border-radius:10px;
+  background:#8f2233;color:#fff;border-radius:10px;
   padding:10px 14px;font-size:13px;font-weight:700;text-decoration:none;
   margin-bottom:10px;justify-content:center;
   transition:opacity .15s
@@ -745,13 +745,13 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 /* faixa da Bandeira RS na base do botão */
 #mayaBtn::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,var(--accent) 66%);
+  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,#8f2233 66%);
   opacity:.75
 }
 /* faixa RS no topo do painel ask */
 #ask::before{
   content:'';display:block;height:3px;
-  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,var(--accent) 66%);
+  background:linear-gradient(90deg,#006B3F 33%,#c5a028 33%,#c5a028 66%,#8f2233 66%);
   opacity:.55
 }
 /* avatar círculo da Maya no painel */
@@ -786,7 +786,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 .bi-chart{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:16px 18px;flex:1}
 .bi-chart-label{font-size:9.5px;color:var(--soft);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
 .bi-bars{display:flex;align-items:flex-end;gap:8px;height:56px}
-.bi-bar{flex:1;background:linear-gradient(180deg,var(--accent) 0%,#c5a028 100%);border-radius:4px 4px 0 0;height:var(--h);position:relative;min-height:6px;opacity:.82}
+.bi-bar{flex:1;background:linear-gradient(180deg,#8f2233 0%,#c5a028 100%);border-radius:4px 4px 0 0;height:var(--h);position:relative;min-height:6px;opacity:.82}
 .bi-bar span{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--soft);font-weight:600;white-space:nowrap}
 .bi-row{display:flex;gap:10px;align-items:stretch}
 .bi-mini{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:14px 16px;min-width:120px}
@@ -1048,7 +1048,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
       <li><span class="rk">85 a 23</span><span>Quarenta anos de gravações, produção e distribuição via USA Discos e Editora Terra Sul.</span></li>
       <li><span class="rk">24</span><span><b>Reorganização completa.</b> Estruturação da equipe, governança, higienização de metadados na FUGA e profissionalização digital.</span></li>
       <li><span class="rk">25</span><span><b>Consolidação.</b> Facebook a <b>94 mil seguidores</b>, Instagram dobra para <b>207 mil seguidores</b>, TikTok triplica para <b>98 mil seguidores</b>. Revitalização integral dos perfis.</span></li>
-      <li><span class="rk" style="color:var(--accent)">26</span><span><b>Maturidade.</b> <b>63 mi</b> de views no semestre, OKRs com gamificação, sistema próprio, rebranding e governança consolidada.</span></li>
+      <li><span class="rk" style="color:var(--ink)">26</span><span><b>Maturidade.</b> <b>63 mi</b> de views no semestre, OKRs com gamificação, sistema próprio, rebranding e governança consolidada.</span></li>
     </ul>
   </div>
 </section>
@@ -1287,7 +1287,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 
 <section class="slide" data-act="m1" data-menu="Novo artista" data-num="1.2">
   <div class="slide-in">
-    <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · <span style="color:var(--accent)">[confirmar nome]</span></div>
+    <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · <span>[confirmar nome]</span></div>
     <div class="artist-layout">
       <div class="artist-info">
         <div class="artist-head mv"><span class="pfoto">NA</span><div><div class="ah-n">[Nome do artista]</div><div class="ah-r">[Gênero / estilo]</div></div></div>
@@ -2668,7 +2668,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="dash"></span> Checklist interno de preparação</div>
     <ul class="rows mv">
-      <li><span class="rk" style="color:var(--accent)">✓</span><span><b>Cris.</b> Oportunidades futuras e perguntas do FAQ. Concluído.</span></li>
+      <li><span class="rk" style="color:var(--ink)">✓</span><span><b>Cris.</b> Oportunidades futuras e perguntas do FAQ. Concluído.</span></li>
       <li><span class="rk"></span><span><b>Cris e equipe.</b> Confirmar a denominação oficial dos parceiros.</span></li>
       <li><span class="rk"></span><span><b>Elvis.</b> Inventário real e tabela obra x versões.</span></li>
       <li><span class="rk"></span><span><b>Cris e Elvis.</b> Dados da Editora Terra Sul.</span></li>
