@@ -2897,6 +2897,7 @@ body.editor-mode .menu-item{align-items:center}
         case'Home':e.preventDefault();show(0);break;
         case'End':e.preventDefault();show(slides.length-1);break;
         case'Escape':case'm':case'M':openMenu();break;
+        case'E':if(e.shiftKey){e.preventDefault();toggleEditor();}break;
         case'/':e.preventDefault();openAsk();break;
       }
     });
@@ -3172,26 +3173,16 @@ body.editor-mode .menu-item{align-items:center}
         var sk=slideKey(it.slide);
         var hasNote=!!edNotes[sk];
 
+        // botão de navegação (sem filhos button — HTML válido)
         var b=document.createElement('button');
+        b.type='button';
         b.className='menu-item'+(isph?' ph-menu-item':'');
-
-        if(editorActive){
-          var arrows=document.createElement('span');arrows.className='ed-arrows';
-          var upBtn=document.createElement('button');upBtn.className='ed-arrow';upBtn.innerHTML='&#8593;';upBtn.title='Mover para cima';
-          if(it.i===0)upBtn.disabled=true;
-          upBtn.addEventListener('click',function(e){e.stopPropagation();moveSlide(it.i,-1);});
-          var dnBtn=document.createElement('button');dnBtn.className='ed-arrow';dnBtn.innerHTML='&#8595;';dnBtn.title='Mover para baixo';
-          if(it.i===slides.length-1)dnBtn.disabled=true;
-          dnBtn.addEventListener('click',function(e){e.stopPropagation();moveSlide(it.i,1);});
-          arrows.appendChild(upBtn);arrows.appendChild(dnBtn);
-          b.appendChild(arrows);
-        }
 
         var numEl=document.createElement('span');numEl.className='mi-n';
         if(editorActive){
           var numEdit=document.createElement('span');numEdit.className='mi-editable';numEdit.contentEditable='true';
-          numEdit.textContent=it.num||'·';numEdit.title='Editar número';
-          numEdit.addEventListener('blur',function(){var v=numEdit.textContent.trim();if(v==='·')v='';it.slide.setAttribute('data-num',v);edSave();});
+          numEdit.textContent=it.num||'\u00b7';numEdit.title='Editar n\u00famero';
+          numEdit.addEventListener('blur',function(){var v=numEdit.textContent.trim();if(v==='\u00b7')v='';it.slide.setAttribute('data-num',v);edSave();});
           numEdit.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();numEdit.blur();}});
           numEl.appendChild(numEdit);
         }else{numEl.textContent=it.num||'';}
@@ -3205,7 +3196,7 @@ body.editor-mode .menu-item{align-items:center}
           nameEdit.addEventListener('blur',function(){
             var v=nameEdit.textContent.trim()||'Sem nome';
             it.slide.setAttribute('data-menu',v);
-            if(isph){var t=it.slide.querySelector('.ed-ph-inner p');if(t)t.textContent=v;}
+            if(isph){var t2=it.slide.querySelector('.ed-ph-inner p');if(t2)t2.textContent=v;}
             edSave();
           });
           nameEdit.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();nameEdit.blur();}});
@@ -3213,19 +3204,35 @@ body.editor-mode .menu-item{align-items:center}
         }else{nameWrap.textContent=it.label;}
         b.appendChild(nameWrap);
 
-        if(editorActive){
-          var noteBtn=document.createElement('button');noteBtn.className='ed-note-btn'+(hasNote?' has-note':'');
-          noteBtn.textContent=hasNote?'nota':'+ nota';noteBtn.title='Nota para o agente';
-          noteBtn.addEventListener('click',function(e){e.stopPropagation();openNotePopup(sk,it.label);});
-          b.appendChild(noteBtn);
-        }
-
         b.addEventListener('click',function(e){
-          if(e.target.classList.contains('mi-editable')||e.target.classList.contains('ed-note-btn')||e.target.closest('.ed-arrows'))return;
+          if(e.target.classList.contains('mi-editable'))return;
           closeMenu();show(it.i);
         });
 
-        grp.appendChild(b);menuData.push({i:it.i,el:b});
+        if(editorActive){
+          // wrapper div — botões ↑↓ e nota ficam como irmãos do b, não dentro dele
+          var row=document.createElement('div');row.className='ed-row';
+
+          var arrows=document.createElement('div');arrows.className='ed-arrows';
+          var upBtn=document.createElement('button');upBtn.type='button';upBtn.className='ed-arrow';upBtn.innerHTML='\u2191';upBtn.title='Mover para cima';
+          if(it.i===0)upBtn.disabled=true;
+          upBtn.addEventListener('click',function(){moveSlide(it.i,-1);});
+          var dnBtn=document.createElement('button');dnBtn.type='button';dnBtn.className='ed-arrow';dnBtn.innerHTML='\u2193';dnBtn.title='Mover para baixo';
+          if(it.i===slides.length-1)dnBtn.disabled=true;
+          dnBtn.addEventListener('click',function(){moveSlide(it.i,1);});
+          arrows.appendChild(upBtn);arrows.appendChild(dnBtn);
+
+          var noteBtn=document.createElement('button');noteBtn.type='button';
+          noteBtn.className='ed-note-btn'+(hasNote?' has-note':'');
+          noteBtn.textContent=hasNote?'nota':'+ nota';noteBtn.title='Nota para o agente';
+          noteBtn.addEventListener('click',function(){openNotePopup(sk,it.label);});
+
+          row.appendChild(arrows);row.appendChild(b);row.appendChild(noteBtn);
+          grp.appendChild(row);
+        }else{
+          grp.appendChild(b);
+        }
+        menuData.push({i:it.i,el:b});
         if(editorActive)grp.appendChild(makeAddBtn(act,it.slide,null,false));
       });
       body.appendChild(grp);
