@@ -674,6 +674,14 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 #radioPanel.open{display:block}
 .rp-label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   color:rgba(255,255,255,.4);margin-bottom:10px}
+#radioOpen{
+  display:flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;border-radius:10px;
+  padding:10px 14px;font-size:13px;font-weight:700;text-decoration:none;
+  margin-bottom:10px;justify-content:center;
+  transition:opacity .15s
+}
+#radioOpen:hover{opacity:.88}
 #radioFrame{
   width:100%;border-radius:10px;aspect-ratio:16/9;border:0;display:block
 }
@@ -2602,6 +2610,10 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 <div id="radioWidget">
   <div id="radioPanel">
     <div class="rp-label">📻 Rádio · ao vivo</div>
+    <a id="radioOpen" href="https://www.youtube.com/live/zFAmNkt-6lA" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+      Tocar no YouTube
+    </a>
     <iframe id="radioFrame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
   </div>
   <div style="display:flex;align-items:center;gap:6px">
