@@ -178,9 +178,38 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // ── GET / ── health check ────────────────────────────────────
-  res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-  res.end('Servidor de comandos OK — As Melhores Músicas Gaúchas');
+  // ── GET /* ── serve a apresentação ───────────────────────────
+  if (req.method === 'GET') {
+    const url   = req.url.split('?')[0];
+    const STATIC = path.join(WORKSPACE, 'asmelhoresmusicasgauchas');
+    let   target = url === '/' ? '/index.html' : url;
+    // segurança: bloqueia path traversal
+    const resolved = path.resolve(STATIC, '.' + target);
+    if (!resolved.startsWith(STATIC)) { res.writeHead(403); res.end('Forbidden'); return; }
+    if (fs.existsSync(resolved)) {
+      const ext = path.extname(resolved).toLowerCase();
+      const mime = {
+        '.html': 'text/html; charset=utf-8',
+        '.css':  'text/css',
+        '.js':   'application/javascript',
+        '.png':  'image/png',
+        '.jpg':  'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.svg':  'image/svg+xml',
+        '.ico':  'image/x-icon',
+        '.woff2':'font/woff2',
+        '.woff': 'font/woff'
+      }[ext] || 'application/octet-stream';
+      res.writeHead(200, { 'Content-Type': mime });
+      res.end(fs.readFileSync(resolved));
+    } else {
+      // fallback: index.html (SPA)
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(fs.readFileSync(path.join(STATIC, 'index.html')));
+    }
+    return;
+  }
+  res.writeHead(405); res.end('Method not allowed');
 });
 
 server.listen(PORT, '0.0.0.0', () => {
