@@ -605,6 +605,15 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 .sp-cta .sp-arr{width:13px;height:13px;flex-shrink:0;fill:none;stroke:#000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
 .artist-head .ah-n{font-size:clamp(21px,3.2vw,30px);font-weight:600;letter-spacing:-.018em;line-height:1.08}
 .artist-head .ah-r{font-size:12.5px;color:var(--soft);font-weight:500;margin-top:4px;letter-spacing:.01em}
+/* layout dois colunas: info à esquerda, vídeo à direita */
+.artist-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,52px);align-items:center}
+.artist-info{min-width:0;display:flex;flex-direction:column;gap:0}
+.artist-info .figs{grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,28px)}
+.artist-info .fig .v{font-size:clamp(32px,4.4vw,54px)}
+.artist-video{min-width:0}
+.yt-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,.12)}
+.yt-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+@media(max-width:640px){.artist-layout{grid-template-columns:1fr}}
 /* microfone e voz no assistente */
 .ask-mic{width:38px;height:38px;flex-shrink:0;border-radius:11px;border:1px solid var(--hair-2);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:border-color .2s,color .2s}
 .ask-mic:hover{border-color:var(--ink)}
@@ -1126,91 +1135,145 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 <section class="slide" data-act="m1" data-menu="Baitaca" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Baitaca</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="Baitaca">BA</span><div><div class="ah-n">Baitaca</div><div class="ah-r">Vaneira e humor gaúcho</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="Baitaca">BA</span><div><div class="ah-n">Baitaca</div><div class="ah-r">Vaneira e humor gaúcho</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">630<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">2,4<small>mi</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">294<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Novos ouvintes</div></div>
       <div class="fig"><div class="v">78<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Novos seguidores</div></div>
     </div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/3Qr4KjBoZj14d28vWulbA8" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/5qN1HzX1Ihg?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/3Qr4KjBoZj14d28vWulbA8" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/5qN1HzX1Ihg?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="João Luiz Corrêa" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · João Luiz Corrêa</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="João Luiz Corrêa">JC</span><div><div class="ah-n">João Luiz Corrêa</div><div class="ah-r">Tradição e milonga</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="João Luiz Corrêa">JC</span><div><div class="ah-n">João Luiz Corrêa</div><div class="ah-r">Tradição e milonga</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">489<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">2,28<small>mi</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">155<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes ativos</div></div>
       <div class="fig"><div class="v">28<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Novos ouvintes</div></div>
     </div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/2PbPbgG8Frxv3vAuad49FC" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/khDKXquW_uo?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/2PbPbgG8Frxv3vAuad49FC" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/khDKXquW_uo?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="Porca Véia" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Porca Véia</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="Porca Véia">PV</span><div><div class="ah-n">Porca Véia</div><div class="ah-r">O mais tocado de 2026</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="Porca Véia">PV</span><div><div class="ah-n">Porca Véia</div><div class="ah-r">O mais tocado de 2026</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">362<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">2,8<small>mi</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">172<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes ativos</div></div>
       <div class="fig"><div class="v">23<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Super ouvintes</div></div>
     </div>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/3ydaQf0Z-H8?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/7ykWyBDbjpP0oCRcDAIlbA" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/7ykWyBDbjpP0oCRcDAIlbA" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/3ydaQf0Z-H8?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="Luiz Marenco" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Luiz Marenco</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="Luiz Marenco">LM</span><div><div class="ah-n">Luiz Marenco</div><div class="ah-r">Voz da querência</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="Luiz Marenco">LM</span><div><div class="ah-n">Luiz Marenco</div><div class="ah-r">Voz da querência</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">354<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">2<small>mi</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">121<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes ativos</div></div>
       <div class="fig"><div class="v">+13<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Super ouvintes</div></div>
     </div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/3NzaNC2O3zltcu9Reb6i73" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/yX5FyetfTcU?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/3NzaNC2O3zltcu9Reb6i73" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/yX5FyetfTcU?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="Garotos de Ouro" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Garotos de Ouro</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="Garotos de Ouro">GO</span><div><div class="ah-n">Garotos de Ouro</div><div class="ah-r">Bugio e vaneirão</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="Garotos de Ouro">GO</span><div><div class="ah-n">Garotos de Ouro</div><div class="ah-r">Bugio e vaneirão</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">333<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">1,2<small>mi</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">103<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes ativos</div></div>
       <div class="fig"><div class="v">21<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Novos ouvintes</div></div>
     </div>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/s16Q8aBEYc4?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/2D0vl4mtBkZ2QrXHPwKltI" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/2D0vl4mtBkZ2QrXHPwKltI" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/s16Q8aBEYc4?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="Xiru Missioneiro" data-num="1.2">
   <div class="slide-in">
     <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.2</span><span class="dash"></span> Top artistas · Xiru Missioneiro</div>
-    <div class="artist-head mv"><span class="pfoto" data-foto="Xiru Missioneiro">XM</span><div><div class="ah-n">Xiru Missioneiro</div><div class="ah-r">Raiz missioneira</div></div></div>
+    <div class="artist-layout">
+      <div class="artist-info">
+        <div class="artist-head mv"><span class="pfoto" data-foto="Xiru Missioneiro">XM</span><div><div class="ah-n">Xiru Missioneiro</div><div class="ah-r">Raiz missioneira</div></div></div>
     <div class="figs mv">
       <div class="fig"><div class="v">287<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes mensais</div></div>
       <div class="fig"><div class="v">879<small>mil+</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Streams</div></div>
       <div class="fig"><div class="v">117<small>mil</small></div><div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Ouvintes ativos</div></div>
     </div>
-    <div class="mv" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;max-width:680px;margin-top:24px;box-shadow:0 8px 40px rgba(0,0,0,.12)"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" src="https://www.youtube-nocookie.com/embed/47ScnevQvTw?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-    <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/7Mn7RpqjJU9DAq59r6wUcB" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+        <a class="sp-cta mv" href="https://open.spotify.com/intl-pt/artist/7Mn7RpqjJU9DAq59r6wUcB" target="_blank" rel="noopener"><svg class="sp-ic" viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 0 1 .256 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.532-1.072 9.404-.865 13.115 1.337a.937.937 0 0 1-.954 1.614z"></path></svg>Ver perfil no Spotify<svg class="sp-arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      </div>
+      <div class="artist-video mv">
+        <div class="yt-wrap">
+          <iframe src="https://www.youtube-nocookie.com/embed/47ScnevQvTw?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="slide" data-act="m1" data-menu="Top 10 artistas 2026" data-num="1.2">
   <div class="slide-in">
