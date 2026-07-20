@@ -94,7 +94,7 @@ body{
 .slide.is-out{opacity:0;visibility:visible;z-index:1}
 /* going backward: resting slides start from the left */
 #app.going-back .slide:not(.is-active):not(.is-out){transform:scale(1.028) translateX(-18px)}
-.slide-in{width:100%;max-width:1080px;margin:0 auto;padding:clamp(78px,12vh,130px) var(--pad) clamp(96px,15vh,140px);max-height:100%;overflow:auto;scrollbar-width:none}
+.slide-in{width:100%;max-width:1080px;margin:0 auto;padding:clamp(48px,7vh,80px) var(--pad) clamp(52px,8vh,88px);max-height:100%;overflow:auto;scrollbar-width:none}
 .slide-in::-webkit-scrollbar{display:none}
 
 /* movimento de câmera: entra subindo, sai recuando (sem escurecer) */
@@ -520,7 +520,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
   .split,.split.top{grid-template-columns:1fr;gap:26px}
   .cards.c2,.cards.c3{grid-template-columns:1fr}
   .act{display:none}
-  .slide-in{padding:70px clamp(30px,7vw,44px) 88px}
+  .slide-in{padding:44px clamp(30px,7vw,44px) 52px}
   .hint{display:none}
   .rows li{gap:18px;padding:17px 0}
   .rows li .rk{width:26px}
@@ -805,7 +805,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 
 <section class="slide" data-act="abertura" data-menu="O tamanho do mercado" data-num="">
   <div class="slide-in">
-    <p class="scene mv" style="max-width:22ch;margin-bottom:8vh">A música gaúcha não é um nicho.<br><b>É um povo.</b></p>
+    <p class="scene mv" style="max-width:22ch;margin-bottom:4vh">A música gaúcha não é um nicho.<br><b>É um povo.</b></p>
     <div class="figs mv" style="gap:clamp(24px,5vw,72px);max-width:56ch">
       <div class="fig">
         <div class="v" style="color:var(--accent)">10,9<small>mi</small></div>
@@ -820,21 +820,21 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
         <div class="l">Brasileiros</div>
       </div>
     </div>
-    <p class="note mv" style="margin-top:8vh">IBGE Censo Demográfico 2022</p>
+    <p class="note mv" style="margin-top:4vh">IBGE Censo Demográfico 2022</p>
   </div>
 </section>
 
 <section class="slide" data-act="abertura" data-menu="Lealdade" data-num="">
   <div class="slide-in">
-    <div class="figbig mv" style="margin-bottom: 6vh"><div class="v" style="color:var(--accent)">89,9<small>%</small></div></div>
+    <div class="figbig mv" style="margin-bottom: 3vh"><div class="v" style="color:var(--accent)">89,9<small>%</small></div></div>
     <div class="d2 mv" style="max-width:32ch;">De cada 100 pessoas que assistem, <b>89 voltam</b>.<br>Não por algoritmo. Por pertencimento.</div>
-    <p class="note mv" style="margin-top:12vh;">2,48 milhões de horas assistidas no semestre &nbsp;·&nbsp; duração média 4:25 &nbsp;·&nbsp; YouTube Studio Analytics jan–jul 2026</p>
+    <p class="note mv" style="margin-top:5vh;">2,48 milhões de horas assistidas no semestre &nbsp;·&nbsp; duração média 4:25 &nbsp;·&nbsp; YouTube Studio Analytics jan–jul 2026</p>
   </div>
 </section>
 
 <section class="slide" data-act="abertura" data-menu="O público" data-num="">
   <div class="slide-in">
-    <div class="figs mv" style="margin-bottom: 8vh; gap: clamp(32px,6vw,80px); max-width: 56ch;">
+    <div class="figs mv" style="margin-bottom: 4vh; gap: clamp(32px,6vw,80px); max-width: 56ch;">
       <div class="fig">
         <div class="v" style="color:var(--accent)">75,6<small>%</small></div>
         <div class="l" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">masculino</div>
@@ -850,19 +850,19 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 
 <section class="slide" data-act="abertura" data-menu="Alcance" data-num="">
   <div class="slide-in">
-    <div class="d1 mv" style="margin-bottom:8vh;font-size:clamp(28px,4.5vw,72px);color:var(--accent);max-width:20ch;line-height:1.2">
+    <div class="d1 mv" style="margin-bottom:4vh;font-size:clamp(28px,4.5vw,72px);color:var(--accent);max-width:20ch;line-height:1.2">
       Argentina <span style="color:var(--hair-2)">·</span> Uruguai <span style="color:var(--hair-2)">·</span> Portugal <span style="color:var(--hair-2)">·</span> Estados Unidos
     </div>
     <div class="d2 mv" style="max-width:28ch;">A identidade gaúcha não tem fronteira.</div>
-    <p class="note mv" style="margin-top:10vh;">Esses países estão no top de audiência. A diáspora nos acompanha.</p>
+    <p class="note mv" style="margin-top:4vh;">Esses países estão no top de audiência. A diáspora nos acompanha.</p>
   </div>
 </section>
 
 <section class="slide brk" data-act="abertura" data-menu="Potencial" data-num="" style="background:var(--ink); color:var(--paper)">
   <div class="slide-in">
-    <div class="figbig mv" style="margin-bottom:8vh"><div class="v" style="color:#d19c2e">10<small style="color:rgba(255,255,255,.3)">%</small></div></div>
+    <div class="figbig mv" style="margin-bottom:4vh"><div class="v" style="color:#d19c2e">10<small style="color:rgba(255,255,255,.3)">%</small></div></div>
     <div class="d2 mv" style="color:var(--paper);max-width:30ch;">Chegamos a 10% do público com zero mídia paga.<br><b>Há 90% de espaço ainda intocado.</b></div>
-    <p class="note mv" style="margin-top:10vh;color:rgba(255,255,255,.38);">RS · ~1,9 mi homens 45+ &nbsp;·&nbsp; Sul · ~5 mi &nbsp;·&nbsp; Hoje: 524 mil inscritos<br><span style="display:block;margin-top:12px;opacity:.6">YouTube Studio Analytics jan–jul 2026 &nbsp;·&nbsp; IBGE Censo Demográfico 2022</span></p>
+    <p class="note mv" style="margin-top:4vh;color:rgba(255,255,255,.38);">RS · ~1,9 mi homens 45+ &nbsp;·&nbsp; Sul · ~5 mi &nbsp;·&nbsp; Hoje: 524 mil inscritos<br><span style="display:block;margin-top:12px;opacity:.6">YouTube Studio Analytics jan–jul 2026 &nbsp;·&nbsp; IBGE Censo Demográfico 2022</span></p>
   </div>
 </section>
 
@@ -911,7 +911,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 <section class="slide" data-act="abertura" data-menu="Um organismo vivo" data-num="">
   <div class="slide-in">
     <p class="scene mv" style="max-width: 36ch;">Não é um estoque de músicas.<br><b>É um patrimônio vivo.</b></p>
-    <p class="lede mv" style="margin-top: 10vh; max-width: 56ch;">O acervo alimenta as empresas, a equipe transforma o acervo em audiência, a audiência vira receita, e a proteção jurídica mantém tudo de pé. Um ciclo que se sustenta.</p>
+    <p class="lede mv" style="margin-top: 4vh; max-width: 56ch;">O acervo alimenta as empresas, a equipe transforma o acervo em audiência, a audiência vira receita, e a proteção jurídica mantém tudo de pé. Um ciclo que se sustenta.</p>
   </div>
 </section>
 
@@ -933,7 +933,7 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 <section class="slide" data-act="time" data-menu="Antes da máquina, as pessoas" data-num="">
   <div class="slide-in">
     <p class="scene mv" style="max-width: 36ch;">Antes da máquina,<br><b>as pessoas.</b></p>
-    <p class="lede mv" style="margin-top: 10vh; max-width: 56ch;">Uma equipe pequena, com papéis claros e tudo registrado. Nenhuma entrega depende de uma pessoa só. É gente que se importa.</p>
+    <p class="lede mv" style="margin-top: 4vh; max-width: 56ch;">Uma equipe pequena, com papéis claros e tudo registrado. Nenhuma entrega depende de uma pessoa só. É gente que se importa.</p>
   </div>
 </section>
 
@@ -2487,10 +2487,10 @@ body.cinema .act b{color:rgba(255,255,255,.82)}
 
 <section class="slide" data-act="fecho" data-menu="Vamos construir juntos" data-num="">
   <div class="slide-in">
-    <span class="tricolor mv" style="margin-bottom: 6vh;"><i></i><i></i><i></i></span>
+    <span class="tricolor mv" style="margin-bottom: 3vh;"><i></i><i></i><i></i></span>
     <p class="scene mv" style="max-width: 36ch;">Uma operação saudável,<br><b>com números que falam por si.</b></p>
-    <p class="lede mv" style="margin-top: 8vh; max-width: 56ch;">Catálogo limpo, audiência fiel, receita orgânica e tudo documentado. Pronto para crescer com o parceiro certo.</p>
-    <div class="frows mv" style="margin-top: 6vh; max-width: 62ch;">
+    <p class="lede mv" style="margin-top: 4vh; max-width: 56ch;">Catálogo limpo, audiência fiel, receita orgânica e tudo documentado. Pronto para crescer com o parceiro certo.</p>
+    <div class="frows mv" style="margin-top: 3vh; max-width: 62ch;">
       <div class="frow"><span class="fl" style="white-space:nowrap">Site oficial</span><span class="fv" style="text-transform:none;letter-spacing:.03em;white-space:nowrap">asmelhorescancoesgauchas.com.br</span></div>
       <div class="frow"><span class="fl" style="white-space:nowrap">E-mail</span><span class="fv" style="text-transform:none;letter-spacing:.02em;white-space:nowrap;font-size:clamp(9px,1.4vw,13px)">cris.hohenberger@asmelhorescancoesgauchas.com.br</span></div>
     </div>
