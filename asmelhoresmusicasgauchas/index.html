@@ -555,6 +555,15 @@ body.editor-mode .ed-arrows{display:flex}
 .ed-arrow{width:22px;height:22px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .15s;flex-shrink:0;padding:0;font-family:inherit}
 .ed-arrow:hover{background:var(--paper-2);border-color:var(--ink)}
 .ed-arrow:disabled{opacity:.22;cursor:default;pointer-events:none}
+.ed-pos{display:none;flex-shrink:0;margin-right:4px;position:relative}
+body.editor-mode .ed-pos{display:flex;align-items:center}
+.ed-pos-badge{min-width:28px;height:22px;padding:0 5px;border-radius:6px;border:1px solid var(--hair-2);background:var(--paper-2);font-size:10px;font-weight:700;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;user-select:none;font-family:inherit;letter-spacing:.02em}
+.ed-pos-badge:hover{border-color:var(--ink);background:#fff;color:var(--ink)}
+.ed-pos-badge.editing{display:none}
+.ed-pos-input{display:none;width:42px;height:22px;border-radius:6px;border:1.5px solid var(--ink);background:#fff;font-size:11px;font-weight:700;color:var(--ink);text-align:center;outline:none;font-family:inherit;padding:0 4px}
+.ed-pos-input.editing{display:block}
+.ed-pos-hint{position:absolute;left:50%;transform:translateX(-50%);top:26px;background:var(--ink);color:#fff;font-size:9px;padding:3px 7px;border-radius:5px;white-space:nowrap;pointer-events:none;z-index:10;letter-spacing:.04em;opacity:0;transition:opacity .15s}
+.ed-pos-input.editing~.ed-pos-hint{opacity:1}
 .ed-add{display:none;width:100%;height:24px;border:1.5px dashed var(--hair-2);border-radius:7px;background:none;cursor:pointer;font-family:inherit;font-size:10.5px;color:var(--faint);margin:2px 0;transition:border-color .2s,color .2s,background .2s;align-items:center;justify-content:center;gap:4px}
 .ed-add:hover{border-color:var(--ink);color:var(--ink);background:var(--paper-2)}
 body.editor-mode .ed-add{display:flex}
@@ -3168,6 +3177,16 @@ body.editor-mode .menu-item{align-items:center}
     edSave();rebuildMenu();
   }
 
+  function moveSlideToPos(fromIdx,toIdx){
+    toIdx=Math.max(0,Math.min(slides.length-1,toIdx));
+    if(fromIdx===toIdx)return;
+    var slide=slides.splice(fromIdx,1)[0];
+    slides.splice(toIdx,0,slide);
+    var deck=document.getElementById('deck');slides.forEach(function(s){deck.appendChild(s);});
+    document.getElementById('tot').textContent=slides.length;
+    edSave();rebuildMenu();
+  }
+
   function openNotePopup(sk,slideName){
     var note=edNotes[sk]||'';
     var pop=document.createElement('div');pop.className='ed-note-pop';
@@ -3335,6 +3354,22 @@ body.editor-mode .menu-item{align-items:center}
         if(editorActive){
           // wrapper div — botões ↑↓ e nota ficam como irmãos do b, não dentro dele
           var row=document.createElement('div');row.className='ed-row';
+
+          // badge de posição clicável
+          (function(fromIdx){
+            var posWrap=document.createElement('div');posWrap.className='ed-pos';
+            var badge=document.createElement('span');badge.className='ed-pos-badge';badge.textContent=fromIdx+1;badge.title='Clique para mover para outra posição';
+            var inp=document.createElement('input');inp.type='number';inp.className='ed-pos-input';inp.min=1;inp.max=slides.length;inp.value=fromIdx+1;
+            var hint=document.createElement('span');hint.className='ed-pos-hint';hint.textContent='Enter para mover';
+            function startEdit(){badge.classList.add('editing');inp.classList.add('editing');inp.value=fromIdx+1;inp.select();}
+            function cancelEdit(){badge.classList.remove('editing');inp.classList.remove('editing');}
+            function applyEdit(){var t=parseInt(inp.value,10)-1;cancelEdit();if(!isNaN(t)&&t!==fromIdx)moveSlideToPos(fromIdx,t);}
+            badge.addEventListener('click',startEdit);
+            inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyEdit();}else if(e.key==='Escape'){cancelEdit();}});
+            inp.addEventListener('blur',cancelEdit);
+            posWrap.appendChild(badge);posWrap.appendChild(inp);posWrap.appendChild(hint);
+            row.appendChild(posWrap);
+          })(it.i);
 
           var arrows=document.createElement('div');arrows.className='ed-arrows';
           var upBtn=document.createElement('button');upBtn.type='button';upBtn.className='ed-arrow';upBtn.innerHTML='\u2191';upBtn.title='Mover para cima';
