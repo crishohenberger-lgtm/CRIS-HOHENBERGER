@@ -3344,6 +3344,32 @@ body.editor-mode .menu-item{align-items:center}
         if(editorActive){
           // wrapper div — botões ↑↓ e nota ficam como irmãos do b, não dentro dele
           var row=document.createElement('div');row.className='ed-row'+(hasNote?' has-note':'');
+          row.setAttribute('draggable','true');
+
+          // handle de arrasto + eventos drag
+          (function(fromIdx){
+            var handle=document.createElement('span');handle.className='ed-drag-handle';handle.innerHTML='&#8942;&#8942;';handle.title='Arrastar para reordenar';
+            row.appendChild(handle);
+            row.addEventListener('dragstart',function(e){
+              edDragIdx=fromIdx;e.dataTransfer.effectAllowed='move';
+              setTimeout(function(){row.classList.add('dragging');},0);
+            });
+            row.addEventListener('dragend',function(){
+              row.classList.remove('dragging');
+              document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
+            });
+            row.addEventListener('dragover',function(e){
+              e.preventDefault();e.dataTransfer.dropEffect='move';
+              document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
+              if(fromIdx!==edDragIdx)row.classList.add('drag-over');
+            });
+            row.addEventListener('dragleave',function(){row.classList.remove('drag-over');});
+            row.addEventListener('drop',function(e){
+              e.preventDefault();row.classList.remove('drag-over');
+              if(edDragIdx>=0&&edDragIdx!==fromIdx){moveSlideToPos(edDragIdx,fromIdx);}
+              edDragIdx=-1;
+            });
+          })(it.i);
 
           // badge de posição clicável
           (function(fromIdx){
