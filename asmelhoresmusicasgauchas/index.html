@@ -547,9 +547,6 @@ body.editor-mode .ed-toolbar{display:flex}
 .ed-btn.primary:hover{opacity:.85}
 .ed-btn.danger{border-color:#a00;color:#a00}
 .ed-btn.danger:hover{background:#fff5f5}
-.menu-editor-toggle{display:flex;align-items:center;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--hair-2)}
-.menu-editor-toggle button{height:36px;padding:0 18px;border-radius:10px;border:1.5px solid var(--hair-2);background:var(--paper-2);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink-2);transition:background .15s,border-color .15s,color .15s;display:flex;align-items:center;gap:7px}
-.menu-editor-toggle button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 .ed-arrows{display:none;gap:2px;flex-shrink:0;margin-right:6px}
 body.editor-mode .ed-arrows{display:flex}
 .ed-arrow{width:22px;height:22px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .15s;flex-shrink:0;padding:0;font-family:inherit}
@@ -3284,15 +3281,6 @@ body.editor-mode .menu-item{align-items:center}
       exitBtn.addEventListener('click',function(){toggleEditor();});
       tb.appendChild(lbl);tb.appendChild(saveBtn);tb.appendChild(resetBtn);tb.appendChild(exitBtn);
       body.appendChild(tb);
-    }
-
-    if(!editorActive){
-      var edToggleWrap=document.createElement('div');edToggleWrap.className='menu-editor-toggle';
-      var edToggleBtn=document.createElement('button');edToggleBtn.type='button';
-      edToggleBtn.innerHTML='&#9998; Modo Editor';
-      edToggleBtn.addEventListener('click',function(){toggleEditor();});
-      edToggleWrap.appendChild(edToggleBtn);
-      body.appendChild(edToggleWrap);
     }
 
     var groups={},groupOrder=[];
