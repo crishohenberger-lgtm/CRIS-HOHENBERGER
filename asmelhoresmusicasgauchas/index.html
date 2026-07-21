@@ -549,6 +549,13 @@ body.editor-mode .ed-toolbar{display:flex}
 .ed-btn.danger:hover{background:#fff5f5}
 .ed-row.has-note{border-left:3px solid #2a6de0;padding-left:6px;border-radius:3px;background:rgba(42,109,224,.04)}
 .ed-row.has-note .ed-note-btn{background:#e8f0fd;border-color:#2a6de0;color:#2a6de0;font-weight:700}
+.ed-drag-handle{display:none;flex-shrink:0;width:18px;align-items:center;justify-content:center;cursor:grab;color:#bbb;font-size:14px;user-select:none;margin-right:2px;line-height:1}
+body.editor-mode .ed-drag-handle{display:flex}
+.ed-drag-handle:hover{color:var(--ink)}
+.ed-drag-handle:active,.ed-drag-handle.grabbing{cursor:grabbing}
+.ed-row.dragging{opacity:.28}
+.ed-row.drag-over{outline:2px solid #2a6de0;outline-offset:-1px;background:rgba(42,109,224,.06) !important}
+.ed-drag-ghost{position:fixed;z-index:9999;background:var(--ink);color:#fff;padding:7px 16px;border-radius:9px;font-size:12px;font-weight:600;pointer-events:none;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 28px rgba(0,0,0,.32);opacity:.93;transform:rotate(1.5deg);transition:none}
 .ed-pos{display:none;flex-shrink:0;margin-right:4px;position:relative}
 body.editor-mode .ed-pos{display:flex;align-items:center}
 .ed-pos-badge{min-width:28px;height:22px;padding:0 5px;border-radius:6px;border:1px solid var(--hair-2);background:var(--paper-2);font-size:10px;font-weight:700;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;user-select:none;font-family:inherit;letter-spacing:.02em}
@@ -3176,32 +3183,49 @@ body.editor-mode .menu-item{align-items:center}
         if(editorActive){
           // wrapper div — botões ↑↓ e nota ficam como irmãos do b, não dentro dele
           var row=document.createElement('div');row.className='ed-row'+(hasNote?' has-note':'');
-          row.setAttribute('draggable','true');
+          row.setAttribute('data-slide-idx',it.i);
 
-          // handle de arrasto + eventos drag
-          (function(fromIdx){
+          // handle de arrasto — mouse events (sem HTML5 drag API)
+          (function(fromIdx,slideName){
             var handle=document.createElement('span');handle.className='ed-drag-handle';handle.innerHTML='&#8942;&#8942;';handle.title='Arrastar para reordenar';
             row.appendChild(handle);
-            row.addEventListener('dragstart',function(e){
-              edDragIdx=fromIdx;e.dataTransfer.effectAllowed='move';
-              setTimeout(function(){row.classList.add('dragging');},0);
+
+            handle.addEventListener('mousedown',function(e){
+              if(e.button!==0)return;
+              e.preventDefault();e.stopPropagation();
+
+              var ghost=document.createElement('div');ghost.className='ed-drag-ghost';
+              ghost.textContent=slideName;document.body.appendChild(ghost);
+              ghost.style.top=(e.clientY-12)+'px';ghost.style.left=(e.clientX+16)+'px';
+              handle.classList.add('grabbing');row.classList.add('dragging');
+              var lastTarget=null;
+
+              function onMove(ev){
+                ghost.style.top=(ev.clientY-12)+'px';ghost.style.left=(ev.clientX+16)+'px';
+                ghost.style.display='none';
+                var el=document.elementFromPoint(ev.clientX,ev.clientY);
+                ghost.style.display='';
+                document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
+                var targetRow=el?el.closest('.ed-row'):null;
+                if(targetRow&&targetRow!==row){targetRow.classList.add('drag-over');lastTarget=targetRow;}
+                else{lastTarget=null;}
+              }
+
+              function onUp(){
+                document.removeEventListener('mousemove',onMove);
+                document.removeEventListener('mouseup',onUp);
+                ghost.remove();handle.classList.remove('grabbing');row.classList.remove('dragging');
+                document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
+                if(lastTarget){
+                  var toIdx=parseInt(lastTarget.getAttribute('data-slide-idx'),10);
+                  if(!isNaN(toIdx)&&toIdx!==fromIdx)moveSlideToPos(fromIdx,toIdx);
+                }
+              }
+
+              document.addEventListener('mousemove',onMove);
+              document.addEventListener('mouseup',onUp);
             });
-            row.addEventListener('dragend',function(){
-              row.classList.remove('dragging');
-              document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
-            });
-            row.addEventListener('dragover',function(e){
-              e.preventDefault();e.dataTransfer.dropEffect='move';
-              document.querySelectorAll('.ed-row.drag-over').forEach(function(r){r.classList.remove('drag-over');});
-              if(fromIdx!==edDragIdx)row.classList.add('drag-over');
-            });
-            row.addEventListener('dragleave',function(){row.classList.remove('drag-over');});
-            row.addEventListener('drop',function(e){
-              e.preventDefault();row.classList.remove('drag-over');
-              if(edDragIdx>=0&&edDragIdx!==fromIdx){moveSlideToPos(edDragIdx,fromIdx);}
-              edDragIdx=-1;
-            });
-          })(it.i);
+          })(it.i,it.label);
 
           // badge de posição clicável
           (function(fromIdx){
