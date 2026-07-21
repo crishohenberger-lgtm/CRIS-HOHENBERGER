@@ -1,8 +1,10 @@
 {
-  "savedAt": "20/07/2026, 22:57:32",
+  "savedAt": "21/07/2026, 15:44:33",
   "status": "pending",
   "orderApplied": true,
-  "applyMsg": "134 slides reordenados",
-  "notes": {},
+  "applyMsg": "136 slides reordenados",
+  "notes": {
+    "p0": "EXCLUIR"
+  },
   "globalCmd": ""
 }
