@@ -1629,10 +1629,63 @@ body.editor-mode .menu-item{align-items:center}
 </section>
 <section class="slide" data-act="m1" data-menu="Grade editorial" data-num="1.3">
   <div class="slide-in">
-    <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.3</span><span class="dash"></span> O canal opera como uma emissora de TV</div>
-    <div class="chips mv">
-      <span class="chip">Segunda da Nostalgia</span><span class="chip">Terça do Artista</span><span class="chip">Quarta da Milonga</span><span class="chip">Quinta Campeira</span><span class="chip">Sexta das Coletâneas</span><span class="chip">Sábado da Vaneira</span><span class="chip">Domingo Temático</span>
+    <div class="kick mv" style="margin-bottom:clamp(20px,3.5vh,32px)"><span class="idx">1.3</span><span class="dash"></span> O canal opera como uma emissora de TV</div>
+
+    <!-- Grade semanal estilo programação -->
+    <div class="mv" style="display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(4px,0.5vw,8px)">
+
+      <!-- SEG -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Seg</p>
+        <div style="width:28px;height:3px;background:#c9a227;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Segunda<br>da Nostalgia</p>
+      </div>
+
+      <!-- TER -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Ter</p>
+        <div style="width:28px;height:3px;background:#e07b39;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Terça<br>do Artista</p>
+      </div>
+
+      <!-- QUA -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Qua</p>
+        <div style="width:28px;height:3px;background:#6b7cba;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Quarta<br>da Milonga</p>
+      </div>
+
+      <!-- QUI -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Qui</p>
+        <div style="width:28px;height:3px;background:#4a9e6b;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Quinta<br>Campeira</p>
+      </div>
+
+      <!-- SEX -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Sex</p>
+        <div style="width:28px;height:3px;background:#a08060;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Sexta das<br>Coletâneas</p>
+      </div>
+
+      <!-- SÁB -->
+      <div style="background:var(--paper-2);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:var(--soft);text-transform:uppercase;margin:0">Sáb</p>
+        <div style="width:28px;height:3px;background:#c63c3c;border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--ink);line-height:1.3;margin:0">Sábado<br>da Vaneira</p>
+      </div>
+
+      <!-- DOM -->
+      <div style="background:var(--ink);border-radius:8px;padding:clamp(14px,2vh,22px) clamp(10px,1vw,16px);display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <p style="font-size:9px;letter-spacing:.28em;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;margin:0">Dom</p>
+        <div style="width:28px;height:3px;background:rgba(255,255,255,.25);border-radius:2px"></div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:#fff;line-height:1.3;margin:0">Domingo<br>Temático</p>
+      </div>
+
     </div>
+
+    <p class="hl mv" style="margin-top:clamp(16px,2.5vh,24px)">Sete temas semanais, publicados com consistência e antecedência — como uma grade de TV.</p>
   </div>
 </section>
 <section class="slide" data-act="m1" data-menu="Top 3 vídeos" data-num="1.3">
