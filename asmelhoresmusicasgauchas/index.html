@@ -595,10 +595,10 @@ body.editor-mode .ed-note-btn{display:flex;align-items:center}
 .ed-cmd-ta::placeholder{color:var(--faint)}
 .ed-copy-btn{width:100%;height:40px;border-radius:11px;border:none;background:var(--ink);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:opacity .15s}
 .ed-copy-btn:hover{opacity:.82}
-.mi-editable{background:none;border:1px dashed transparent;border-radius:4px;padding:1px 4px;outline:none;font-family:inherit;font-size:inherit;color:inherit;min-width:14px;display:inline-block;transition:border-color .15s;cursor:default}
-body.editor-mode .mi-editable{cursor:text}
-body.editor-mode .mi-editable:hover{border-color:var(--hair-2)}
-body.editor-mode .mi-editable:focus{border-color:var(--ink);background:#fff}
+.mi-editable{background:none;border:1px dashed transparent;border-radius:4px;padding:1px 4px;outline:none;font-family:inherit;font-size:inherit;color:inherit;min-width:14px;display:inline-block;transition:border-color .15s,background .15s;cursor:default}
+body.editor-mode .mi-editable{cursor:text;border-color:var(--hair-2)}
+body.editor-mode .mi-editable:hover{border-color:var(--ink-2);background:var(--paper-2)}
+body.editor-mode .mi-editable:focus{border-color:var(--ink);background:#fff;border-style:solid}
 body.editor-mode .menu-item{align-items:center}
 /* ── FIM MODO EDITOR ──────────────────────────────────── */
 
