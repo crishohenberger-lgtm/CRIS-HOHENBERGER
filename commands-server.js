@@ -200,11 +200,18 @@ const server = http.createServer((req, res) => {
         '.woff2':'font/woff2',
         '.woff': 'font/woff'
       }[ext] || 'application/octet-stream';
-      res.writeHead(200, { 'Content-Type': mime });
+      const isHtml = ext === '.html' || !ext;
+      const cacheHeader = isHtml
+        ? 'no-store, no-cache, must-revalidate'
+        : 'public, max-age=3600';
+      res.writeHead(200, { 'Content-Type': mime, 'Cache-Control': cacheHeader });
       res.end(fs.readFileSync(resolved));
     } else {
       // fallback: index.html (SPA)
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate'
+      });
       res.end(fs.readFileSync(path.join(STATIC, 'index.html')));
     }
     return;
