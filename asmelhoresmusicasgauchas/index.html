@@ -547,13 +547,8 @@ body.editor-mode .ed-toolbar{display:flex}
 .ed-btn.primary:hover{opacity:.85}
 .ed-btn.danger{border-color:#a00;color:#a00}
 .ed-btn.danger:hover{background:#fff5f5}
-.ed-arrows{display:none;gap:2px;flex-shrink:0;margin-right:6px}
-body.editor-mode .ed-arrows{display:flex}
 .ed-row.has-note{border-left:3px solid #2a6de0;padding-left:6px;border-radius:3px;background:rgba(42,109,224,.04)}
 .ed-row.has-note .ed-note-btn{background:#e8f0fd;border-color:#2a6de0;color:#2a6de0;font-weight:700}
-.ed-arrow{width:22px;height:22px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .15s;flex-shrink:0;padding:0;font-family:inherit}
-.ed-arrow:hover{background:var(--paper-2);border-color:var(--ink)}
-.ed-arrow:disabled{opacity:.22;cursor:default;pointer-events:none}
 .ed-pos{display:none;flex-shrink:0;margin-right:4px;position:relative}
 body.editor-mode .ed-pos{display:flex;align-items:center}
 .ed-pos-badge{min-width:28px;height:22px;padding:0 5px;border-radius:6px;border:1px solid var(--hair-2);background:var(--paper-2);font-size:10px;font-weight:700;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;user-select:none;font-family:inherit;letter-spacing:.02em}
@@ -3386,15 +3381,6 @@ body.editor-mode .menu-item{align-items:center}
             posWrap.appendChild(badge);posWrap.appendChild(inp);posWrap.appendChild(hint);
             row.appendChild(posWrap);
           })(it.i);
-
-          var arrows=document.createElement('div');arrows.className='ed-arrows';
-          var upBtn=document.createElement('button');upBtn.type='button';upBtn.className='ed-arrow';upBtn.innerHTML='\u2191';upBtn.title='Mover para cima';
-          if(it.i===0)upBtn.disabled=true;
-          upBtn.addEventListener('click',function(){moveSlide(it.i,-1);});
-          var dnBtn=document.createElement('button');dnBtn.type='button';dnBtn.className='ed-arrow';dnBtn.innerHTML='\u2193';dnBtn.title='Mover para baixo';
-          if(it.i===slides.length-1)dnBtn.disabled=true;
-          dnBtn.addEventListener('click',function(){moveSlide(it.i,1);});
-          arrows.appendChild(upBtn);arrows.appendChild(dnBtn);
 
           var noteBtn=document.createElement('button');noteBtn.type='button';
           noteBtn.className='ed-note-btn'+(hasNote?' has-note':'');
