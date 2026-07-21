@@ -1602,12 +1602,60 @@ body.editor-mode .menu-item{align-items:center}
   </div>
 </section>
 <section class="slide" data-act="m1" data-menu="Indicadores monitorados" data-num="1.3">
+  <style>
+    .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,18px);max-width:780px}
+    .ind-card{border:1px solid var(--hair-2);border-radius:14px;padding:clamp(14px,2vw,22px) clamp(14px,2vw,20px);background:var(--paper-2);display:flex;flex-direction:column;gap:10px;transition:border-color .2s,box-shadow .2s}
+    .ind-card:hover{border-color:var(--gold);box-shadow:0 4px 18px rgba(200,169,110,.12)}
+    .ind-icon{width:36px;height:36px;border-radius:10px;background:var(--paper-3,#f0ede7);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ind-icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .ind-label{font-size:clamp(12px,1.2vw,14px);font-weight:600;color:var(--ink-1);line-height:1.25}
+    @keyframes live-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:#c8a96e;display:inline-block;animation:live-pulse 2s ease-in-out infinite;flex-shrink:0}
+  </style>
   <div class="slide-in">
-    <div class="kick mv" style="margin-bottom: 34px;"><span class="idx">1.3</span><span class="dash"></span> Indicadores monitorados continuamente</div>
-    <div class="chips mv">
-      <span class="chip">Impressões</span><span class="chip">Inscritos novos</span><span class="chip">Inscritos totais</span><span class="chip">Crescimento de inscritos</span><span class="chip">Espectadores únicos</span><span class="chip">Visualizações</span><span class="chip">Horas assistidas</span><span class="chip">Vídeos lançados</span><span class="chip">Shorts lançados</span>
+    <div class="kick mv" style="margin-bottom:36px"><span class="idx">1.3</span><span class="dash"></span> Indicadores monitorados continuamente</div>
+    <div class="ind-grid mv">
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="ind-label">Impressões</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+        <div class="ind-label">Inscritos novos</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="ind-label">Inscritos totais</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="ind-label">Crescimento de inscritos</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="ind-label">Espectadores únicos</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <div class="ind-label">Visualizações</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="ind-label">Horas assistidas</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+        <div class="ind-label">Vídeos lançados</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="ind-label">Shorts lançados</div>
+      </div>
     </div>
-    <p class="small mv" style="margin-top:16px">Tudo consolidado em dashboards e apresentado em reuniões quinzenais.</p>
+    <div class="mv" style="margin-top:28px;display:flex;align-items:center;gap:10px">
+      <span class="live-dot"></span>
+      <p class="small" style="margin:0;color:var(--ink-2)">Tudo consolidado em dashboards e apresentado em reuniões quinzenais.</p>
+    </div>
   </div>
 </section>
 <section class="slide" data-act="m1" data-menu="100% orgânico" data-num="1.3">
