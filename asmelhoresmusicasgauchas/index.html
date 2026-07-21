@@ -549,6 +549,8 @@ body.editor-mode .ed-toolbar{display:flex}
 .ed-btn.danger:hover{background:#fff5f5}
 .ed-arrows{display:none;gap:2px;flex-shrink:0;margin-right:6px}
 body.editor-mode .ed-arrows{display:flex}
+.ed-row.has-note{border-left:3px solid #2a6de0;padding-left:6px;border-radius:3px;background:rgba(42,109,224,.04)}
+.ed-row.has-note .ed-note-btn{background:#e8f0fd;border-color:#2a6de0;color:#2a6de0;font-weight:700}
 .ed-arrow{width:22px;height:22px;border-radius:6px;border:1px solid var(--hair-2);background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .15s;flex-shrink:0;padding:0;font-family:inherit}
 .ed-arrow:hover{background:var(--paper-2);border-color:var(--ink)}
 .ed-arrow:disabled{opacity:.22;cursor:default;pointer-events:none}
@@ -3341,7 +3343,7 @@ body.editor-mode .menu-item{align-items:center}
 
         if(editorActive){
           // wrapper div — botões ↑↓ e nota ficam como irmãos do b, não dentro dele
-          var row=document.createElement('div');row.className='ed-row';
+          var row=document.createElement('div');row.className='ed-row'+(hasNote?' has-note':'');
 
           // badge de posição clicável
           (function(fromIdx){
