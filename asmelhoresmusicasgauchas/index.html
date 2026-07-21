@@ -3151,9 +3151,7 @@ body.editor-mode .menu-item{align-items:center}
         var s=null;slides.forEach(function(sl){if(slideKey(sl)===sk)s=sl;});
         var name=s?s.getAttribute('data-menu')||sk:sk;
         lines.push('');lines.push('  Slide "'+name+'":');
-        lines.push('    '+note.replace(/
-/g,'
-    '));
+        lines.push('    '+note.replace(/\n/g,'\n    '));
       });lines.push('');
     }
 
