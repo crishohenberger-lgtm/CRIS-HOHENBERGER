@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%2090%27%3E%3Cstyle%3Epath%7Bfill%3A%230b0b0b%7D%40media%28prefers-color-scheme%3Adark%29%7Bpath%7Bfill%3A%23f1f0ea%7D%7D%3C%2Fstyle%3E%3Cpath%20d%3D%27M50%2082C50%2082%208%2055%208%2030%208%2015%2020%208%2032%208%2042%208%2048%2016%2050%2022%2052%2016%2058%208%2068%208%2080%208%2092%2015%2092%2030%2092%2055%2050%2082%2050%2082Z%27%2F%3E%3C%2Fsvg%3E">
+<title>A Odisseia da Liderança · Hub de agentes e humanos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0b0b;
+    --paper:#fbfbf9;
+    --paper-2:#f2f1ec;
+    --mist:#8a8a84;
+    --line:#dcdbd4;
+    --line-strong:#0b0b0b;
+    --bar:rgba(251,251,249,.9);
+    --body:#1e1e1c;
+    --body-soft:#232321;
+    --max:760px;
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#f1f0ea;
+      --paper:#0c0c0b;
+      --paper-2:#1a1a17;
+      --mist:#9c9c92;
+      --line:#2b2b27;
+      --line-strong:#f1f0ea;
+      --bar:rgba(12,12,11,.92);
+      --body:#dedcd4;
+      --body-soft:#cbcac1;
+    }
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{scroll-behavior:smooth;color-scheme:light dark}
+
+  body{
+    font-family:'Montserrat',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-weight:300;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- ROTA (progress rail) ---------- */
+  .rota{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:var(--bar);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .rota-inner{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .rota-label{
+    font-size:9.5px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--mist);
+    font-weight:500;
+    white-space:nowrap;
+  }
+  .rota-track{
+    position:relative;
+    flex:1;
+    height:22px;
+    display:flex;
+    align-items:center;
+  }
+  .rota-line{
+    position:absolute;
+    left:0;right:0;top:50%;
+    height:1px;
+    background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 9px);
+    transform:translateY(-50%);
+  }
+  .rota-line-done{
+    position:absolute;
+    left:0;top:50%;
+    height:1px;
+    background:var(--ink);
+    transform:translateY(-50%);
+    width:0;
+    transition:width .5s cubic-bezier(.6,0,.2,1);
+  }
+  .rota-stops{
+    position:absolute;
+    left:0;right:0;top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    justify-content:space-between;
+  }
+  .stop{
+    position:relative;
+    z-index:2;
+    width:11px;height:11px;
+    border-radius:50%;
+    border:1px solid var(--mist);
+    background:var(--paper);
+    cursor:pointer;
+    transition:all .3s ease;
+    padding:0;
+  }
+  .stop:hover{transform:scale(1.35);border-color:var(--ink)}
+  .stop.done{background:var(--ink);border-color:var(--ink)}
+  .stop.active{background:var(--ink);border-color:var(--ink);box-shadow:0 0 0 4px rgba(140,140,140,.22)}
+  .stop.home{border:none;background:transparent;width:16px;height:16px;margin-top:-2px}
+  .stop.home svg{width:16px;height:16px;display:block}
+  .stop.home svg path{fill:none;stroke:var(--mist);stroke-width:6;transition:stroke .3s,fill .3s}
+  .stop.home.done svg path,.stop.home.active svg path{stroke:var(--ink);fill:var(--ink)}
+
+  /* ---------- STAGE ---------- */
+  main{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .scene{
+    min-height:100vh;
+    display:none;
+    flex-direction:column;
+    justify-content:flex-start;
+    padding:104px 0 132px;
+    animation:rise .7s cubic-bezier(.5,0,.15,1) both;
+  }
+  .scene.on{display:flex}
+  @keyframes rise{
+    from{opacity:0;transform:translateY(22px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  .eyebrow{
+    font-size:10px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--mist);
+    font-weight:500;
+    margin-bottom:26px;
+  }
+  .eyebrow .sep{margin:0 10px;opacity:.5}
+
+  /* ---------- OPENING ---------- */
+  .kicker{
+    font-style:italic;
+    font-size:clamp(17px,2.7vw,21px);
+    color:var(--mist);
+    font-weight:300;
+    letter-spacing:.005em;
+    margin-bottom:16px;
+  }
+  h1{
+    font-weight:300;
+    font-size:clamp(40px,8.5vw,74px);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    margin-bottom:30px;
+  }
+  h1 b{font-weight:600}
+  .lede{
+    font-size:clamp(16px,2.4vw,19px);
+    font-weight:400;
+    max-width:60ch;
+    color:var(--body-soft);
+    margin-bottom:44px;
+  }
+  .lede em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--ink);
+  }
+
+  /* ---------- LESSON ---------- */
+  .num-row{
+    display:flex;
+    align-items:baseline;
+    gap:22px;
+    margin-bottom:10px;
+  }
+  .num{
+    font-size:clamp(46px,10vw,86px);
+    font-weight:300;
+    line-height:1;
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .concept{
+    font-size:clamp(15px,2.5vw,19px);
+    font-style:italic;
+    font-weight:300;
+    color:var(--mist);
+    letter-spacing:.01em;
+  }
+  h2{
+    font-weight:400;
+    font-size:clamp(27px,5vw,44px);
+    line-height:1.08;
+    letter-spacing:-.015em;
+    margin:6px 0 34px;
+  }
+  h2 b{font-weight:600}
+
+  .block{margin-bottom:26px}
+  .block .tag{
+    display:block;
+    font-size:9.5px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--mist);
+    font-weight:600;
+    margin-bottom:9px;
+  }
+  .block p{
+    font-size:clamp(15.5px,2.1vw,17px);
+    font-weight:400;
+    color:var(--body);
+    max-width:64ch;
+  }
+  .block.moment p{
+    font-size:clamp(16px,2.4vw,19px);
+    font-style:italic;
+    font-weight:300;
+    color:var(--ink);
+    line-height:1.55;
+  }
+  .block.here{
+    border-left:1px solid var(--line-strong);
+    padding-left:22px;
+  }
+
+  .reflect{
+    margin-top:36px;
+    padding:24px 26px;
+    background:var(--paper-2);
+  }
+  .reflect .tag{
+    display:block;
+    font-size:9.5px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--mist);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .reflect p{
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(15.5px,2.3vw,18px);
+    line-height:1.5;
+    color:var(--ink);
+  }
+
+  /* ---------- CLOSING ---------- */
+  .close-quote{
+    font-weight:300;
+    font-size:clamp(22px,4vw,34px);
+    line-height:1.26;
+    letter-spacing:-.01em;
+    margin-bottom:40px;
+    max-width:22ch;
+  }
+  .heart-seal{width:44px;height:44px;margin-bottom:22px}
+  .heart-seal path{fill:none;stroke:var(--ink);stroke-width:5}
+  .sign{
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.02em;
+  }
+  .sign span{
+    display:block;
+    font-size:11px;
+    font-weight:300;
+    color:var(--mist);
+    letter-spacing:.04em;
+    margin-top:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    z-index:40;
+    background:var(--bar);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:15px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .btn{
+    font-family:'Montserrat',sans-serif;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:500;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:var(--ink);
+    padding:8px 4px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    transition:opacity .25s,gap .25s;
+  }
+  .btn:disabled{opacity:.22;cursor:default}
+  .btn:not(:disabled):hover{gap:13px}
+  .btn .arw{font-size:15px;line-height:1}
+  .time-cue{
+    font-size:9.5px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--mist);
+    font-weight:500;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .btn.next{
+    border:1px solid var(--ink);
+    padding:11px 20px;
+  }
+  .btn.next:disabled{border-color:var(--line)}
+
+  @media (max-width:560px){
+    .rota-label{display:none}
+    .eyebrow .sep.hide-sm{display:none}
+    .eyebrow .m{display:block;margin-top:4px}
+    .time-cue{display:none}
+    .scene{padding:92px 0 128px}
+    .block.moment p{line-height:1.45}
+    h2{margin:6px 0 26px}
+    .reflect{padding:22px 22px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s!important;transition-duration:.05s!important}
+    html{scroll-behavior:auto}
+  }
+
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- ROTA -->
+<div class="rota">
+  <div class="rota-inner">
+    <span class="rota-label">A rota</span>
+    <div class="rota-track">
+      <div class="rota-line"></div>
+      <div class="rota-line-done" id="lineDone"></div>
+      <div class="rota-stops" id="stops"></div>
+    </div>
+  </div>
+</div>
+
+<main id="stage">
+
+  <!-- 0 · ABERTURA -->
+  <section class="scene on" data-cue="Abertura · 2 minutos">
+    <p class="eyebrow">Liderança na era da IA<span class="sep hide-sm">·</span><span class="m">Hub de agentes e humanos<span class="sep">·</span>18 minutos</span></p>
+    <p class="kicker">Ele não era o mais forte. Era o mais inteligente.</p>
+    <h1>A Odisseia<br>da <b>Liderança</b></h1>
+    <p class="lede">Odisseu passou dez anos tentando voltar para casa. Enfrentou monstros, deuses e o próprio orgulho, e venceu quase tudo não pela força, mas pela cabeça. Nos próximos dezoito minutos, vamos atravessar cinco momentos da jornada dele. Cada um guarda uma lição para quem lidera marketing na era dos agentes de IA. Porque liderar, como navegar, é <em>escolher a rota certa quando o mar não colabora.</em></p>
+    <p class="lede" style="margin-bottom:0">E não importa se você comanda uma grande equipe ou apenas o seu próprio dia. <em>Todos nós somos líderes. Líderes, antes de tudo, das nossas próprias vidas.</em></p>
+  </section>
+
+  <!-- 1 · METIS -->
+  <section class="scene" data-cue="Lição 1 · 3 minutos">
+    <div class="num-row"><span class="num">I</span><span class="concept">Metis · a astúcia</span></div>
+    <h2>A inteligência que <b>resolve</b></h2>
+    <div class="block moment">
+      <span class="tag">O momento</span>
+      <p>Dez anos de guerra. Muralhas que nenhum exército derrubava. Odisseu não atacou com mais força. Ele pensou diferente e desenhou um cavalo de madeira.</p>
+    </div>
+    <div class="block">
+      <span class="tag">A lição</span>
+      <p>Os gregos tinham uma palavra para isso, metis, a inteligência prática que resolve pelo raciocínio e não pela brutalidade. O grande líder não vence impondo peso. Ele vence lendo a situação, entendendo as pessoas e encontrando o caminho que ninguém tinha visto.</p>
+    </div>
+    <div class="block here">
+      <span class="tag">Na era dos agentes</span>
+      <p>No marketing de hoje não vence quem grita mais alto nem quem trabalha até mais tarde. Vence quem tem estratégia. Orquestrar agentes de IA é exatamente isso, você desenha a jogada e eles executam. A metis é escolher o caminho inteligente em vez do caminho pesado.</p>
+    </div>
+    <div class="reflect">
+      <span class="tag">Momento de reflexão</span>
+      <p>Onde você tem insistido na força quando a saída, na verdade, era a estratégia?</p>
+    </div>
+  </section>
+
+  <!-- 2 · SEREIAS -->
+  <section class="scene" data-cue="Lição 2 · 3 minutos">
+    <div class="num-row"><span class="num">II</span><span class="concept">o mastro e as sereias</span></div>
+    <h2>Conhecer a própria <b>fraqueza</b></h2>
+    <div class="block moment">
+      <span class="tag">O momento</span>
+      <p>Odisseu quis ouvir o canto das sereias, que arrastava marinheiros para a morte. Em vez de confiar na própria força de vontade, mandou que o amarrassem ao mastro e ordenou que a tripulação tapasse os ouvidos e ignorasse seus gritos.</p>
+    </div>
+    <div class="block">
+      <span class="tag">A lição</span>
+      <p>Os líderes mais sábios não apostam que vão resistir no calor do momento. Eles conhecem as próprias fraquezas e constroem proteções antes, enquanto ainda estão lúcidos e livres da pressão.</p>
+    </div>
+    <div class="block here">
+      <span class="tag">Na era dos agentes</span>
+      <p>Toda semana surge uma ferramenta nova prometendo resolver tudo. Conhecer os próprios limites e definir os guardrails, para você e para os seus agentes, antes de a tentação chegar, é o que mantém o barco na rota. Amarre o mastro enquanto ainda está com a cabeça fria.</p>
+    </div>
+    <div class="reflect">
+      <span class="tag">Momento de reflexão</span>
+      <p>Que mastro você precisa amarrar hoje, antes do próximo momento de pressão chegar?</p>
+    </div>
+  </section>
+
+  <!-- 3 · CALIPSO -->
+  <section class="scene" data-cue="Lição 3 · 3 minutos">
+    <div class="num-row"><span class="num">III</span><span class="concept">a recusa de Calipso</span></div>
+    <h2>Escolher o que <b>importa</b></h2>
+    <div class="block moment">
+      <span class="tag">O momento</span>
+      <p>A ninfa Calipso ofereceu a Odisseu a imortalidade, a vida eterna num paraíso, se ele ficasse. Ele recusou. Preferiu voltar para casa, para a vida mortal e imperfeita, para a esposa e o reino verdadeiros que eram dele.</p>
+    </div>
+    <div class="block">
+      <span class="tag">A lição</span>
+      <p>Liderar é, muitas vezes, escolher o certo mais difícil no lugar do errado mais fácil. O atalho que brilha é justamente o teste. Nem todo paraíso oferecido merece ser aceito.</p>
+    </div>
+    <div class="block here">
+      <span class="tag">Na era dos agentes</span>
+      <p>A métrica de vaidade que brilha, o atalho que infla o número, a ilusão de postar mais para vender mais. Liderar o marketing com integridade é escolher valor real e conexão verdadeira em vez do paraíso fácil dos números vazios.</p>
+    </div>
+    <div class="reflect">
+      <span class="tag">Momento de reflexão</span>
+      <p>Qual foi a última imortalidade fácil que você recusou? E qual será a próxima a bater na sua porta?</p>
+    </div>
+  </section>
+
+  <!-- 4 · SOMBRA -->
+  <section class="scene" data-cue="Lição 4 · 3 minutos">
+    <div class="num-row"><span class="num">IV</span><span class="concept">a sombra do herói</span></div>
+    <h2>O perigo do <b>orgulho</b></h2>
+    <div class="block moment">
+      <span class="tag">O momento</span>
+      <p>Depois de cegar o ciclope e escapar, Odisseu não resistiu e gritou o próprio nome para se vangloriar. Foi exatamente essa vaidade que fez Poseidon jurar vingança e prolongar o seu sofrimento por anos.</p>
+    </div>
+    <div class="block">
+      <span class="tag">A lição</span>
+      <p>A mesma inteligência que salva pode, pelo ego, destruir. Quando o líder deixa o orgulho falar mais alto que o bom senso, quem paga a conta é a tripulação inteira.</p>
+    </div>
+    <div class="block here">
+      <span class="tag">Na era dos agentes</span>
+      <p>O profissional que se acha acima dos dados, que se apaixona pela própria ideia e para de ouvir a audiência. O ego cega. A humildade é o que mantém você testando, aprendendo e deixando o resultado, e não o orgulho, ter a palavra final.</p>
+    </div>
+    <div class="reflect">
+      <span class="tag">Momento de reflexão</span>
+      <p>Onde o seu orgulho já custou caro? E o que ele quer te fazer gritar agora mesmo?</p>
+    </div>
+  </section>
+
+  <!-- 5 · NOSTOS -->
+  <section class="scene" data-cue="Lição 5 · 3 minutos">
+    <div class="num-row"><span class="num">V</span><span class="concept">Nostos · o retorno</span></div>
+    <h2>Trazer a tripulação <b>para casa</b></h2>
+    <div class="block moment">
+      <span class="tag">O momento</span>
+      <p>Odisseu lutou dez anos movido pelo nostos, a saudade profunda do lar. Mas chegou sozinho. Perdeu todos os companheiros pelo caminho.</p>
+    </div>
+    <div class="block">
+      <span class="tag">A lição</span>
+      <p>O maior risco de quem é estrategista é carregar tudo nas próprias costas, confiar mais no próprio plano do que nas pessoas ao redor. A versão mais sábia de Odisseu é aquela que aprende a chegar em casa com a tripulação inteira.</p>
+    </div>
+    <div class="block here">
+      <span class="tag">Na era dos agentes</span>
+      <p>O maior risco da virada da IA é deixar o time para trás, automatizar tudo e chegar ao fim sem ninguém ao lado. A liderança mais sábia traz a tripulação inteira para casa, agentes e humanos trabalhando juntos, que é a alma de um verdadeiro hub. Você não lidera para substituir pessoas, lidera para levá-las com você para a nova era.</p>
+    </div>
+    <div class="reflect">
+      <span class="tag">Momento de reflexão</span>
+      <p>Quem da sua tripulação corre o risco de ficar para trás? O que você faria diferente para trazer todos?</p>
+    </div>
+  </section>
+
+  <!-- 6 · CHEGADA -->
+  <section class="scene" data-cue="Chegada · 1 minuto">
+    <p class="eyebrow">A chegada</p>
+    <svg class="heart-seal" viewBox="0 0 100 90" aria-hidden="true"><path d="M50 82 C50 82 8 55 8 30 C8 15 20 8 32 8 C42 8 48 16 50 22 C52 16 58 8 68 8 C80 8 92 15 92 30 C92 55 50 82 50 82 Z"/></svg>
+    <p class="close-quote">Liderar não é ser o mais forte. É ter inteligência com propósito, coragem com humildade e nunca esquecer onde fica a sua casa.</p>
+    <p class="lede" style="margin-bottom:26px">Odisseu atravessou três mil anos inspirando gente porque representa algo que todo líder sente. A tensão entre a fome de mundo e o desejo de voltar para o que importa. Que a gente lidere como ele no que tem de melhor, pela mente e pelo cuidado, e que a gente aprenda o que faltou a ele. Chegar em casa com todo mundo junto.</p>
+    <p class="lede" style="margin-bottom:34px;font-weight:500;color:var(--ink)">Porque, no fim, todos nós somos líderes. Líderes das nossas próprias vidas.</p>
+    <p class="sign">Cris Hohenberger<span>Expert em IA e Marketing para o dia a dia</span></p>
+  </section>
+
+</main>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-inner">
+    <button class="btn prev" id="prev"><span class="arw">←</span>Voltar</button>
+    <span class="time-cue" id="cue">Abertura · 2 minutos</span>
+    <button class="btn next" id="next">Avançar<span class="arw">→</span></button>
+  </div>
+</div>
+
+<script>
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const total = scenes.length;
+  const stopsWrap = document.getElementById('stops');
+  const lineDone = document.getElementById('lineDone');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const cue = document.getElementById('cue');
+  let i = 0;
+
+  const heartSVG = '<svg viewBox="0 0 100 90"><path d="M50 82 C50 82 8 55 8 30 C8 15 20 8 32 8 C42 8 48 16 50 22 C52 16 58 8 68 8 C80 8 92 15 92 30 C92 55 50 82 50 82 Z"/></svg>';
+
+  scenes.forEach((s, idx) => {
+    const b = document.createElement('button');
+    b.className = 'stop' + (idx === total - 1 ? ' home' : '');
+    b.setAttribute('aria-label', 'Ir para a estação ' + (idx + 1));
+    if (idx === total - 1) b.innerHTML = heartSVG;
+    b.addEventListener('click', () => go(idx));
+    stopsWrap.appendChild(b);
+  });
+  const stops = Array.from(stopsWrap.children);
+
+  function go(n){
+    if (n < 0 || n >= total) return;
+    scenes[i].classList.remove('on');
+    i = n;
+    scenes[i].classList.add('on');
+    window.scrollTo({top:0, behavior:'auto'});
+    update();
+  }
+
+  function update(){
+    stops.forEach((st, idx) => {
+      st.classList.toggle('done', idx < i);
+      st.classList.toggle('active', idx === i);
+    });
+    const pct = total > 1 ? (i / (total - 1)) * 100 : 0;
+    lineDone.style.width = pct + '%';
+    prevBtn.disabled = i === 0;
+    cue.textContent = scenes[i].dataset.cue;
+    nextBtn.innerHTML = (i === total - 1)
+      ? 'Recomeçar<span class="arw">↺</span>'
+      : 'Avançar<span class="arw">→</span>';
+  }
+
+  prevBtn.addEventListener('click', () => go(i - 1));
+  nextBtn.addEventListener('click', () => { if (i === total - 1) go(0); else go(i + 1); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (i < total - 1) go(i + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+  });
+
+  update();
+</script>
+</body>
+</html>
